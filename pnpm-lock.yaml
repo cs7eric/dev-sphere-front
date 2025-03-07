@@ -83,6 +83,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.11
         version: 4.0.11(vite@6.2.1(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.85.1))
+      '@unpic/react':
+        specifier: ^1.0.1
+        version: 1.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       calendar:
         specifier: ^0.1.1
         version: 0.1.1
@@ -3288,6 +3291,19 @@ packages:
     resolution: {integrity: sha512-2z8JQJWAzPdDd51dRQ/oqIJxe99/hoLIqmf8RMCAJQtYDc535W/Jt2+RTP4bP0aKeBG1F65yjIZuczOXCmbWwg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@unpic/core@1.0.1':
+    resolution: {integrity: sha512-e0cwxOhtWPd4J32rV1V6jFmDGAi1r4p/f+lDqlnx+fhgFwMTyQQKw5lL7VEthUPBHFNaNBsXNbNKwnaIs2V71Q==}
+
+  '@unpic/react@1.0.1':
+    resolution: {integrity: sha512-JmKVmf7ZhKDlVFK8yfbgiWp9K4rXXovE8mWrbkqjDJHKhDqbF5uUp7754Tk7oNSYJcvIXfH8P/nYRCfG2ca0/w==}
+    peerDependencies:
+      next: ^13.0.0 || ^14.0.0 || ^15.0.0
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      next:
+        optional: true
+
   '@use-gesture/core@10.3.1':
     resolution: {integrity: sha512-WcINiDt8WjqBdUXye25anHiNxPc0VOrlT8F6LLkU6cycrOGUDyY/yyFmsg3k8i5OLvv25llc0QC45GhR/C8llw==}
 
@@ -4803,6 +4819,9 @@ packages:
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
+
+  unpic@4.1.2:
+    resolution: {integrity: sha512-sau6i25EUxumNIL7e0kDpPWkVw3yxghLYcEwxPvm08263UfABDxtUJPT3H55z7W15cVXJB/PEhw4z6Oc+idWCA==}
 
   update-browserslist-db@1.1.3:
     resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
@@ -9160,6 +9179,16 @@ snapshots:
       '@typescript-eslint/types': 8.26.0
       eslint-visitor-keys: 4.2.0
 
+  '@unpic/core@1.0.1':
+    dependencies:
+      unpic: 4.1.2
+
+  '@unpic/react@1.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@unpic/core': 1.0.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   '@use-gesture/core@10.3.1': {}
 
   '@use-gesture/react@10.3.1(react@19.0.0)':
@@ -10779,6 +10808,8 @@ snapshots:
   unicode-property-aliases-ecmascript@2.1.0: {}
 
   universalify@0.1.2: {}
+
+  unpic@4.1.2: {}
 
   update-browserslist-db@1.1.3(browserslist@4.24.4):
     dependencies:

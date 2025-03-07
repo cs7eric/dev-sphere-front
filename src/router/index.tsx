@@ -13,6 +13,7 @@ import SettingsNotificationsPage from "@/views/forms/notifications/page.tsx";
 import SettingsProfilePage from "@/views/forms/profile/page.tsx";
 import SettingsPage from "@/views/forms/page.tsx";
 import SettingsLayout from "@/views/forms/layout.tsx";
+import AuthenticationPage from "@/views/authentication/page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
     element: <SettingsLayout>
       <SettingsProfilePage></SettingsProfilePage>
     </SettingsLayout>
+  },
+  {
+    path: "/authentication",
+    element: <AuthenticationPage></AuthenticationPage>
   }
 
 ])
