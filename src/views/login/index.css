@@ -1,0 +1,14 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  overflow: hidden;
+  /* 阻止默认滚动条 */ }
+
+.login-container {
+  position: relative;
+  pointer-events: auto;
+  /* 确保内容可交互 */
+  transform: translateZ(0);
+  /* 强制 GPU 加速层 */ }
+
+/*# sourceMappingURL=index.css.map */
