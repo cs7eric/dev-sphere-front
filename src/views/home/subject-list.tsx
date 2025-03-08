@@ -53,6 +53,68 @@ function getTasks() {
       status: "todo",
       label: "documentation",
       priority: "low"
+    },{
+      id: "TASK-901222",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-90122",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-901d422",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-901222",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-90122",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-901d422",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-901222",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-90122",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
+    },
+    {
+      id: "TASK-901d422",
+      title: "Optimize database queries",
+      status: "todo",
+      label: "documentation",
+      priority: "low"
     }
   ]
 

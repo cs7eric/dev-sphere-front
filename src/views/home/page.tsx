@@ -1,4 +1,3 @@
-import {Image} from "@unpic/react"
 import {Button} from "@/components/ui/button"
 
 import {
@@ -7,49 +6,25 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import {MainNav} from "@/views/home/components/main-nav"
-import {Search} from "@/views/home/components/search"
-import {UserNav} from "@/views/home/components/user-nav"
+
 import TextPressure from "@/components/text/TextPressure.tsx";
-import TeamSwitcher from "@/views/home/components/team-switcher.tsx";
 import {LanguageSwitcher} from "@/views/home/components/language-switcher.tsx";
-import {Card} from "@/components/ui/card.tsx";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {LabelList} from "@/components/subject/label-list.tsx";
 import ListPage from "@/views/home/subject-list.tsx";
+import MainLayout from "@/layout/layout.tsx";
+
+
+const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python']
 
 
 export default function HomePage() {
   return (
     <>
 
-      <div className="md:hidden ">
-        <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="hidden flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <TeamSwitcher/>
-            <MainNav className="mx-6"/>
-            <div className="ml-auto flex items-center space-x-4">
-              <Search/>
-              <UserNav/>
-            </div>
-          </div>
-        </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">
+
+      <MainLayout>
+        <div className="main-section mt-6">
           <div className="flex itsems-center justify-between space-y-2">
             <h2 className="text-xl font-bold tracking-tight">
               <div style={{position: 'relative', width: '200px'}} className="font-blod">
@@ -75,21 +50,21 @@ export default function HomePage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview" className="cursor-pointer">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" className="cursor-pointer">
-                Analytics
+              <TabsTrigger value="hot" className="cursor-pointer">
+                Hot Spot
               </TabsTrigger>
-              <TabsTrigger value="reports" className="cursor-pointer">
-                Reports
+              <TabsTrigger value="interested" className="cursor-pointer">
+                Interested
               </TabsTrigger>
-              <TabsTrigger value="notifications" className="cursor-pointer">
-                Notifications
+              <TabsTrigger value="todo" className="cursor-pointer">
+                Todo
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-4">
 
-              <div className="container-items flex ">
-                <div className="left-section flex-4/5  border-[#262626] w-full   p-6">
+              <div className="container-items flex flex-row ">
+                <div className="left-section flex-4/5  border-[#262626] w-full p-6">
                   <div className="recommend-list flex ">
                     <Card className="flex-1/4 mx-3 ">
                       <h3 className="font-bold text-3xl text-center  ">
@@ -109,31 +84,90 @@ export default function HomePage() {
 
 
                   </div>
-                  <LabelList ></LabelList>
+                  <LabelList></LabelList>
                   <ListPage></ListPage>
 
                 </div>
-                <div className="right-section flex-1/5 bg-[#282828] rounded-xl w-full  p-6">
-                  div
+                <div className="right-section flex-1/5  h-auto">
+
+                  <div className="field-section bg-[#262626] p-4 rounded-xl">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Fields</CardTitle>
+                        <CardDescription>Pay attention to the technology you want to know.</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+
+                        <div className="field-list flex flex-wrap gap-2">
+
+                          {items.map((item, index) => (
+                            <div className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]">{item}'{index}</div>
+                          ))}
+
+                        </div>
+
+
+                      </CardContent>
+                      <CardFooter className="flex justify-between">
+                        <Button>Change！</Button>
+                      </CardFooter>
+                    </Card>
+                    {/*userList*/}
+                    <Card className="mt-3 h-90"></Card>
+                    {/*website*/}
+                    <div className="mt-6 hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626] ">
+                      <div className="website  gap-2">
+                        <div className="flex">
+                          <div
+                            className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">term
+                          </div>
+                          <div
+                            className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">contact
+                            us
+                          </div>
+                          <div
+                            className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">Privacy
+                            policy
+                          </div>
+                        </div>
+                        <div
+                          className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">豫ICP备2023014864号
+                        </div>
+                        <div
+                          className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">Copyright
+                          &copy cccs7/cs7eric
+                        </div>
+                        <div
+                          className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">联系邮箱: csq020611@gmail.com</div>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+
+
+
                 </div>
               </div>
             </TabsContent>
 
-            <TabsContent value="analytics" className="space-y-4">
-              analytics
+            <TabsContent value="hot" className="space-y-4">
+              <ListPage></ListPage>
             </TabsContent>
 
-            <TabsContent value="reports" className="space-y-4">
-              reports
+            <TabsContent value="interested" className="space-y-4">
+              <ListPage></ListPage>
             </TabsContent>
 
-            <TabsContent value="notifications" className="space-y-4">
-              notifications
+            <TabsContent value="todo" className="space-y-4">
+              <ListPage></ListPage>
             </TabsContent>
 
           </Tabs>
         </div>
-      </div>
+      </MainLayout>
+
     </>
   )
 }

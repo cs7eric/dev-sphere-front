@@ -13,25 +13,31 @@ export function MainNav({
       {...props}
     >
       <Link
-        to={"/examples/dashboard"}
-        className="text-sm font-medium transition-colors hover:text-primary"
+        to={"/"}
+        className="text-sm font-bold transition-colors hover:text-primary"
       >
         Devsphere
       </Link>
       <Link
-        to={"/examples/dashboard"}
+        to={"/explore"}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Customers
+        Explore
       </Link>
       <Link
-        to={"/examples/dashboard"}
+        to={"/job"}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Products
+        Job
       </Link>
       <Link
-        to={"/examples/dashboard"}
+        to={"/group"}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        Groups
+      </Link>
+      <Link
+        to={"/settings"}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Settings
