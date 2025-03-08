@@ -1,26 +1,46 @@
-import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar"
-import {AppSidebar} from "@/components/app-siderbar.tsx"
-import {ThemeProvider} from "@/components/theme-provider.tsx";
+import {Image} from "@unpic/react"
 
-export default function Layout({children}: { children: React.ReactNode }) {
+import {MainNav} from "@/views/home/components/main-nav.tsx"
+import {Search} from "@/views/home/components/search.tsx"
+import {UserNav} from "@/views/home/components/user-nav.tsx"
+import TeamSwitcher from "@/views/home/components/team-switcher.tsx";
+
+
+export default function MainLayout({children}: { children: React.ReactNode }) {
   return (
+    <>
 
-
-      <SidebarProvider defaultOpen={false} >
-        <AppSidebar/>
-
-        <main>
-
-          <SidebarTrigger/>
-          <div className="main-container items-start overflow-hidden rounded-lg min-h-[93vh] min-w-[93vw] flex justify-center items-center p-5 border ml-6 mt-3">
-
-            {children}
-
+      <div className="md:hidden ">
+        <Image
+          src="/examples/dashboard-light.png"
+          width={1280}
+          height={866}
+          alt="Dashboard"
+          className="block dark:hidden"
+        />
+        <Image
+          src="/examples/dashboard-dark.png"
+          width={1280}
+          height={866}
+          alt="Dashboard"
+          className="hidden dark:block"
+        />
+      </div>
+      <div className="hidden flex-col md:flex">
+        <div className="border-b fixed top-0 left-0 right-0 z-50 bg-background">
+          <div className="flex h-16 items-center px-4">
+            <TeamSwitcher/>
+            <MainNav className="mx-6"/>
+            <div className="ml-auto flex items-center space-x-4">
+              <Search/>
+              <UserNav/>
+            </div>
           </div>
-
-        </main>
-      </SidebarProvider>
-
-
+        </div>
+        <div className="flex-1 space-y-4 px-8 mt-16">
+          {children}
+        </div>
+      </div>
+    </>
   )
 }

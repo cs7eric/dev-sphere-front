@@ -12,19 +12,15 @@ import SettingsPage from "@/views/forms/page.tsx";
 import SettingsLayout from "@/views/forms/layout.tsx";
 import AuthenticationPage from "@/views/authentication/page.tsx";
 import HomePage from "@/views/home/page.tsx";
+import MainLayout from "@/layout/layout";
 
 const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Layout>
-      <LoginView/>
-    </Layout>
-  },
-  {
     path: '/',
-    element: <Layout>
-      <Navigate to="/home" replace/>
-    </Layout>
+    element:
+      <MainLayout>
+        <Navigate to="/home" replace/>
+      </MainLayout>
   },
   {
     path: '/home',
@@ -37,44 +33,62 @@ const router = createBrowserRouter([
   {
     path: '/subject',
     element:
-      <Layout>
+      <MainLayout>
         <AnswerSubject></AnswerSubject>
+      </MainLayout>
 
-      </Layout>
   },
   {
     path: '/settings',
-    element: <SettingsPage></SettingsPage>
+    element:
+      <MainLayout>
+        <SettingsPage></SettingsPage>
+      </MainLayout>
   },
   {
     path: '/settings/account',
-    element: <SettingsLayout>
-                <SettingsAccountPage></SettingsAccountPage>
-    </SettingsLayout>
+    element:
+      <MainLayout>
+        <SettingsLayout>
+          <SettingsAccountPage></SettingsAccountPage>
+        </SettingsLayout>
+      </MainLayout>
   },
   {
     path: '/settings/appearance',
-    element: <SettingsLayout>
-      <SettingsAppearancePage></SettingsAppearancePage>
-    </SettingsLayout>
+    element:
+      <MainLayout>
+        <SettingsLayout>
+          <SettingsAppearancePage></SettingsAppearancePage>
+        </SettingsLayout>
+      </MainLayout>
   },
   {
     path: '/settings/display',
-    element:<SettingsLayout>
-      <SettingsDisplayPage></SettingsDisplayPage>
-    </SettingsLayout>
+    element:
+      <MainLayout>
+        <SettingsLayout>
+          <SettingsDisplayPage></SettingsDisplayPage>
+        </SettingsLayout>
+      </MainLayout>
   },
   {
     path: '/settings/notifications',
-    element: <SettingsLayout>
-      <SettingsNotificationsPage></SettingsNotificationsPage>
-    </SettingsLayout>
+    element:
+      <MainLayout>
+        <SettingsLayout>
+          <SettingsNotificationsPage></SettingsNotificationsPage>
+        </SettingsLayout>
+      </MainLayout>
   },
   {
     path: '/settings/profile',
-    element: <SettingsLayout>
-      <SettingsProfilePage></SettingsProfilePage>
-    </SettingsLayout>
+    element:
+      <MainLayout>
+        <SettingsLayout>
+          <SettingsProfilePage></SettingsProfilePage>
+        </SettingsLayout>
+      </MainLayout>
   },
   {
     path: "/authentication",
