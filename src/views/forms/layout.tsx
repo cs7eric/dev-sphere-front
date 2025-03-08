@@ -34,7 +34,6 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 
       <div className="md:hidden">
         <div className="w-1280px h-791px"></div>
@@ -57,7 +56,6 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           <div className="flex-1 lg:max-w-2xl ml-30">{children}</div>
         </div>
       </div>
-      </ThemeProvider>
     </>
   )
 }

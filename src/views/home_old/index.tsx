@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import FallingText from "@/components/text/FallingText.tsx";
 import UserCard from "@/components/user/UserCard.tsx";
 import RotatingText from "@/components/text/RotatingText.tsx";
 

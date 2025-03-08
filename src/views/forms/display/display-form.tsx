@@ -23,7 +23,7 @@ const items = [
     label: "Recents",
   },
   {
-    id: "home",
+    id: "home_old",
     label: "Home",
   },
   {
@@ -54,7 +54,7 @@ type DisplayFormValues = z.infer<typeof displayFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<DisplayFormValues> = {
-  items: ["recents", "home"],
+  items: ["recents", "home_old"],
 }
 
 export function DisplayForm() {

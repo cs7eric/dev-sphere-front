@@ -11,14 +11,13 @@ function App() {
 
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Button onClick={() => {
-          setShowLanyard(true)
-        }}>Login</Button>
-        {showLanyard && <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]}/>}
+      <Button onClick={() => {
+        setShowLanyard(true)
+      }}>Login</Button>
+      {showLanyard && <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]}/>}
 
-      </ThemeProvider>
-      </>
-      )
-      }
-      export default App
+    </>
+  )
+}
+
+export default App

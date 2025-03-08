@@ -6,7 +6,6 @@ export default function Layout({children}: { children: React.ReactNode }) {
   return (
 
 
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <SidebarProvider defaultOpen={false} >
         <AppSidebar/>
 
@@ -21,7 +20,6 @@ export default function Layout({children}: { children: React.ReactNode }) {
 
         </main>
       </SidebarProvider>
-    </ThemeProvider>
 
 
   )

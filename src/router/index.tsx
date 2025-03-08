@@ -1,11 +1,8 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom'
-import HomeView from '@/views/home'
 import LoginView from '@/views/login'
 import Layout from '@/layout/layout'
 import Page from '@/views/dashboard/page'
-import TestView from '@/views/forms/page.tsx'
 import AnswerSubject from '@/views/subject/answer-subject'
-import {AccountForm} from "@/views/forms/account/account-form.tsx";
 import SettingsAccountPage from "@/views/forms/account/page.tsx";
 import SettingsAppearancePage from "@/views/forms/appearance/page.tsx";
 import SettingsDisplayPage from "@/views/forms/display/page.tsx";
@@ -14,6 +11,7 @@ import SettingsProfilePage from "@/views/forms/profile/page.tsx";
 import SettingsPage from "@/views/forms/page.tsx";
 import SettingsLayout from "@/views/forms/layout.tsx";
 import AuthenticationPage from "@/views/authentication/page.tsx";
+import HomePage from "@/views/home/page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,9 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Layout>
-      <HomeView/>
-    </Layout>
+    element: <HomePage></HomePage>
   },
   {
     path: '/dashboard',
