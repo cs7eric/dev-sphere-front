@@ -3,7 +3,8 @@ import {buttonVariants} from "@/components/ui/button"
 import {UserAuthForm} from "@/views/authentication/components/user-auth-form"
 import React from "react";
 import {Link} from "react-router-dom";
-import {Image} from "@unpic/react"; // 基于 unpic 的通用图片组件
+import {Image} from "@unpic/react";
+import Lanyard from "@/components/reactbits/Lanyard.tsx"; // 基于 unpic 的通用图片组件
 
 export default function AuthenticationPage() {
   return (
@@ -47,6 +48,7 @@ export default function AuthenticationPage() {
           <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
             <div className="absolute inset-0 bg-zinc-900"/>
             <div className="relative z-20 flex items-center text-lg font-medium">
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -59,7 +61,7 @@ export default function AuthenticationPage() {
               >
                 <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
               </svg>
-              Acme Inc
+              Devsphere
             </div>
             <div className="relative z-20 mt-auto">
               <blockquote className="space-y-2">
@@ -86,14 +88,14 @@ export default function AuthenticationPage() {
               <p className="px-8 text-center text-sm text-muted-foreground">
                 By clicking continue, you agree to our{" "}
                 <Link
-                  href="/terms"
+                  to={"/terms"}
                   className="underline underline-offset-4 hover:text-primary"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="/privacy"
+                  to={"/privacy"}
                   className="underline underline-offset-4 hover:text-primary"
                 >
                   Privacy Policy

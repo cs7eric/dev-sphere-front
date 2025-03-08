@@ -7,12 +7,18 @@ import { Icons } from "@/components/ui/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
+import {InputOTPForm} from "@/components/input/InputOTP.tsx";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-
+  const [showInput, setShowInput] = React.useState<boolean>(false)
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
     setIsLoading(true)
@@ -58,14 +64,30 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+
+      {showInput ? (
+        <InputOTPForm></InputOTPForm>
+      ):''}
+
+      { showInput ? '' : <Button
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+        onClick={() => {
+          setShowInput(true)
+        }}
+      >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
+          <Icons.wechat className="mr-2 h-4 w-4" />
         )}{" "}
-        GitHub
+        WeChat
       </Button>
+
+
+      }
+
     </div>
   )
 }
