@@ -5,7 +5,7 @@ export default function UserCard() {
   const [isFollowed, setIsFollowed] = React.useState(false);
 
   return (
-    <Card className="max-w-[350px] bg-[#18181b] rounded-lg p-3">
+    <Card className="max-w-[350px] border bg-[#262626] rounded-lg p-3">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <Avatar

@@ -37,6 +37,12 @@ export function MainNav({
         Groups
       </Link>
       <Link
+        to={"/roadmap"}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        Roadmap
+      </Link>
+      <Link
         to={"/settings"}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >

@@ -37,7 +37,7 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4 px-8 mt-16">
+        <div className="flex-1 space-y-4 p-8 mt-16">
           {children}
         </div>
       </div>

@@ -129,7 +129,7 @@ export default function ListPage() {
       <div className="md:hidden">
 
       </div>
-      <div className="hidden  flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className="hidden w-full flex-1 flex-col space-y-8 px-30 md:flex">
 
         <DataTable data={tasks} columns={columns} />
       </div>

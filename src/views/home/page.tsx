@@ -24,7 +24,7 @@ export default function HomePage() {
 
 
       <MainLayout>
-        <div className="main-section mt-6">
+        <div className="main-section ">
           <div className="flex itsems-center justify-between space-y-2">
             <h2 className="text-xl font-bold tracking-tight">
               <div style={{position: 'relative', width: '200px'}} className="font-blod">

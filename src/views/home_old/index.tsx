@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import UserCard from "@/components/user/UserCard.tsx";
+import UserCard from "@/components/user/user-card.tsx";
 import RotatingText from "@/components/text/RotatingText.tsx";
 
 const HomeView: React.FC = () => {
