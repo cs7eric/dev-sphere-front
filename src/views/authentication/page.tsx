@@ -1,36 +1,42 @@
 import {cn} from "@/lib/utils"
 import {buttonVariants} from "@/components/ui/button"
 import {UserAuthForm} from "@/views/authentication/components/user-auth-form"
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import {Link} from "react-router-dom";
-import {Image} from "@unpic/react";
-import Lanyard from "@/components/reactbits/Lanyard.tsx"; // 基于 unpic 的通用图片组件
+
+// 懒加载较大的组件
+const Image = lazy(() => import("@unpic/react").then(module => ({ default: module.Image })));
+const Lanyard = lazy(() => import("@/components/reactbits/Lanyard.tsx")); // 基于 unpic 的通用图片组件
 
 export default function AuthenticationPage() {
   return (
     <>
       <div className="m-20 mx-auto border max-w-[60vw] rounded-3xl flex items-center">
         <div className="md:hidden rounded-2xl">
-          <Image
-            src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250308001330271.png"
-            width={1000}
-            height={843}
-            alt="Authentication"
-            className="block dark:hidden border rounded-2xl"
-            layout="constrained" // 替代 Next.js 的 layout 行为
-            background="auto" // 自动处理占位背景
-            breakpoints={[640, 768, 1024, 1280]} // 响应式断点
-          />
-          <Image
-            src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250308001330271.png"
-            width={1000}
-            height={843}
-            alt="Authentication"
-            className="block dark:hidden"
-            layout="constrained" // 替代 Next.js 的 layout 行为
-            background="auto" // 自动处理占位背景
-            breakpoints={[640, 768, 1024, 1280]} // 响应式断点
-          />
+          <Suspense fallback={<div className="flex items-center justify-center p-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          </div>}>
+            <Image
+              src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250308001330271.png"
+              width={1000}
+              height={843}
+              alt="Authentication"
+              className="block dark:hidden border rounded-2xl"
+              layout="constrained" // 替代 Next.js 的 layout 行为
+              background="auto" // 自动处理占位背景
+              breakpoints={[640, 768, 1024, 1280]} // 响应式断点
+            />
+            <Image
+              src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250308001330271.png"
+              width={1000}
+              height={843}
+              alt="Authentication"
+              className="block dark:hidden"
+              layout="constrained" // 替代 Next.js 的 layout 行为
+              background="auto" // 自动处理占位背景
+              breakpoints={[640, 768, 1024, 1280]} // 响应式断点
+            />
+          </Suspense>
 
         </div>
         <div

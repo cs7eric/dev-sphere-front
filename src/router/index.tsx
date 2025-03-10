@@ -1,21 +1,31 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom'
-import Page from '@/views/dashboard/page'
-import AnswerSubject from '@/views/subject/answer-subject'
-import SettingsAccountPage from "@/views/forms/account/page.tsx";
-import SettingsAppearancePage from "@/views/forms/appearance/page.tsx";
-import SettingsDisplayPage from "@/views/forms/display/page.tsx";
-import SettingsNotificationsPage from "@/views/forms/notifications/page.tsx";
-import SettingsProfilePage from "@/views/forms/profile/page.tsx";
-import SettingsPage from "@/views/forms/page.tsx";
-import SettingsLayout from "@/views/forms/layout.tsx";
-import AuthenticationPage from "@/views/authentication/page.tsx";
-import HomePage from "@/views/home/page.tsx";
+import React, { Suspense } from 'react'
 import MainLayout from "@/layout/layout";
-import ExplorePage from "@/views/explore/page.tsx";
-import JobPage from "@/views/job/page.tsx";
-import RoadmapPage from "@/views/roadmap/page.tsx";
-import CirclePage from "@/views/circle/page.tsx";
-import ChatPage from "@/views/chat/page.tsx";
+
+// 使用React.lazy进行组件懒加载
+const Page = React.lazy(() => import('@/views/dashboard/page'))
+const AnswerSubject = React.lazy(() => import('@/views/subject/answer-subject'))
+const SettingsAccountPage = React.lazy(() => import("@/views/forms/account/page.tsx"))
+const SettingsAppearancePage = React.lazy(() => import("@/views/forms/appearance/page.tsx"))
+const SettingsDisplayPage = React.lazy(() => import("@/views/forms/display/page.tsx"))
+const SettingsNotificationsPage = React.lazy(() => import("@/views/forms/notifications/page.tsx"))
+const SettingsProfilePage = React.lazy(() => import("@/views/forms/profile/page.tsx"))
+const SettingsPage = React.lazy(() => import("@/views/forms/page.tsx"))
+const SettingsLayout = React.lazy(() => import("@/views/forms/layout.tsx"))
+const AuthenticationPage = React.lazy(() => import("@/views/authentication/page.tsx"))
+const HomePage = React.lazy(() => import("@/views/home/page.tsx"))
+const ExplorePage = React.lazy(() => import("@/views/explore/page.tsx"))
+const JobPage = React.lazy(() => import("@/views/job/page.tsx"))
+const RoadmapPage = React.lazy(() => import("@/views/roadmap/page.tsx"))
+const CirclePage = React.lazy(() => import("@/views/circle/page.tsx"))
+const ChatPage = React.lazy(() => import("@/views/chat/page.tsx"))
+
+// 加载状态组件
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+)
 
 const router = createBrowserRouter([
   {
@@ -27,17 +37,25 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <HomePage></HomePage>
+    element: 
+      <Suspense fallback={<LoadingFallback />}>
+        <HomePage></HomePage>
+      </Suspense>
   },
   {
     path: '/dashboard',
-    element: <Page></Page>
+    element: 
+      <Suspense fallback={<LoadingFallback />}>
+        <Page></Page>
+      </Suspense>
   },
   {
     path: '/subject',
     element:
       <MainLayout>
-        <AnswerSubject></AnswerSubject>
+        <Suspense fallback={<LoadingFallback />}>
+          <AnswerSubject></AnswerSubject>
+        </Suspense>
       </MainLayout>
 
   },
@@ -45,91 +63,115 @@ const router = createBrowserRouter([
     path: '/settings',
     element:
       <MainLayout>
-        <SettingsPage></SettingsPage>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsPage></SettingsPage>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/settings/account',
     element:
       <MainLayout>
-        <SettingsLayout>
-          <SettingsAccountPage></SettingsAccountPage>
-        </SettingsLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsLayout>
+            <SettingsAccountPage></SettingsAccountPage>
+          </SettingsLayout>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/settings/appearance',
     element:
       <MainLayout>
-        <SettingsLayout>
-          <SettingsAppearancePage></SettingsAppearancePage>
-        </SettingsLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsLayout>
+            <SettingsAppearancePage></SettingsAppearancePage>
+          </SettingsLayout>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/settings/display',
     element:
       <MainLayout>
-        <SettingsLayout>
-          <SettingsDisplayPage></SettingsDisplayPage>
-        </SettingsLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsLayout>
+            <SettingsDisplayPage></SettingsDisplayPage>
+          </SettingsLayout>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/settings/notifications',
     element:
       <MainLayout>
-        <SettingsLayout>
-          <SettingsNotificationsPage></SettingsNotificationsPage>
-        </SettingsLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsLayout>
+            <SettingsNotificationsPage></SettingsNotificationsPage>
+          </SettingsLayout>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/settings/profile',
     element:
       <MainLayout>
-        <SettingsLayout>
-          <SettingsProfilePage></SettingsProfilePage>
-        </SettingsLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SettingsLayout>
+            <SettingsProfilePage></SettingsProfilePage>
+          </SettingsLayout>
+        </Suspense>
       </MainLayout>
   },
   {
     path: "/authentication",
-    element: <AuthenticationPage></AuthenticationPage>
+    element: <Suspense fallback={<LoadingFallback />}>
+      <AuthenticationPage></AuthenticationPage>
+    </Suspense>
   },
   {
     path: '/explore',
     element:
       <MainLayout>
-        <ExplorePage/>
+        <Suspense fallback={<LoadingFallback />}>
+          <ExplorePage/>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/circle',
     element:
       <MainLayout>
-        <CirclePage/>
+        <Suspense fallback={<LoadingFallback />}>
+          <CirclePage/>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/job',
     element:
       <MainLayout>
-        <JobPage/>
+        <Suspense fallback={<LoadingFallback />}>
+          <JobPage/>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/roadmap',
     element:
       <MainLayout>
-        <RoadmapPage/>
+        <Suspense fallback={<LoadingFallback />}>
+          <RoadmapPage/>
+        </Suspense>
       </MainLayout>
   },
   {
     path: '/chat',
     element:
       <MainLayout>
-        <ChatPage/>
+        <Suspense fallback={<LoadingFallback />}>
+          <ChatPage/>
+        </Suspense>
       </MainLayout>
   }
 

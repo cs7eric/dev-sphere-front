@@ -1,7 +1,7 @@
 import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Button} from "@heroui/react";
 import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
-import {Image} from "@unpic/react";
+import {LazyImage} from "@/components/ui/lazy-image";
 
 export default function UserCard() {
   const [isFollowed, setIsFollowed] = React.useState(false);
@@ -12,13 +12,15 @@ export default function UserCard() {
         <div className="flex items-center gap-3">
 
 
-          <Image
+          <LazyImage
             src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250309224114762.png"
             width="40px"
             height="40px"
             className="rounded-sm hover:transform hover:scale-110 cursor-pointer"
-
-          ></Image>
+            loadingClassName="blur-sm"
+            threshold={0.2}
+            rootMargin="50px"
+          />
           <div className="flex flex-col gap-1 items-start justify-center">
             <h4 className="text-small font-semibold leading-none text-default-600">Zoey Lang</h4>
             <h5 className="text-small tracking-tight text-default-400">@zoeylang</h5>

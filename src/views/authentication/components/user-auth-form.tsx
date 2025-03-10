@@ -13,7 +13,9 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
-import {InputOTPForm} from "@/components/input/InputOTP.tsx";
+
+// 懒加载OTP表单组件
+const InputOTPForm = React.lazy(() => import("@/components/input/InputOTP.tsx").then(module => ({ default: module.InputOTPForm })));
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
@@ -66,7 +68,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       </div>
 
       {showInput ? (
-        <InputOTPForm></InputOTPForm>
+        <React.Suspense fallback={<div className="flex items-center justify-center p-4"><Icons.spinner className="h-6 w-6 animate-spin" /></div>}>
+          <InputOTPForm></InputOTPForm>
+        </React.Suspense>
       ):''}
 
       { showInput ? '' : <Button

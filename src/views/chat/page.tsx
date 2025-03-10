@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { OpenAI } from 'openai';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { Loader2, Send, User, Bot } from 'lucide-react';
 import { toast } from '@/registry/hooks/use-toast';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
+
+// 懒加载Markdown相关组件
+const ReactMarkdown = lazy(() => import('react-markdown'));
+const rehypeRaw = lazy(() => import('rehype-raw'));
+const rehypeSanitize = lazy(() => import('rehype-sanitize'));
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -25,12 +26,31 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // 创建OpenAI客户端实例
-  const openai = new OpenAI({
-    apiKey: 'sk-719bb9860c804c97ae0cc8c477aafcbe', // 这里需要填入通义千问 API密钥
-    baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1', // 通义千问API的OpenAI兼容模式地址
-    dangerouslyAllowBrowser: true, // 允许在浏览器中使用API密钥（注意：这存在安全风险，生产环境应使用后端API中转请求）
-  });
+  // 使用懒加载方式创建OpenAI客户端实例
+  const [openai, setOpenai] = useState<any>(null);
+  
+  // 懒加载OpenAI库
+  useEffect(() => {
+    const loadOpenAI = async () => {
+      try {
+        const { OpenAI } = await import('openai');
+        setOpenai(new OpenAI({
+          apiKey: 'sk-719bb9860c804c97ae0cc8c477aafcbe', // 这里需要填入通义千问 API密钥
+          baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1', // 通义千问API的OpenAI兼容模式地址
+          dangerouslyAllowBrowser: true, // 允许在浏览器中使用API密钥（注意：这存在安全风险，生产环境应使用后端API中转请求）
+        }));
+      } catch (error) {
+        console.error('Failed to load OpenAI:', error);
+        toast({
+          title: "错误",
+          description: '加载AI服务失败，请刷新页面重试',
+          variant: "destructive"
+        });
+      }
+    };
+    
+    loadOpenAI();
+  }, []);
   
   // AI思考过程状态
   const [thinking, setThinking] = useState('');
@@ -214,11 +234,13 @@ export default function ChatPage() {
                           <div className="whitespace-pre-wrap">{msg.content}</div>
                         ) : (
                           <div className="prose prose-sm dark:prose-invert max-w-none">
-                            <ReactMarkdown 
-                              rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                            >
-                              {msg.content}
-                            </ReactMarkdown>
+                            <Suspense fallback={<div className="p-2 text-muted-foreground">加载中...</div>}>
+                              <ReactMarkdown 
+                                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                              >
+                                {msg.content}
+                              </ReactMarkdown>
+                            </Suspense>
                           </div>
                         )}
                       </div>
