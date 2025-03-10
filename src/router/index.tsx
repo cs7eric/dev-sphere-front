@@ -1,6 +1,4 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom'
-import LoginView from '@/views/login'
-import Layout from '@/layout/layout'
 import Page from '@/views/dashboard/page'
 import AnswerSubject from '@/views/subject/answer-subject'
 import SettingsAccountPage from "@/views/forms/account/page.tsx";
@@ -14,9 +12,9 @@ import AuthenticationPage from "@/views/authentication/page.tsx";
 import HomePage from "@/views/home/page.tsx";
 import MainLayout from "@/layout/layout";
 import ExplorePage from "@/views/explore/page.tsx";
-import GroupPage from "@/views/circle/page.tsx";
 import JobPage from "@/views/job/page.tsx";
 import RoadmapPage from "@/views/roadmap/page.tsx";
+import CirclePage from "@/views/circle/page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -106,10 +104,10 @@ const router = createBrowserRouter([
       </MainLayout>
   },
   {
-    path: '/group',
+    path: '/circle',
     element:
       <MainLayout>
-        <GroupPage/>
+        <CirclePage/>
       </MainLayout>
   },
   {

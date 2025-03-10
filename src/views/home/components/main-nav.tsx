@@ -31,10 +31,10 @@ export function MainNav({
         Job
       </Link>
       <Link
-        to={"/group"}
+        to={"/circle"}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Groups
+        Circle
       </Link>
       <Link
         to={"/roadmap"}
