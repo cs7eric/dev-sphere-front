@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -139,3 +141,4 @@ body {
   overflow: -moz-scrollbars-none; /* 旧版 Firefox */
   -webkit-overflow-scrolling: touch; /* 移动端流畅滚动 */
 }
+

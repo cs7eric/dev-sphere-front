@@ -14,7 +14,7 @@ import AuthenticationPage from "@/views/authentication/page.tsx";
 import HomePage from "@/views/home/page.tsx";
 import MainLayout from "@/layout/layout";
 import ExplorePage from "@/views/explore/page.tsx";
-import GroupPage from "@/views/group/page.tsx";
+import GroupPage from "@/views/circle/page.tsx";
 import JobPage from "@/views/job/page.tsx";
 import RoadmapPage from "@/views/roadmap/page.tsx";
 

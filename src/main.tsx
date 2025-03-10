@@ -6,7 +6,7 @@ import router from './router'
 import {HeroUIProvider} from "@heroui/system";
 import App from "@/App.tsx";
 import {ThemeProvider} from "@/components/theme-provider.tsx";
-
+import '@/assets/font/font.css'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>

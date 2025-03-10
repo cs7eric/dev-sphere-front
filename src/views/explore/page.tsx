@@ -6,9 +6,11 @@ import ListPage from "@/views/home/subject-list.tsx";
 import UserList from "@/components/user/user-list.tsx";
 import ArticleList from "@/components/article/article-list.tsx";
 import {Card} from "@/components/ui/card.tsx";
+import AnimatedList from "@/components/list/animated-list.tsx";
+import {FaHotjar} from "react-icons/fa";
 
 export default function ExplorePage() {
-
+  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10'];
   return (
     <>
 
@@ -33,7 +35,7 @@ export default function ExplorePage() {
                   <TabsTrigger value="password">Password</TabsTrigger>
                 </TabsList>
               </div>
-              
+
               <div className="tabs-content-container w-full">
                 <TabsContent className="tab-item w-full" value="subject">
                   <div className="content-wrapper w-full">
@@ -47,11 +49,28 @@ export default function ExplorePage() {
                 </TabsContent>
                 <TabsContent className="tab-item flex justify-center " value="article">
                   <div className="content-wrapper flex w-9/11 space-x-9 justify-center ">
-                      <ArticleList className="w-4/7"></ArticleList>
-                      <Card className="w-3/7"></Card>
+                    <ArticleList className="w-4/7"></ArticleList>
+                    <Card className="w-3/7 ">
+
+                      <div className="hot-title flex justify-start items-center space-x-2 pl-5">
+                        <FaHotjar className="fill-red-600"/>
+                        <h3 className="font-bold text-xl font-emblemaone text-red-600 " style={{fontFamily: 'emblemaone'}}>
+                          Hot 100
+                        </h3>
+                      </div>
+
+                      <AnimatedList
+                        className="max-w-5xl "
+                        items={items}
+                        onItemSelect={(item, index) => console.log(item, index)}
+                        showGradients={true}
+                        enableArrowNavigation={true}
+                        displayScrollbar={true}
+                      />
+                    </Card>
                   </div>
                 </TabsContent>
-                <TabsContent className="tab-item w-full" value="password">
+                <TabsContent className="tab-item w-full" value="group">
                   <div className="content-wrapper w-full">
                     <UserList></UserList>
                   </div>

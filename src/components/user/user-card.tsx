@@ -1,33 +1,38 @@
 import React from "react";
-import {Card, CardHeader, CardBody, CardFooter, Avatar, Button} from "@heroui/react";
+import {Card, CardHeader, CardBody, CardFooter, Button} from "@heroui/react";
+import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
+import {Image} from "@unpic/react";
 
 export default function UserCard() {
   const [isFollowed, setIsFollowed] = React.useState(false);
 
   return (
-    <Card className="max-w-[350px] border bg-[#262626] rounded-lg p-3">
+    <Card className="max-w-[350px] border dark:bg-[#111111] rounded-lg p-3">
       <CardHeader className="justify-between">
-        <div className="flex gap-5">
-          <Avatar
-            isBordered
-            radius="full"
-            size="md"
-            src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250307213610237.png"
-          />
+        <div className="flex items-center gap-3">
+
+
+          <Image
+            src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250309224114762.png"
+            width="40px"
+            height="40px"
+            className="rounded-sm hover:transform hover:scale-110 cursor-pointer"
+
+          ></Image>
           <div className="flex flex-col gap-1 items-start justify-center">
             <h4 className="text-small font-semibold leading-none text-default-600">Zoey Lang</h4>
             <h5 className="text-small tracking-tight text-default-400">@zoeylang</h5>
           </div>
         </div>
         <Button
-          className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
+          className={isFollowed ? "bg-transparent cursor-pointer hover:transform hover:scale-120  text-foreground border-default-200" : "hover:transform hover:scale-120  cursor-pointer"}
           color="primary"
           radius="full"
           size="sm"
           variant={isFollowed ? "bordered" : "solid"}
           onPress={() => setIsFollowed(!isFollowed)}
         >
-          {isFollowed ? "Unfollow" : "Follow"}
+          {isFollowed ? <RiUserFollowLine /> : <RiUserUnfollowLine />}
         </Button>
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">

@@ -13,8 +13,11 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import {LabelList} from "@/components/subject/label-list.tsx";
 import ListPage from "@/views/home/subject-list.tsx";
 import MainLayout from "@/layout/layout.tsx";
+import {Image} from "@unpic/react";
 
-
+import JavaIcon from '@/assets/icon/java.svg'
+import CppIcon from '@/assets/icon/cpp.svg'
+import PythonIcon from '@/assets/icon/python.svg'
 const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python']
 
 
@@ -66,20 +69,28 @@ export default function HomePage() {
               <div className="container-items flex flex-row ">
                 <div className="left-section flex-4/5  border-[#262626] w-full p-6">
                   <div className="recommend-list flex ">
-                    <Card className="flex-1/4 mx-3 ">
-                      <h3 className="font-bold text-3xl text-center  ">
-                        Java
-                      </h3>
+                    <Card className="flex-1/4 mx-3 gap-2 p-5 dark:bg-[#262626] ">
+
+                      <Image
+                        src={JavaIcon}
+                        width={'80px'}
+                        height={'80px'}
+                      ></Image>
                     </Card>
-                    <Card className="flex-1/4 mx-3 justify-center ">
-                      <h3 className="font-bold text-3xl text-center justify-center ">
-                        Java
-                      </h3>
+                    <Card className="flex-1/4 mx-3 justify-center gap-2 p-5 dark:bg-[#262626]">
+                      <Image
+                        src={PythonIcon}
+                        width={'80px'}
+                        height={'80px'}
+                      ></Image>
                     </Card>
-                    <Card className="flex-1/4 mx-3 ">
-                      <h3 className="font-bold text-3xl text-center  ">
-                        Java
-                      </h3>
+                    <Card className="flex-1/4 mx-3 gap-2 p-5 dark:bg-[#262626]">
+                      <Image
+                        src={CppIcon}
+                        width={'80px'}
+                        height={'80px'}
+                      ></Image>
+
                     </Card>
 
 

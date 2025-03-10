@@ -3,7 +3,6 @@ import './App.css'
 import Lanyard from '@/components/reactbits/Lanyard'
 import {Button} from "@/components/ui/button.tsx";
 import {useState} from "react";
-import {ThemeProvider} from "@/components/theme-provider.tsx";
 
 function App() {
 
