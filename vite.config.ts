@@ -12,5 +12,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  assetsInclude: ['**/*.glb']
+  assetsInclude: ['**/*.glb'],
+  server: {
+    proxy: {
+      '/api/qwen': {
+        target: 'https://dashscope.aliyuncs.com/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/qwen/, '/qwen')
+      }
+    }
+  }
 })
