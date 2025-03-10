@@ -46,93 +46,93 @@ import {
 const groups = [
   {
     label: "Personal Account",
-    teams: [
+    fields: [
       {
-        label: "Alicia Koch",
+        label: "program",
         value: "personal",
       },
     ],
   },
   {
-    label: "Teams",
-    teams: [
+    label: "Fields",
+    fields: [
       {
-        label: "Acme Inc.",
+        label: "program.",
         value: "acme-inc",
       },
       {
-        label: "Monsters Inc.",
+        label: "law",
         value: "monsters",
       },
     ],
   },
 ]
 
-type Team = (typeof groups)[number]["teams"][number]
+type Field = (typeof groups)[number]["fields"][number]
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
-interface TeamSwitcherProps extends PopoverTriggerProps {}
+interface FieldSwitcherProps extends PopoverTriggerProps {}
 
-export default function TeamSwitcher({ className }: TeamSwitcherProps) {
+export default function FieldSwitcher({ className }: FieldSwitcherProps) {
   const [open, setOpen] = React.useState(false)
-  const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>(
-    groups[0].teams[0]
+  const [showNewFieldDialog, setShowNewFieldDialog] = React.useState(false)
+  const [selectedField, setSelectedField] = React.useState<Field>(
+    groups[0].fields[0]
   )
 
   return (
-    <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
+    <Dialog open={showNewFieldDialog} onOpenChange={setShowNewFieldDialog}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            aria-label="Select a team"
+            aria-label="Select a field"
             className={cn("w-[200px] justify-between", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-                alt={selectedTeam.label}
+                src={`https://avatar.vercel.sh/${selectedField.value}.png`}
+                alt={selectedField.label}
                 className="grayscale"
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam.label}
+            {selectedField.label}
             <ChevronsUpDown className="ml-auto opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <Command>
-            <CommandInput placeholder="Search team..." />
+            <CommandInput placeholder="Search field..." />
             <CommandList>
-              <CommandEmpty>No team found.</CommandEmpty>
+              <CommandEmpty>No field found.</CommandEmpty>
               {groups.map((group) => (
                 <CommandGroup key={group.label} heading={group.label}>
-                  {group.teams.map((team) => (
+                  {group.fields.map((field) => (
                     <CommandItem
-                      key={team.value}
+                      key={field.value}
                       onSelect={() => {
-                        setSelectedTeam(team)
+                        setSelectedField(field)
                         setOpen(false)
                       }}
                       className="text-sm"
                     >
                       <Avatar className="mr-2 h-5 w-5">
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${team.value}.png`}
-                          alt={team.label}
+                          src={`https://avatar.vercel.sh/${field.value}.png`}
+                          alt={field.label}
                           className="grayscale"
                         />
                         <AvatarFallback>SC</AvatarFallback>
                       </Avatar>
-                      {team.label}
+                      {field.label}
                       <Check
                         className={cn(
                           "ml-auto",
-                          selectedTeam.value === team.value
+                          selectedField.value === field.value
                             ? "opacity-100"
                             : "opacity-0"
                         )}
@@ -149,11 +149,11 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                   <CommandItem
                     onSelect={() => {
                       setOpen(false)
-                      setShowNewTeamDialog(true)
+                      setShowNewFieldDialog(true)
                     }}
                   >
                     <PlusCircle className="h-5 w-5" />
-                    Create Team
+                    Create Field
                   </CommandItem>
                 </DialogTrigger>
               </CommandGroup>
@@ -163,15 +163,15 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
       </Popover>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create team</DialogTitle>
+          <DialogTitle>Create field</DialogTitle>
           <DialogDescription>
-            Add a new team to manage products and customers.
+            Add a new field to manage products and customers.
           </DialogDescription>
         </DialogHeader>
         <div>
           <div className="space-y-4 py-2 pb-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Team name</Label>
+              <Label htmlFor="name">Field name</Label>
               <Input id="name" placeholder="Acme Inc." />
             </div>
             <div className="space-y-2">
@@ -199,7 +199,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setShowNewTeamDialog(false)}>
+          <Button variant="outline" onClick={() => setShowNewFieldDialog(false)}>
             Cancel
           </Button>
           <Button type="submit">Continue</Button>
