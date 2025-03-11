@@ -1,0 +1,3330 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Subject API Documentation",
+        "version": "1.0.0",
+        "title": "Devsphere Subject Service API"
+    },
+    "host": "localhost:8089",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "subject-category-controller",
+            "description": "Subject Category Controller"
+        },
+        {
+            "name": "subject-controller",
+            "description": "Subject Controller"
+        },
+        {
+            "name": "subject-label-controller",
+            "description": "Subject Label Controller"
+        }
+    ],
+    "paths": {
+        "/subject/add": {
+            "post": {
+                "tags": [
+                    "subject-controller"
+                ],
+                "summary": "add",
+                "operationId": "addUsingPOST_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectInfoDTO",
+                        "description": "subjectInfoDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectInfoDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«boolean»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/category/add": {
+            "post": {
+                "tags": [
+                    "subject-category-controller"
+                ],
+                "summary": "add",
+                "operationId": "addUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectCategoryDTO",
+                        "description": "subjectCategoryDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«boolean»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/category/delete": {
+            "delete": {
+                "tags": [
+                    "subject-category-controller"
+                ],
+                "summary": "delete",
+                "operationId": "deleteUsingDELETE",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectCategoryDTO",
+                        "description": "subjectCategoryDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/category/queryCategoryByPrimary": {
+            "post": {
+                "tags": [
+                    "subject-category-controller"
+                ],
+                "summary": "queryCategoryByPrimary",
+                "operationId": "queryCategoryByPrimaryUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectCategoryDTO",
+                        "description": "subjectCategoryDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«List«SubjectCategoryDTO»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/category/queryPrimaryCategory": {
+            "post": {
+                "tags": [
+                    "subject-category-controller"
+                ],
+                "summary": "queryPrimaryCategory",
+                "operationId": "queryPrimaryCategoryUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectCategoryDTO",
+                        "description": "subjectCategoryDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«List«SubjectCategoryDTO»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/category/update": {
+            "post": {
+                "tags": [
+                    "subject-category-controller"
+                ],
+                "summary": "update",
+                "operationId": "updateUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectCategoryDTO",
+                        "description": "subjectCategoryDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«boolean»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/getSubjectInfo": {
+            "post": {
+                "tags": [
+                    "subject-controller"
+                ],
+                "summary": "getSubjectInfo",
+                "operationId": "getSubjectInfoUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectInfoDTO",
+                        "description": "subjectInfoDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectInfoDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«SubjectInfoDTO»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/getSubjectPage": {
+            "post": {
+                "tags": [
+                    "subject-controller"
+                ],
+                "summary": "getSubjectPage",
+                "operationId": "getSubjectPageUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectInfoDTO",
+                        "description": "subjectInfoDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectInfoDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«PageResult«SubjectInfoDTO»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/label/add": {
+            "post": {
+                "tags": [
+                    "subject-label-controller"
+                ],
+                "summary": "add",
+                "operationId": "addUsingPOST_2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectLabelDTO",
+                        "description": "subjectLabelDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectLabelDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/label/delete": {
+            "delete": {
+                "tags": [
+                    "subject-label-controller"
+                ],
+                "summary": "delete",
+                "operationId": "deleteUsingDELETE_1",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectLabelDTO",
+                        "description": "subjectLabelDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectLabelDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/label/queryLabelByCategoryId": {
+            "post": {
+                "tags": [
+                    "subject-label-controller"
+                ],
+                "summary": "queryLabelByCategoryId",
+                "operationId": "queryLabelByCategoryIdUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectLabelDTO",
+                        "description": "subjectLabelDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectLabelDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result«List«Label»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/subject/label/update": {
+            "post": {
+                "tags": [
+                    "subject-label-controller"
+                ],
+                "summary": "update",
+                "operationId": "updateUsingPOST_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "subjectLabelDTO",
+                        "description": "subjectLabelDTO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SubjectLabelDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        "AWTEvent": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "source": {
+                    "type": "object"
+                }
+            },
+            "title": "AWTEvent"
+        },
+        "AWTEventListener": {
+            "type": "object",
+            "title": "AWTEventListener"
+        },
+        "Accessible": {
+            "type": "object",
+            "properties": {
+                "accessibleContext": {
+                    "$ref": "#/definitions/AccessibleContext"
+                }
+            },
+            "title": "Accessible"
+        },
+        "AccessibleAction": {
+            "type": "object",
+            "properties": {
+                "accessibleActionCount": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AccessibleAction"
+        },
+        "AccessibleComponent": {
+            "type": "object",
+            "properties": {
+                "background": {
+                    "$ref": "#/definitions/Color"
+                },
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "cursor": {
+                    "$ref": "#/definitions/Cursor"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "focusTraversable": {
+                    "type": "boolean"
+                },
+                "font": {
+                    "$ref": "#/definitions/Font"
+                },
+                "foreground": {
+                    "$ref": "#/definitions/Color"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "showing": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "visible": {
+                    "type": "boolean"
+                }
+            },
+            "title": "AccessibleComponent"
+        },
+        "AccessibleContext": {
+            "type": "object",
+            "properties": {
+                "accessibleAction": {
+                    "$ref": "#/definitions/AccessibleAction"
+                },
+                "accessibleChildrenCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "accessibleComponent": {
+                    "$ref": "#/definitions/AccessibleComponent"
+                },
+                "accessibleDescription": {
+                    "type": "string"
+                },
+                "accessibleEditableText": {
+                    "$ref": "#/definitions/AccessibleEditableText"
+                },
+                "accessibleIcon": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AccessibleIcon"
+                    }
+                },
+                "accessibleIndexInParent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "accessibleName": {
+                    "type": "string"
+                },
+                "accessibleParent": {
+                    "$ref": "#/definitions/Accessible"
+                },
+                "accessibleRelationSet": {
+                    "$ref": "#/definitions/AccessibleRelationSet"
+                },
+                "accessibleRole": {
+                    "$ref": "#/definitions/AccessibleRole"
+                },
+                "accessibleSelection": {
+                    "$ref": "#/definitions/AccessibleSelection"
+                },
+                "accessibleStateSet": {
+                    "$ref": "#/definitions/AccessibleStateSet"
+                },
+                "accessibleTable": {
+                    "$ref": "#/definitions/AccessibleTable"
+                },
+                "accessibleText": {
+                    "$ref": "#/definitions/AccessibleText"
+                },
+                "accessibleValue": {
+                    "$ref": "#/definitions/AccessibleValue"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                }
+            },
+            "title": "AccessibleContext"
+        },
+        "AccessibleEditableText": {
+            "type": "object",
+            "properties": {
+                "caretPosition": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "charCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "selectedText": {
+                    "type": "string"
+                },
+                "selectionEnd": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "selectionStart": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AccessibleEditableText"
+        },
+        "AccessibleIcon": {
+            "type": "object",
+            "properties": {
+                "accessibleIconDescription": {
+                    "type": "string"
+                },
+                "accessibleIconHeight": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "accessibleIconWidth": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AccessibleIcon"
+        },
+        "AccessibleRelationSet": {
+            "type": "object",
+            "title": "AccessibleRelationSet"
+        },
+        "AccessibleRole": {
+            "type": "object",
+            "title": "AccessibleRole"
+        },
+        "AccessibleSelection": {
+            "type": "object",
+            "properties": {
+                "accessibleSelectionCount": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AccessibleSelection"
+        },
+        "AccessibleStateSet": {
+            "type": "object",
+            "title": "AccessibleStateSet"
+        },
+        "AccessibleTable": {
+            "type": "object",
+            "properties": {
+                "accessibleCaption": {
+                    "$ref": "#/definitions/Accessible"
+                },
+                "accessibleColumnCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "accessibleColumnHeader": {
+                    "$ref": "#/definitions/AccessibleTable"
+                },
+                "accessibleRowCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "accessibleRowHeader": {
+                    "$ref": "#/definitions/AccessibleTable"
+                },
+                "accessibleSummary": {
+                    "$ref": "#/definitions/Accessible"
+                },
+                "selectedAccessibleColumns": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "selectedAccessibleRows": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "title": "AccessibleTable"
+        },
+        "AccessibleText": {
+            "type": "object",
+            "properties": {
+                "caretPosition": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "charCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "selectedText": {
+                    "type": "string"
+                },
+                "selectionEnd": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "selectionStart": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AccessibleText"
+        },
+        "AccessibleValue": {
+            "type": "object",
+            "properties": {
+                "currentAccessibleValue": {
+                    "$ref": "#/definitions/Number"
+                },
+                "maximumAccessibleValue": {
+                    "$ref": "#/definitions/Number"
+                },
+                "minimumAccessibleValue": {
+                    "$ref": "#/definitions/Number"
+                }
+            },
+            "title": "AccessibleValue"
+        },
+        "AffineTransform": {
+            "type": "object",
+            "properties": {
+                "determinant": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "identity": {
+                    "type": "boolean"
+                },
+                "scaleX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "scaleY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "shearX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "shearY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "translateX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "translateY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "AffineTransform"
+        },
+        "Attribute": {
+            "type": "object",
+            "title": "Attribute"
+        },
+        "BufferCapabilities": {
+            "type": "object",
+            "properties": {
+                "backBufferCapabilities": {
+                    "$ref": "#/definitions/ImageCapabilities"
+                },
+                "flipContents": {
+                    "$ref": "#/definitions/FlipContents"
+                },
+                "frontBufferCapabilities": {
+                    "$ref": "#/definitions/ImageCapabilities"
+                },
+                "fullScreenRequired": {
+                    "type": "boolean"
+                },
+                "multiBufferAvailable": {
+                    "type": "boolean"
+                },
+                "pageFlipping": {
+                    "type": "boolean"
+                }
+            },
+            "title": "BufferCapabilities"
+        },
+        "BufferStrategy": {
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "$ref": "#/definitions/BufferCapabilities"
+                },
+                "drawGraphics": {
+                    "$ref": "#/definitions/Graphics"
+                }
+            },
+            "title": "BufferStrategy"
+        },
+        "Character": {
+            "type": "object",
+            "title": "Character"
+        },
+        "Clipboard": {
+            "type": "object",
+            "properties": {
+                "availableDataFlavors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DataFlavor"
+                    }
+                },
+                "flavorListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FlavorListener"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "Clipboard"
+        },
+        "Color": {
+            "type": "object",
+            "properties": {
+                "alpha": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "blue": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "colorSpace": {
+                    "$ref": "#/definitions/ColorSpace"
+                },
+                "green": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "red": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "rgb": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "transparency": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Color"
+        },
+        "ColorModel": {
+            "type": "object",
+            "properties": {
+                "alphaPremultiplied": {
+                    "type": "boolean"
+                },
+                "colorSpace": {
+                    "$ref": "#/definitions/ColorSpace"
+                },
+                "componentSize": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "numColorComponents": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "numComponents": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pixelSize": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "transferType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "transparency": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "ColorModel"
+        },
+        "ColorSpace": {
+            "type": "object",
+            "properties": {
+                "cs_sRGB": {
+                    "type": "boolean"
+                },
+                "numComponents": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "ColorSpace"
+        },
+        "Component": {
+            "type": "object",
+            "properties": {
+                "accessibleContext": {
+                    "$ref": "#/definitions/AccessibleContext"
+                },
+                "alignmentX": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "alignmentY": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "backgroundSet": {
+                    "type": "boolean"
+                },
+                "baselineResizeBehavior": {
+                    "type": "string",
+                    "enum": [
+                        "CONSTANT_ASCENT",
+                        "CONSTANT_DESCENT",
+                        "CENTER_OFFSET",
+                        "OTHER"
+                    ]
+                },
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "componentListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ComponentListener"
+                    }
+                },
+                "componentOrientation": {
+                    "$ref": "#/definitions/ComponentOrientation"
+                },
+                "cursor": {
+                    "$ref": "#/definitions/Cursor"
+                },
+                "cursorSet": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "doubleBuffered": {
+                    "type": "boolean"
+                },
+                "dropTarget": {
+                    "$ref": "#/definitions/DropTarget"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "focusCycleRootAncestor": {
+                    "$ref": "#/definitions/Container"
+                },
+                "focusListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FocusListener"
+                    }
+                },
+                "focusOwner": {
+                    "type": "boolean"
+                },
+                "focusTraversable": {
+                    "type": "boolean"
+                },
+                "focusTraversalKeysEnabled": {
+                    "type": "boolean"
+                },
+                "focusable": {
+                    "type": "boolean"
+                },
+                "fontSet": {
+                    "type": "boolean"
+                },
+                "foregroundSet": {
+                    "type": "boolean"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "graphicsConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hierarchyBoundsListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyBoundsListener"
+                    }
+                },
+                "hierarchyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyListener"
+                    }
+                },
+                "ignoreRepaint": {
+                    "type": "boolean"
+                },
+                "inputContext": {
+                    "$ref": "#/definitions/InputContext"
+                },
+                "inputMethodListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InputMethodListener"
+                    }
+                },
+                "inputMethodRequests": {
+                    "$ref": "#/definitions/InputMethodRequests"
+                },
+                "keyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/KeyListener"
+                    }
+                },
+                "lightweight": {
+                    "type": "boolean"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "maximumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "maximumSizeSet": {
+                    "type": "boolean"
+                },
+                "minimumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "minimumSizeSet": {
+                    "type": "boolean"
+                },
+                "mouseListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseListener"
+                    }
+                },
+                "mouseMotionListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseMotionListener"
+                    }
+                },
+                "mousePosition": {
+                    "$ref": "#/definitions/Point"
+                },
+                "mouseWheelListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseWheelListener"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "opaque": {
+                    "type": "boolean"
+                },
+                "parent": {
+                    "$ref": "#/definitions/Container"
+                },
+                "peer": {
+                    "$ref": "#/definitions/ComponentPeer"
+                },
+                "preferredSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "preferredSizeSet": {
+                    "type": "boolean"
+                },
+                "propertyChangeListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PropertyChangeListener"
+                    }
+                },
+                "showing": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "toolkit": {
+                    "$ref": "#/definitions/Toolkit"
+                },
+                "treeLock": {
+                    "type": "object"
+                },
+                "valid": {
+                    "type": "boolean"
+                },
+                "width": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "x": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "y": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Component"
+        },
+        "ComponentListener": {
+            "type": "object",
+            "title": "ComponentListener"
+        },
+        "ComponentOrientation": {
+            "type": "object",
+            "properties": {
+                "horizontal": {
+                    "type": "boolean"
+                },
+                "leftToRight": {
+                    "type": "boolean"
+                }
+            },
+            "title": "ComponentOrientation"
+        },
+        "ComponentPeer": {
+            "type": "object",
+            "properties": {
+                "backBuffer": {
+                    "$ref": "#/definitions/Image"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "focusable": {
+                    "type": "boolean"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "graphicsConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "minimumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "obscured": {
+                    "type": "boolean"
+                },
+                "preferredSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "reparentSupported": {
+                    "type": "boolean"
+                }
+            },
+            "title": "ComponentPeer"
+        },
+        "Container": {
+            "type": "object",
+            "properties": {
+                "accessibleContext": {
+                    "$ref": "#/definitions/AccessibleContext"
+                },
+                "alignmentX": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "alignmentY": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "backgroundSet": {
+                    "type": "boolean"
+                },
+                "baselineResizeBehavior": {
+                    "type": "string",
+                    "enum": [
+                        "CONSTANT_ASCENT",
+                        "CONSTANT_DESCENT",
+                        "CENTER_OFFSET",
+                        "OTHER"
+                    ]
+                },
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "componentCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "componentListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ComponentListener"
+                    }
+                },
+                "componentOrientation": {
+                    "$ref": "#/definitions/ComponentOrientation"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Component"
+                    }
+                },
+                "containerListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ContainerListener"
+                    }
+                },
+                "cursor": {
+                    "$ref": "#/definitions/Cursor"
+                },
+                "cursorSet": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "doubleBuffered": {
+                    "type": "boolean"
+                },
+                "dropTarget": {
+                    "$ref": "#/definitions/DropTarget"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "focusCycleRoot": {
+                    "type": "boolean"
+                },
+                "focusCycleRootAncestor": {
+                    "$ref": "#/definitions/Container"
+                },
+                "focusListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FocusListener"
+                    }
+                },
+                "focusOwner": {
+                    "type": "boolean"
+                },
+                "focusTraversable": {
+                    "type": "boolean"
+                },
+                "focusTraversalKeysEnabled": {
+                    "type": "boolean"
+                },
+                "focusTraversalPolicy": {
+                    "$ref": "#/definitions/FocusTraversalPolicy"
+                },
+                "focusTraversalPolicyProvider": {
+                    "type": "boolean"
+                },
+                "focusTraversalPolicySet": {
+                    "type": "boolean"
+                },
+                "focusable": {
+                    "type": "boolean"
+                },
+                "fontSet": {
+                    "type": "boolean"
+                },
+                "foregroundSet": {
+                    "type": "boolean"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "graphicsConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hierarchyBoundsListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyBoundsListener"
+                    }
+                },
+                "hierarchyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyListener"
+                    }
+                },
+                "ignoreRepaint": {
+                    "type": "boolean"
+                },
+                "inputContext": {
+                    "$ref": "#/definitions/InputContext"
+                },
+                "inputMethodListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InputMethodListener"
+                    }
+                },
+                "inputMethodRequests": {
+                    "$ref": "#/definitions/InputMethodRequests"
+                },
+                "insets": {
+                    "$ref": "#/definitions/Insets"
+                },
+                "keyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/KeyListener"
+                    }
+                },
+                "layout": {
+                    "$ref": "#/definitions/LayoutManager"
+                },
+                "lightweight": {
+                    "type": "boolean"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "maximumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "maximumSizeSet": {
+                    "type": "boolean"
+                },
+                "minimumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "minimumSizeSet": {
+                    "type": "boolean"
+                },
+                "mouseListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseListener"
+                    }
+                },
+                "mouseMotionListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseMotionListener"
+                    }
+                },
+                "mousePosition": {
+                    "$ref": "#/definitions/Point"
+                },
+                "mouseWheelListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseWheelListener"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "opaque": {
+                    "type": "boolean"
+                },
+                "parent": {
+                    "$ref": "#/definitions/Container"
+                },
+                "peer": {
+                    "$ref": "#/definitions/ComponentPeer"
+                },
+                "preferredSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "preferredSizeSet": {
+                    "type": "boolean"
+                },
+                "propertyChangeListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PropertyChangeListener"
+                    }
+                },
+                "showing": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "toolkit": {
+                    "$ref": "#/definitions/Toolkit"
+                },
+                "treeLock": {
+                    "type": "object"
+                },
+                "valid": {
+                    "type": "boolean"
+                },
+                "validateRoot": {
+                    "type": "boolean"
+                },
+                "width": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "x": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "y": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Container"
+        },
+        "ContainerListener": {
+            "type": "object",
+            "title": "ContainerListener"
+        },
+        "Cursor": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Cursor"
+        },
+        "DataFlavor": {
+            "type": "object",
+            "properties": {
+                "defaultRepresentationClassAsString": {
+                    "type": "string"
+                },
+                "flavorJavaFileListType": {
+                    "type": "boolean"
+                },
+                "flavorRemoteObjectType": {
+                    "type": "boolean"
+                },
+                "flavorSerializedObjectType": {
+                    "type": "boolean"
+                },
+                "flavorTextType": {
+                    "type": "boolean"
+                },
+                "humanPresentableName": {
+                    "type": "string"
+                },
+                "mimeType": {
+                    "type": "string"
+                },
+                "mimeTypeSerializedObject": {
+                    "type": "boolean"
+                },
+                "primaryType": {
+                    "type": "string"
+                },
+                "representationClassByteBuffer": {
+                    "type": "boolean"
+                },
+                "representationClassCharBuffer": {
+                    "type": "boolean"
+                },
+                "representationClassInputStream": {
+                    "type": "boolean"
+                },
+                "representationClassReader": {
+                    "type": "boolean"
+                },
+                "representationClassRemote": {
+                    "type": "boolean"
+                },
+                "representationClassSerializable": {
+                    "type": "boolean"
+                },
+                "subType": {
+                    "type": "string"
+                }
+            },
+            "title": "DataFlavor"
+        },
+        "Dimension": {
+            "type": "object",
+            "properties": {
+                "height": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "width": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "Dimension"
+        },
+        "DisplayMode": {
+            "type": "object",
+            "properties": {
+                "bitDepth": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "refreshRate": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "width": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "DisplayMode"
+        },
+        "DropTarget": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "component": {
+                    "$ref": "#/definitions/Component"
+                },
+                "defaultActions": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "dropTargetContext": {
+                    "$ref": "#/definitions/DropTargetContext"
+                },
+                "flavorMap": {
+                    "$ref": "#/definitions/FlavorMap"
+                }
+            },
+            "title": "DropTarget"
+        },
+        "DropTargetContext": {
+            "type": "object",
+            "properties": {
+                "component": {
+                    "$ref": "#/definitions/Component"
+                },
+                "dropTarget": {
+                    "$ref": "#/definitions/DropTarget"
+                }
+            },
+            "title": "DropTargetContext"
+        },
+        "EventQueue": {
+            "type": "object",
+            "properties": {
+                "nextEvent": {
+                    "$ref": "#/definitions/AWTEvent"
+                }
+            },
+            "title": "EventQueue"
+        },
+        "FlavorListener": {
+            "type": "object",
+            "title": "FlavorListener"
+        },
+        "FlavorMap": {
+            "type": "object",
+            "title": "FlavorMap"
+        },
+        "FlipContents": {
+            "type": "object",
+            "title": "FlipContents"
+        },
+        "FocusListener": {
+            "type": "object",
+            "title": "FocusListener"
+        },
+        "FocusTraversalPolicy": {
+            "type": "object",
+            "title": "FocusTraversalPolicy"
+        },
+        "Font": {
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object"
+                    }
+                },
+                "availableAttributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Attribute"
+                    }
+                },
+                "bold": {
+                    "type": "boolean"
+                },
+                "family": {
+                    "type": "string"
+                },
+                "fontName": {
+                    "type": "string"
+                },
+                "italic": {
+                    "type": "boolean"
+                },
+                "italicAngle": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "missingGlyphCode": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "numGlyphs": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "peer": {
+                    "$ref": "#/definitions/FontPeer"
+                },
+                "plain": {
+                    "type": "boolean"
+                },
+                "psname": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "size2D": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "style": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "transform": {
+                    "$ref": "#/definitions/AffineTransform"
+                },
+                "transformed": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Font"
+        },
+        "FontMetrics": {
+            "type": "object",
+            "properties": {
+                "ascent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "descent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "font": {
+                    "$ref": "#/definitions/Font"
+                },
+                "fontRenderContext": {
+                    "$ref": "#/definitions/FontRenderContext"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "leading": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "maxAdvance": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "maxAscent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "maxDecent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "maxDescent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "widths": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "title": "FontMetrics"
+        },
+        "FontPeer": {
+            "type": "object",
+            "title": "FontPeer"
+        },
+        "FontRenderContext": {
+            "type": "object",
+            "properties": {
+                "antiAliased": {
+                    "type": "boolean"
+                },
+                "antiAliasingHint": {
+                    "type": "object"
+                },
+                "fractionalMetricsHint": {
+                    "type": "object"
+                },
+                "transform": {
+                    "$ref": "#/definitions/AffineTransform"
+                },
+                "transformType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "transformed": {
+                    "type": "boolean"
+                }
+            },
+            "title": "FontRenderContext"
+        },
+        "Graphics": {
+            "type": "object",
+            "properties": {
+                "clip": {
+                    "$ref": "#/definitions/Shape"
+                },
+                "clipBounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "clipRect": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "color": {
+                    "$ref": "#/definitions/Color"
+                },
+                "font": {
+                    "$ref": "#/definitions/Font"
+                },
+                "fontMetrics": {
+                    "$ref": "#/definitions/FontMetrics"
+                }
+            },
+            "title": "Graphics"
+        },
+        "GraphicsConfiguration": {
+            "type": "object",
+            "properties": {
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "bufferCapabilities": {
+                    "$ref": "#/definitions/BufferCapabilities"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "defaultTransform": {
+                    "$ref": "#/definitions/AffineTransform"
+                },
+                "device": {
+                    "$ref": "#/definitions/GraphicsDevice"
+                },
+                "imageCapabilities": {
+                    "$ref": "#/definitions/ImageCapabilities"
+                },
+                "normalizingTransform": {
+                    "$ref": "#/definitions/AffineTransform"
+                },
+                "translucencyCapable": {
+                    "type": "boolean"
+                }
+            },
+            "title": "GraphicsConfiguration"
+        },
+        "GraphicsDevice": {
+            "type": "object",
+            "properties": {
+                "availableAcceleratedMemory": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "configurations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/GraphicsConfiguration"
+                    }
+                },
+                "defaultConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "displayChangeSupported": {
+                    "type": "boolean"
+                },
+                "displayMode": {
+                    "$ref": "#/definitions/DisplayMode"
+                },
+                "displayModes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DisplayMode"
+                    }
+                },
+                "fullScreenSupported": {
+                    "type": "boolean"
+                },
+                "fullScreenWindow": {
+                    "$ref": "#/definitions/Window"
+                },
+                "idstring": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "GraphicsDevice"
+        },
+        "HierarchyBoundsListener": {
+            "type": "object",
+            "title": "HierarchyBoundsListener"
+        },
+        "HierarchyListener": {
+            "type": "object",
+            "title": "HierarchyListener"
+        },
+        "Image": {
+            "type": "object",
+            "properties": {
+                "accelerationPriority": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "source": {
+                    "$ref": "#/definitions/ImageProducer"
+                }
+            },
+            "title": "Image"
+        },
+        "ImageCapabilities": {
+            "type": "object",
+            "properties": {
+                "accelerated": {
+                    "type": "boolean"
+                },
+                "trueVolatile": {
+                    "type": "boolean"
+                }
+            },
+            "title": "ImageCapabilities"
+        },
+        "ImageProducer": {
+            "type": "object",
+            "title": "ImageProducer"
+        },
+        "InputContext": {
+            "type": "object",
+            "properties": {
+                "inputMethodControlObject": {
+                    "type": "object"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                }
+            },
+            "title": "InputContext"
+        },
+        "InputMethodListener": {
+            "type": "object",
+            "title": "InputMethodListener"
+        },
+        "InputMethodRequests": {
+            "type": "object",
+            "properties": {
+                "committedTextLength": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "insertPositionOffset": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "InputMethodRequests"
+        },
+        "Insets": {
+            "type": "object",
+            "properties": {
+                "bottom": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "left": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "right": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "top": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Insets"
+        },
+        "KeyListener": {
+            "type": "object",
+            "title": "KeyListener"
+        },
+        "Label": {
+            "type": "object",
+            "properties": {
+                "accessibleContext": {
+                    "$ref": "#/definitions/AccessibleContext"
+                },
+                "alignment": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "alignmentX": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "alignmentY": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "backgroundSet": {
+                    "type": "boolean"
+                },
+                "baselineResizeBehavior": {
+                    "type": "string",
+                    "enum": [
+                        "CONSTANT_ASCENT",
+                        "CONSTANT_DESCENT",
+                        "CENTER_OFFSET",
+                        "OTHER"
+                    ]
+                },
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "componentListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ComponentListener"
+                    }
+                },
+                "componentOrientation": {
+                    "$ref": "#/definitions/ComponentOrientation"
+                },
+                "cursor": {
+                    "$ref": "#/definitions/Cursor"
+                },
+                "cursorSet": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "doubleBuffered": {
+                    "type": "boolean"
+                },
+                "dropTarget": {
+                    "$ref": "#/definitions/DropTarget"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "focusCycleRootAncestor": {
+                    "$ref": "#/definitions/Container"
+                },
+                "focusListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FocusListener"
+                    }
+                },
+                "focusOwner": {
+                    "type": "boolean"
+                },
+                "focusTraversable": {
+                    "type": "boolean"
+                },
+                "focusTraversalKeysEnabled": {
+                    "type": "boolean"
+                },
+                "focusable": {
+                    "type": "boolean"
+                },
+                "fontSet": {
+                    "type": "boolean"
+                },
+                "foregroundSet": {
+                    "type": "boolean"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "graphicsConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hierarchyBoundsListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyBoundsListener"
+                    }
+                },
+                "hierarchyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyListener"
+                    }
+                },
+                "ignoreRepaint": {
+                    "type": "boolean"
+                },
+                "inputContext": {
+                    "$ref": "#/definitions/InputContext"
+                },
+                "inputMethodListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InputMethodListener"
+                    }
+                },
+                "inputMethodRequests": {
+                    "$ref": "#/definitions/InputMethodRequests"
+                },
+                "keyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/KeyListener"
+                    }
+                },
+                "lightweight": {
+                    "type": "boolean"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "maximumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "maximumSizeSet": {
+                    "type": "boolean"
+                },
+                "minimumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "minimumSizeSet": {
+                    "type": "boolean"
+                },
+                "mouseListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseListener"
+                    }
+                },
+                "mouseMotionListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseMotionListener"
+                    }
+                },
+                "mousePosition": {
+                    "$ref": "#/definitions/Point"
+                },
+                "mouseWheelListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseWheelListener"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "opaque": {
+                    "type": "boolean"
+                },
+                "parent": {
+                    "$ref": "#/definitions/Container"
+                },
+                "peer": {
+                    "$ref": "#/definitions/ComponentPeer"
+                },
+                "preferredSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "preferredSizeSet": {
+                    "type": "boolean"
+                },
+                "propertyChangeListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PropertyChangeListener"
+                    }
+                },
+                "showing": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "toolkit": {
+                    "$ref": "#/definitions/Toolkit"
+                },
+                "treeLock": {
+                    "type": "object"
+                },
+                "valid": {
+                    "type": "boolean"
+                },
+                "width": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "x": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "y": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Label"
+        },
+        "LayoutManager": {
+            "type": "object",
+            "title": "LayoutManager"
+        },
+        "Locale": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string"
+                },
+                "displayCountry": {
+                    "type": "string"
+                },
+                "displayLanguage": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "displayScript": {
+                    "type": "string"
+                },
+                "displayVariant": {
+                    "type": "string"
+                },
+                "extensionKeys": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Character"
+                    }
+                },
+                "iso3Country": {
+                    "type": "string"
+                },
+                "iso3Language": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "script": {
+                    "type": "string"
+                },
+                "unicodeLocaleAttributes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "unicodeLocaleKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "variant": {
+                    "type": "string"
+                }
+            },
+            "title": "Locale"
+        },
+        "MouseListener": {
+            "type": "object",
+            "title": "MouseListener"
+        },
+        "MouseMotionListener": {
+            "type": "object",
+            "title": "MouseMotionListener"
+        },
+        "MouseWheelListener": {
+            "type": "object",
+            "title": "MouseWheelListener"
+        },
+        "Number": {
+            "type": "object",
+            "title": "Number"
+        },
+        "PageResult«SubjectInfoDTO»": {
+            "type": "object",
+            "properties": {
+                "end": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pageNo": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pageSize": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "result": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SubjectInfoDTO"
+                    }
+                },
+                "start": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "total": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalPages": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "PageResult«SubjectInfoDTO»"
+        },
+        "Point": {
+            "type": "object",
+            "properties": {
+                "x": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "y": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "Point"
+        },
+        "PropertyChangeListener": {
+            "type": "object",
+            "title": "PropertyChangeListener"
+        },
+        "Rectangle": {
+            "type": "object",
+            "properties": {
+                "bounds2D": {
+                    "$ref": "#/definitions/Rectangle2D"
+                },
+                "centerX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "centerY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "empty": {
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "maxX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "maxY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "width": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "x": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "y": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "Rectangle"
+        },
+        "Rectangle2D": {
+            "type": "object",
+            "properties": {
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "bounds2D": {
+                    "$ref": "#/definitions/Rectangle2D"
+                },
+                "centerX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "centerY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "empty": {
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "maxX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "maxY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minX": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minY": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "width": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "x": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "y": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "Rectangle2D"
+        },
+        "Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result"
+        },
+        "Result«List«Label»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Label"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result«List«Label»»"
+        },
+        "Result«List«SubjectCategoryDTO»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SubjectCategoryDTO"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result«List«SubjectCategoryDTO»»"
+        },
+        "Result«PageResult«SubjectInfoDTO»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "$ref": "#/definitions/PageResult«SubjectInfoDTO»"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result«PageResult«SubjectInfoDTO»»"
+        },
+        "Result«SubjectInfoDTO»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "$ref": "#/definitions/SubjectInfoDTO"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result«SubjectInfoDTO»"
+        },
+        "Result«boolean»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Result«boolean»"
+        },
+        "Shape": {
+            "type": "object",
+            "properties": {
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "bounds2D": {
+                    "$ref": "#/definitions/Rectangle2D"
+                }
+            },
+            "title": "Shape"
+        },
+        "SubjectAnswerDTO": {
+            "type": "object",
+            "properties": {
+                "isCorrect": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "optionContent": {
+                    "type": "string"
+                },
+                "optionType": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "SubjectAnswerDTO"
+        },
+        "SubjectCategoryDTO": {
+            "type": "object",
+            "properties": {
+                "categoryName": {
+                    "type": "string"
+                },
+                "categoryType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "labelDTOList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SubjectLabelDTO"
+                    }
+                },
+                "parentId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "title": "SubjectCategoryDTO"
+        },
+        "SubjectInfoDTO": {
+            "type": "object",
+            "properties": {
+                "categoryId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "categoryIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "createUser": {
+                    "type": "string"
+                },
+                "createUserAvatar": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "keyWord": {
+                    "type": "string"
+                },
+                "labelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "labelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "labelName": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "lastSubjectId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "liked": {
+                    "type": "boolean"
+                },
+                "likedCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nextSubjectId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "optionList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SubjectAnswerDTO"
+                    }
+                },
+                "pageNo": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pageSize": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "settleName": {
+                    "type": "string"
+                },
+                "subjectAnswer": {
+                    "type": "string"
+                },
+                "subjectCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "subjectDifficult": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "subjectName": {
+                    "type": "string"
+                },
+                "subjectParse": {
+                    "type": "string"
+                },
+                "subjectScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "subjectType": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "SubjectInfoDTO"
+        },
+        "SubjectLabelDTO": {
+            "type": "object",
+            "properties": {
+                "categoryId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "labelName": {
+                    "type": "string"
+                },
+                "sortNum": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "SubjectLabelDTO"
+        },
+        "Toolkit": {
+            "type": "object",
+            "properties": {
+                "alwaysOnTopSupported": {
+                    "type": "boolean"
+                },
+                "awteventListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AWTEventListener"
+                    }
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "dynamicLayoutActive": {
+                    "type": "boolean"
+                },
+                "fontList": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "maximumCursorColors": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "menuShortcutKeyMask": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "propertyChangeListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PropertyChangeListener"
+                    }
+                },
+                "screenResolution": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "screenSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "systemClipboard": {
+                    "$ref": "#/definitions/Clipboard"
+                },
+                "systemEventQueue": {
+                    "$ref": "#/definitions/EventQueue"
+                },
+                "systemSelection": {
+                    "$ref": "#/definitions/Clipboard"
+                }
+            },
+            "title": "Toolkit"
+        },
+        "Window": {
+            "type": "object",
+            "properties": {
+                "accessibleContext": {
+                    "$ref": "#/definitions/AccessibleContext"
+                },
+                "active": {
+                    "type": "boolean"
+                },
+                "alignmentX": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "alignmentY": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "alwaysOnTop": {
+                    "type": "boolean"
+                },
+                "alwaysOnTopSupported": {
+                    "type": "boolean"
+                },
+                "autoRequestFocus": {
+                    "type": "boolean"
+                },
+                "backgroundSet": {
+                    "type": "boolean"
+                },
+                "baselineResizeBehavior": {
+                    "type": "string",
+                    "enum": [
+                        "CONSTANT_ASCENT",
+                        "CONSTANT_DESCENT",
+                        "CENTER_OFFSET",
+                        "OTHER"
+                    ]
+                },
+                "bounds": {
+                    "$ref": "#/definitions/Rectangle"
+                },
+                "bufferStrategy": {
+                    "$ref": "#/definitions/BufferStrategy"
+                },
+                "colorModel": {
+                    "$ref": "#/definitions/ColorModel"
+                },
+                "componentCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "componentListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ComponentListener"
+                    }
+                },
+                "componentOrientation": {
+                    "$ref": "#/definitions/ComponentOrientation"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Component"
+                    }
+                },
+                "containerListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ContainerListener"
+                    }
+                },
+                "cursor": {
+                    "$ref": "#/definitions/Cursor"
+                },
+                "cursorSet": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "doubleBuffered": {
+                    "type": "boolean"
+                },
+                "dropTarget": {
+                    "$ref": "#/definitions/DropTarget"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "focusCycleRoot": {
+                    "type": "boolean"
+                },
+                "focusCycleRootAncestor": {
+                    "$ref": "#/definitions/Container"
+                },
+                "focusListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FocusListener"
+                    }
+                },
+                "focusOwner": {
+                    "$ref": "#/definitions/Component"
+                },
+                "focusTraversable": {
+                    "type": "boolean"
+                },
+                "focusTraversalKeysEnabled": {
+                    "type": "boolean"
+                },
+                "focusTraversalPolicy": {
+                    "$ref": "#/definitions/FocusTraversalPolicy"
+                },
+                "focusTraversalPolicyProvider": {
+                    "type": "boolean"
+                },
+                "focusTraversalPolicySet": {
+                    "type": "boolean"
+                },
+                "focusable": {
+                    "type": "boolean"
+                },
+                "focusableWindow": {
+                    "type": "boolean"
+                },
+                "focusableWindowState": {
+                    "type": "boolean"
+                },
+                "focused": {
+                    "type": "boolean"
+                },
+                "fontSet": {
+                    "type": "boolean"
+                },
+                "foregroundSet": {
+                    "type": "boolean"
+                },
+                "graphics": {
+                    "$ref": "#/definitions/Graphics"
+                },
+                "graphicsConfiguration": {
+                    "$ref": "#/definitions/GraphicsConfiguration"
+                },
+                "height": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hierarchyBoundsListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyBoundsListener"
+                    }
+                },
+                "hierarchyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HierarchyListener"
+                    }
+                },
+                "iconImages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Image"
+                    }
+                },
+                "ignoreRepaint": {
+                    "type": "boolean"
+                },
+                "inputContext": {
+                    "$ref": "#/definitions/InputContext"
+                },
+                "inputMethodListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InputMethodListener"
+                    }
+                },
+                "inputMethodRequests": {
+                    "$ref": "#/definitions/InputMethodRequests"
+                },
+                "insets": {
+                    "$ref": "#/definitions/Insets"
+                },
+                "keyListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/KeyListener"
+                    }
+                },
+                "layout": {
+                    "$ref": "#/definitions/LayoutManager"
+                },
+                "lightweight": {
+                    "type": "boolean"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "location": {
+                    "$ref": "#/definitions/Point"
+                },
+                "locationByPlatform": {
+                    "type": "boolean"
+                },
+                "locationOnScreen": {
+                    "$ref": "#/definitions/Point"
+                },
+                "maximumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "maximumSizeSet": {
+                    "type": "boolean"
+                },
+                "minimumSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "minimumSizeSet": {
+                    "type": "boolean"
+                },
+                "modalExclusionType": {
+                    "type": "string",
+                    "enum": [
+                        "NO_EXCLUDE",
+                        "APPLICATION_EXCLUDE",
+                        "TOOLKIT_EXCLUDE"
+                    ]
+                },
+                "mostRecentFocusOwner": {
+                    "$ref": "#/definitions/Component"
+                },
+                "mouseListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseListener"
+                    }
+                },
+                "mouseMotionListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseMotionListener"
+                    }
+                },
+                "mousePosition": {
+                    "$ref": "#/definitions/Point"
+                },
+                "mouseWheelListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MouseWheelListener"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "opacity": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "opaque": {
+                    "type": "boolean"
+                },
+                "ownedWindows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Window"
+                    }
+                },
+                "owner": {
+                    "$ref": "#/definitions/Window"
+                },
+                "parent": {
+                    "$ref": "#/definitions/Container"
+                },
+                "peer": {
+                    "$ref": "#/definitions/ComponentPeer"
+                },
+                "preferredSize": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "preferredSizeSet": {
+                    "type": "boolean"
+                },
+                "propertyChangeListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PropertyChangeListener"
+                    }
+                },
+                "shape": {
+                    "$ref": "#/definitions/Shape"
+                },
+                "showing": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "$ref": "#/definitions/Dimension"
+                },
+                "toolkit": {
+                    "$ref": "#/definitions/Toolkit"
+                },
+                "treeLock": {
+                    "type": "object"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "NORMAL",
+                        "UTILITY",
+                        "POPUP"
+                    ]
+                },
+                "valid": {
+                    "type": "boolean"
+                },
+                "validateRoot": {
+                    "type": "boolean"
+                },
+                "warningString": {
+                    "type": "string"
+                },
+                "width": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "windowFocusListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WindowFocusListener"
+                    }
+                },
+                "windowListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WindowListener"
+                    }
+                },
+                "windowStateListeners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WindowStateListener"
+                    }
+                },
+                "x": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "y": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Window"
+        },
+        "WindowFocusListener": {
+            "type": "object",
+            "title": "WindowFocusListener"
+        },
+        "WindowListener": {
+            "type": "object",
+            "title": "WindowListener"
+        },
+        "WindowStateListener": {
+            "type": "object",
+            "title": "WindowStateListener"
+        }
+    }
+}

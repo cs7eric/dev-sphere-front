@@ -1,6 +1,10 @@
 import {useState, useRef, useEffect} from "react";
+import {
+  queryLabelByCategoryIdUsingPost,
+  SubjectLabelDTO
+} from "@/apis/subject";
 
-export function LabelList() {
+export function LabelSection() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,41 +21,52 @@ export function LabelList() {
     }
   };
 
+  const body: SubjectLabelDTO = {
+    categoryId: 3
+  }
+
+  const [labelList, setLabelList] = useState<SubjectLabelDTO[]>([])
+
   useEffect(() => {
     checkOverflow();
     const resizeObserver = new ResizeObserver(checkOverflow);
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
     }
+
     return () => resizeObserver.disconnect();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await queryLabelByCategoryIdUsingPost({body})
+      console.log(res)
+      setLabelList(res.data)
+    }
+    fetchData()
+  }, [])
+
   return (
-    <div className="label-list mt-6 flex px-7">
+    <div className="label-list mt-6 mb-6 flex px-7">
       {/* 外层容器 */}
       <div
         ref={containerRef}
         className={`relative overflow-hidden transition-all duration-300 ${
-          isExpanded ? "max-h-[1000px]" : "max-h-12"
+          isExpanded ? "max-h-[1000px]" : "max-h-10"
         }`}
       >
         {/* 内容区域 */}
         <div
           ref={contentRef}
-          className="flex flex-wrap gap-2"
+          className="flex flex-wrap gap-4 "
           style={{
             maskImage: !isExpanded
-              ? "linear-gradient(to right, black 70%, transparent 95%)"
+              ? "linear-gradient(to right, black 80%, transparent 95%)"
               : "none"
           }}
         >
-          {[...Array(70)].map((_, i) => (
-            <span
-              key={i}
-              className="label-item px-2 py-1  rounded-full"
-            >
-              Java #{i + 1}
-            </span>
+          {labelList.map((label) => (
+            <h3>{label.labelName}</h3>
           ))}
 
         </div>

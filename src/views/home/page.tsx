@@ -10,7 +10,7 @@ import {
 import TextPressure from "@/components/text/TextPressure.tsx";
 import {LanguageSwitcher} from "@/views/home/components/language-switcher.tsx";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import {LabelList} from "@/components/subject/label-list.tsx";
+import {LabelSection} from "@/components/subject/label-section.tsx";
 import ListPage from "@/views/home/subject-list.tsx";
 import MainLayout from "@/layout/layout.tsx";
 import {Image} from "@unpic/react";
@@ -95,7 +95,7 @@ export default function HomePage() {
 
 
                   </div>
-                  <LabelList></LabelList>
+                  <LabelSection className='my-6'></LabelSection>
                   <ListPage></ListPage>
 
                 </div>
