@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bot, User } from 'lucide-react';
 import { toast } from '@/registry/hooks/use-toast';
 import { cn } from '@/lib/utils';
+
+// 懒加载Markdown相关组件
+const ReactMarkdown = lazy(() => import('react-markdown'));
+// 直接导入rehype插件，而不是懒加载它们
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 // 导入Ant Design X组件
 import {
@@ -153,6 +159,25 @@ export default function EnhancedChatPage() {
     setInputValue(value);
   };
 
+  // 自定义渲染消息内容的函数
+  const renderMessageContent = (content: string, role: 'user' | 'assistant') => {
+    if (role === 'user') {
+      return <div className="whitespace-pre-wrap">{content}</div>;
+    } else {
+      return (
+        <div className="prose prose-sm dark:prose-invert max-w-none">
+          <Suspense fallback={<div className="p-2 text-muted-foreground">加载中...</div>}>
+            <ReactMarkdown 
+              rehypePlugins={[() => rehypeRaw(), () => rehypeSanitize()]}
+            >
+              {content}
+            </ReactMarkdown>
+          </Suspense>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative dark:bg-gray-900">
       <div className="main-section w-full flex-grow overflow-hidden">
@@ -198,16 +223,16 @@ export default function EnhancedChatPage() {
                             </div>
                           )}
                         </div>
-                        <Bubble
-                          type={msg.role === 'user' ? 'primary' : 'secondary'}
-                          content={msg.content}
+                        <div
                           className={cn(
                             "p-4 rounded-lg shadow-sm",
                             msg.role === 'user' 
                               ? "bg-primary text-primary-foreground rounded-tr-none" 
                               : "bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none"
                           )}
-                        />
+                        >
+                          {renderMessageContent(msg.content, msg.role)}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -219,11 +244,11 @@ export default function EnhancedChatPage() {
                         <div className="w-8 h-8 rounded-full bg-muted dark:bg-gray-700 flex items-center justify-center">
                           <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
                         </div>
-                        <Bubble
-                          type="secondary"
-                          content={streamingMessage}
+                        <div
                           className="p-4 rounded-lg shadow-sm bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none max-w-[80%]"
-                        />
+                        >
+                          {renderMessageContent(streamingMessage, 'assistant')}
+                        </div>
                       </div>
                     </div>
                   )}
