@@ -4,7 +4,7 @@ import MainLayout from "@/layout/layout";
 
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
-const AnswerSubject = React.lazy(() => import('@/views/subject/answer-subject'))
+const AnswerSubject = React.lazy(() => import('@/views/subject/answer-subject/page.tsx'))
 const SettingsAccountPage = React.lazy(() => import("@/views/forms/account/page.tsx"))
 const SettingsAppearancePage = React.lazy(() => import("@/views/forms/appearance/page.tsx"))
 const SettingsDisplayPage = React.lazy(() => import("@/views/forms/display/page.tsx"))
@@ -18,7 +18,6 @@ const ExplorePage = React.lazy(() => import("@/views/explore/page.tsx"))
 const JobPage = React.lazy(() => import("@/views/job/page.tsx"))
 const RoadmapPage = React.lazy(() => import("@/views/roadmap/page.tsx"))
 const CirclePage = React.lazy(() => import("@/views/circle/page.tsx"))
-const ChatPage = React.lazy(() => import("@/views/chat/page.tsx"))
 const EnhancedChatPage = React.lazy(() => import("@/views/chat/enhanced-page.tsx"))
 
 // 加载状态组件
@@ -171,7 +170,7 @@ const router = createBrowserRouter([
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
-          <ChatPage/>
+          <EnhancedChatPage/>
         </Suspense>
       </MainLayout>
   },

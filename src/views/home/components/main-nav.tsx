@@ -9,7 +9,7 @@ export function MainNav({
 }: React.HTMLAttributes<HTMLElement>) {
   return (
     <nav
-      className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+      className={cn("flex items-center font-bold space-x-4 lg:space-x-6", className)}
       {...props}
     >
       <Link
@@ -41,6 +41,12 @@ export function MainNav({
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Roadmap
+      </Link>
+      <Link
+        to={"/chat"}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        Chat
       </Link>
       <Link
         to={"/settings"}
