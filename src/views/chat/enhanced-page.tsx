@@ -182,20 +182,25 @@ export default function EnhancedChatPage() {
   };
 
   return (
-    <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative">
-      <div className="main-section w-full flex-grow overflow-hidden">
+    <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative overflow-hidden">
+      <XProvider theme={{}}>
+
+      <div className="main-section w-full flex-grow overflow-hidden fixed">
         <Card className="chat-card w-full h-full border-0 shadow-lg bg-background dark:bg-background backdrop-blur-sm flex flex-col">
-          <XProvider theme={{}}>
             <div className="flex flex-col h-full">
-              <ScrollShadow className="messages-container flex-grow p-4 pb-20 dark:text-gray-200" hideScrollBar size={100}>
+              <ScrollShadow className={cn(
+                "messages-container flex-grow p-4 pb-20 dark:text-gray-200",
+                "h-[calc(100vh-16rem)] overflow-y-auto", // 调整高度计算
+                messages.length === 0 ? "flex items-center justify-center" : ""
+              )} hideScrollBar size={20}>
                 {messages.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-gray-300">
+                  <div className="flex flex-col items-center justify-center h-full w-full text-muted-foreground dark:text-gray-300">
                     <Bot className="h-16 w-16 mb-4 text-primary opacity-80" />
                     <p className="text-center">开始与 Devsphere  AI 助手对话吧！</p>
                     <p className="text-center text-sm mt-2 max-w-md">您可以询问任何问题，AI助手将尽力为您提供帮助。</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-4 w-full min-h-full">
                     {messages.map((msg) => (
                       <div 
                         key={msg.id}
@@ -224,7 +229,7 @@ export default function EnhancedChatPage() {
                               "p-4 rounded-lg shadow-sm",
                               msg.role === 'user' 
                                 ? "bg-primary text-primary-foreground rounded-tr-none" 
-                                : "bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none"
+                                : "bg-[#222222] text-gray-200 rounded-tl-none"
                             )}
                           >
                             {renderMessageContent(msg.content, msg.role)}
@@ -237,11 +242,11 @@ export default function EnhancedChatPage() {
                     {streamingMessage && (
                       <div className="flex justify-start animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
                         <div className="flex items-start gap-2">
-                          <div className="w-8 h-8 rounded-full bg-muted dark:bg-gray-700 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
                             <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
                           </div>
                           <div
-                            className="p-4 rounded-lg shadow-sm bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none max-w-[80%]"
+                            className="p-4 rounded-lg shadow-sm bg-[#222222] text-gray-200 rounded-tl-none max-w-[80%]"
                           >
                             {renderMessageContent(streamingMessage, 'assistant')}
                           </div>
@@ -254,25 +259,28 @@ export default function EnhancedChatPage() {
                 )}
               </ScrollShadow>
               
-              {/* 浮动的消息发送框 */}
-              <div className="fixed bottom-10 left-0 right-0 p-4 text-white z-10">
-                <div className="max-w-4xl mx-auto">
-                  <Sender
-                    onSubmit={handleSendMessage}
-                    onChange={handleInputChange}
-                    value={inputValue}
-                    loading={loading}
-                    disabled={loading}
-                    placeholder="输入你的问题..."
-                    className="flex-grow min-h-[60px] max-h-[120px] resize-none border-primary/20 focus-visible:ring-primary/30 !text-white [&_*]:!text-white placeholder:!text-white/70"
-                    style={{ color: 'white' }}
-                  />
-                </div>
-              </div>
+
             </div>
-          </XProvider>
         </Card>
       </div>
+      <div className="footer-section">
+        {/* 浮动的消息发送框 */}
+        <div className="fixed bottom-8 left-0 right-0 p-4 z-10 ">
+          <div className="max-w-4xl mx-auto">
+            <Sender
+              onSubmit={handleSendMessage}
+              onChange={handleInputChange}
+              value={inputValue}
+              loading={loading}
+              disabled={loading}
+              placeholder="输入你的问题..."
+              className="flex-grow min-h-[60px] max-h-[120px] resize-none border-primary/20 focus-visible:ring-primary/30 !text-foreground [&_*]:!text-foreground placeholder:!text-foreground/70"
+            />
+          </div>
+        </div>
+      </div>
+      </XProvider>
+
     </div>
   );
 }
