@@ -19,6 +19,7 @@ const JobPage = React.lazy(() => import("@/views/job/page.tsx"))
 const RoadmapPage = React.lazy(() => import("@/views/roadmap/page.tsx"))
 const CirclePage = React.lazy(() => import("@/views/circle/page.tsx"))
 const ChatPage = React.lazy(() => import("@/views/chat/page.tsx"))
+const EnhancedChatPage = React.lazy(() => import("@/views/chat/enhanced-page.tsx"))
 
 // 加载状态组件
 const LoadingFallback = () => (
@@ -171,6 +172,15 @@ const router = createBrowserRouter([
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
           <ChatPage/>
+        </Suspense>
+      </MainLayout>
+  },
+  {
+    path: '/chat/enhanced',
+    element:
+      <MainLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <EnhancedChatPage/>
         </Suspense>
       </MainLayout>
   }

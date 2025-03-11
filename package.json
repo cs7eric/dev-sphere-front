@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
     "@ant-design/pro-components": "^2.8.6",
+    "@ant-design/x": "^1.0.5",
     "@faker-js/faker": "^9.6.0",
     "@heroui/card": "^2.2.14",
     "@heroui/react": "^2.7.4",
