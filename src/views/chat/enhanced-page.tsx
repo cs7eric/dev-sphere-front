@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Bot, User } from 'lucide-react';
 import { toast } from '@/registry/hooks/use-toast';
 import { cn } from '@/lib/utils';
+
+import { theme } from 'antd';
 
 // 懒加载Markdown相关组件
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -75,6 +77,10 @@ export default function EnhancedChatPage() {
     role: msg.role,
     timestamp: msg.timestamp,
   }));
+
+  const hideAvatar: React.CSSProperties = {
+    visibility: 'hidden',
+  };
 
   // 发送消息到通义千问API并处理流式响应
   const sendMessageToAPI = async (userMessage: string) => {
@@ -183,9 +189,13 @@ export default function EnhancedChatPage() {
 
   return (
     <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative overflow-hidden">
-      <XProvider theme={{}}>
+      <XProvider 
+        theme={{
+          algorithm: theme.darkAlgorithm
+        
+      }}>
 
-      <div className="main-section w-full flex-grow overflow-hidden fixed">
+      <div className="main-section w-full flex-grow overflow-hidden ">
         <Card className="chat-card w-full h-full border-0 shadow-lg bg-background dark:bg-background backdrop-blur-sm flex flex-col">
             <div className="flex flex-col h-full">
               <ScrollShadow className={cn(
@@ -213,27 +223,25 @@ export default function EnhancedChatPage() {
                           "flex items-start gap-2 max-w-[80%]",
                           msg.role === 'user' ? "flex-row-reverse" : "flex-row"
                         )}>
-                          <div className="flex-shrink-0">
-                            {msg.role === 'user' ? (
-                              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                                <User className="h-5 w-5 text-primary-foreground" />
-                              </div>
-                            ) : (
-                              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
-                                <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
-                              </div>
-                            )}
-                          </div>
-                          <div
-                            className={cn(
-                              "p-4 rounded-lg shadow-sm",
-                              msg.role === 'user' 
-                                ? "bg-primary text-primary-foreground rounded-tr-none" 
-                                : "bg-[#222222] text-gray-200 rounded-tl-none"
-                            )}
-                          >
-                            {renderMessageContent(msg.content, msg.role)}
-                          </div>
+                          {/* 移除用户头像显示 */}
+                          <Bubble 
+                            styles={{ avatar: hideAvatar }}
+                            content={renderMessageContent(msg.content, msg.role)}
+                            type={msg.role === 'user' ? 'primary' : 'secondary'}
+                            placement={msg.role === 'user' ? 'right' : 'left'}
+                            maxWidth="100%"
+                            style={{
+                              backgroundColor: '#222222',
+                              color: '#ffffff |!important',
+
+                              
+                              borderRadius: '0.5rem',
+                              boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                              wordBreak: 'break-word',
+                              overflow: 'hidden'
+                            }}
+                            className='!text-white'
+                          />
                         </div>
                       </div>
                     ))}
@@ -241,15 +249,23 @@ export default function EnhancedChatPage() {
                     {/* 流式响应显示 */}
                     {streamingMessage && (
                       <div className="flex justify-start animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
-                        <div className="flex items-start gap-2">
-                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
-                            <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
-                          </div>
-                          <div
-                            className="p-4 rounded-lg shadow-sm bg-[#222222] text-gray-200 rounded-tl-none max-w-[80%]"
-                          >
-                            {renderMessageContent(streamingMessage, 'assistant')}
-                          </div>
+                        <div className="flex items-start gap-2 max-w-[80%]">
+                          {/* 移除AI头像显示 */}
+                          <Bubble 
+                            content={renderMessageContent(streamingMessage, 'assistant')}
+                            type="secondary"
+                            placement="left"
+                            maxWidth="100%"
+                            style={{
+                              backgroundColor: '#222222',
+                              color: '#ffffff |!important',
+                              borderRadius: '0.5rem',
+                              boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                              wordBreak: 'break-word',
+                              overflow: 'hidden'
+                            }}
+                            className='!text-white'
+                          />
                         </div>
                       </div>
                     )}
@@ -265,7 +281,7 @@ export default function EnhancedChatPage() {
       </div>
       <div className="footer-section">
         {/* 浮动的消息发送框 */}
-        <div className="fixed bottom-8 left-0 right-0 p-4 z-10 ">
+        <div className="fixed bottom-8 left-0 right-0 p-4 z-10 bg-black ">
           <div className="max-w-4xl mx-auto">
             <Sender
               onSubmit={handleSendMessage}
