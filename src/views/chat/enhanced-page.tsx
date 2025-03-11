@@ -21,6 +21,9 @@ import {
   useXChat
 } from '@ant-design/x';
 
+// 导入HeroUI的ScrollShadow组件
+import { ScrollShadow } from '@heroui/scroll-shadow';
+
 interface Message {
   id: string;
   content: string;
@@ -179,96 +182,92 @@ export default function EnhancedChatPage() {
   };
 
   return (
-    <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative dark:bg-gray-900">
+    <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative">
       <div className="main-section w-full flex-grow overflow-hidden">
-        <Card className="chat-card w-full h-full border-0 shadow-lg bg-white dark:bg-gray-800 backdrop-blur-sm flex flex-col">
-          <CardHeader className="border-b dark:border-gray-700 flex-shrink-0">
-            <CardTitle className="flex items-center gap-2 dark:text-gray-100">
-              <Bot className="h-5 w-5 text-primary" />
-              <span>通义千问 AI 助手</span>
-            </CardTitle>
-          </CardHeader>
-          
-          {/* 使用Ant Design X的XProvider包装聊天组件 */}
+        <Card className="chat-card w-full h-full border-0 shadow-lg bg-background dark:bg-background backdrop-blur-sm flex flex-col">
           <XProvider theme={{}}>
-            <div className="messages-container flex-grow overflow-y-auto p-4 pb-20 dark:text-gray-200">
-              {messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-gray-300">
-                  <Bot className="h-16 w-16 mb-4 text-primary opacity-80" />
-                  <p className="text-center">开始与 通义千问 AI 助手对话吧！</p>
-                  <p className="text-center text-sm mt-2 max-w-md">您可以询问任何问题，AI助手将尽力为您提供帮助。</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {messages.map((msg) => (
-                    <div 
-                      key={msg.id}
-                      className={cn(
-                        "flex animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
-                        msg.role === 'user' ? "justify-end" : "justify-start"
-                      )}
-                    >
-                      <div className={cn(
-                        "flex items-start gap-2 max-w-[80%]",
-                        msg.role === 'user' ? "flex-row-reverse" : "flex-row"
-                      )}>
-                        <div className="flex-shrink-0">
-                          {msg.role === 'user' ? (
-                            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                              <User className="h-5 w-5 text-primary-foreground" />
-                            </div>
-                          ) : (
-                            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
-                              <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
-                            </div>
-                          )}
-                        </div>
-                        <div
-                          className={cn(
-                            "p-4 rounded-lg shadow-sm",
-                            msg.role === 'user' 
-                              ? "bg-primary text-primary-foreground rounded-tr-none" 
-                              : "bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none"
-                          )}
-                        >
-                          {renderMessageContent(msg.content, msg.role)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  
-                  {/* 流式响应显示 */}
-                  {streamingMessage && (
-                    <div className="flex justify-start animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
-                      <div className="flex items-start gap-2">
-                        <div className="w-8 h-8 rounded-full bg-muted dark:bg-gray-700 flex items-center justify-center">
-                          <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
-                        </div>
-                        <div
-                          className="p-4 rounded-lg shadow-sm bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none max-w-[80%]"
-                        >
-                          {renderMessageContent(streamingMessage, 'assistant')}
+            <div className="flex flex-col h-full">
+              <ScrollShadow className="messages-container flex-grow p-4 pb-20 dark:text-gray-200" hideScrollBar size={100}>
+                {messages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-gray-300">
+                    <Bot className="h-16 w-16 mb-4 text-primary opacity-80" />
+                    <p className="text-center">开始与 Devsphere  AI 助手对话吧！</p>
+                    <p className="text-center text-sm mt-2 max-w-md">您可以询问任何问题，AI助手将尽力为您提供帮助。</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {messages.map((msg) => (
+                      <div 
+                        key={msg.id}
+                        className={cn(
+                          "flex animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
+                          msg.role === 'user' ? "justify-end" : "justify-start"
+                        )}
+                      >
+                        <div className={cn(
+                          "flex items-start gap-2 max-w-[80%]",
+                          msg.role === 'user' ? "flex-row-reverse" : "flex-row"
+                        )}>
+                          <div className="flex-shrink-0">
+                            {msg.role === 'user' ? (
+                              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                <User className="h-5 w-5 text-primary-foreground" />
+                              </div>
+                            ) : (
+                              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
+                                <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
+                              </div>
+                            )}
+                          </div>
+                          <div
+                            className={cn(
+                              "p-4 rounded-lg shadow-sm",
+                              msg.role === 'user' 
+                                ? "bg-primary text-primary-foreground rounded-tr-none" 
+                                : "bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none"
+                            )}
+                          >
+                            {renderMessageContent(msg.content, msg.role)}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  
-                  <div ref={messagesEndRef} />
+                    ))}
+                    
+                    {/* 流式响应显示 */}
+                    {streamingMessage && (
+                      <div className="flex justify-start animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
+                        <div className="flex items-start gap-2">
+                          <div className="w-8 h-8 rounded-full bg-muted dark:bg-gray-700 flex items-center justify-center">
+                            <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
+                          </div>
+                          <div
+                            className="p-4 rounded-lg shadow-sm bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none max-w-[80%]"
+                          >
+                            {renderMessageContent(streamingMessage, 'assistant')}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div ref={messagesEndRef} />
+                  </div>
+                )}
+              </ScrollShadow>
+              
+              {/* 浮动的消息发送框 */}
+              <div className="fixed bottom-10 left-0 right-0 p-4 text-white z-10">
+                <div className="max-w-4xl mx-auto">
+                  <Sender
+                    onSubmit={handleSendMessage}
+                    onChange={handleInputChange}
+                    value={inputValue}
+                    loading={loading}
+                    disabled={loading}
+                    placeholder="输入你的问题..."
+                    className="flex-grow min-h-[60px] max-h-[120px] resize-none border-primary/20 focus-visible:ring-primary/30 !text-white [&_*]:!text-white placeholder:!text-white/70"
+                    style={{ color: 'white' }}
+                  />
                 </div>
-              )}
-            </div>
-            {/* 浮动的消息发送框 */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 dark:bg-gray-900/90 backdrop-blur-sm border-t dark:border-gray-700 z-10">
-              <div className="max-w-4xl mx-auto">
-                <Sender
-                  onSubmit={handleSendMessage}
-                  onChange={handleInputChange}
-                  value={inputValue}
-                  loading={loading}
-                  disabled={loading}
-                  placeholder="输入你的问题..."
-                  className="flex-grow min-h-[60px] max-h-[120px] resize-none bg-background/50 dark:bg-gray-800/50 border-primary/20 dark:border-gray-600 focus-visible:ring-primary/30 dark:text-gray-200 dark:placeholder-gray-400"
-                />
               </div>
             </div>
           </XProvider>

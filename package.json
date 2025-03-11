@@ -16,6 +16,7 @@
     "@faker-js/faker": "^9.6.0",
     "@heroui/card": "^2.2.14",
     "@heroui/react": "^2.7.4",
+    "@heroui/scroll-shadow": "^2.3.10",
     "@heroui/system": "^2.4.11",
     "@heroui/theme": "^2.4.11",
     "@hookform/resolvers": "^4.1.3",
