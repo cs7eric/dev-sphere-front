@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bot } from 'lucide-react';
+import { Bot, User } from 'lucide-react';
 import { toast } from '@/registry/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -27,6 +27,9 @@ export default function EnhancedChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [openai, setOpenai] = useState<any>(null);
+  const [streamingMessage, setStreamingMessage] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>(''); // 添加输入值状态
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // 懒加载OpenAI库
   useEffect(() => {
@@ -51,6 +54,11 @@ export default function EnhancedChatPage() {
     loadOpenAI();
   }, []);
 
+  // 自动滚动到最新消息
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, streamingMessage]);
+
   // 转换消息格式以适配Ant Design X组件
   const convertedMessages = messages.map(msg => ({
     id: msg.id,
@@ -59,7 +67,7 @@ export default function EnhancedChatPage() {
     timestamp: msg.timestamp,
   }));
 
-  // 发送消息到通义千问API
+  // 发送消息到通义千问API并处理流式响应
   const sendMessageToAPI = async (userMessage: string) => {
     try {
       setLoading(true);
@@ -74,32 +82,54 @@ export default function EnhancedChatPage() {
       
       setMessages(prev => [...prev, newUserMessage]);
       
-      // 调用通义千问 API
+      // 清空输入框
+      setInputValue('');
+      
+      // 重置流式消息
+      setStreamingMessage('');
+      
+      // 准备历史消息
+      const historyMessages = messages.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+      
+      // 调用通义千问 API (流式响应)
       const response = await openai.chat.completions.create({
         model: 'qwen-plus', // 使用通义千问-plus模型
         messages: [
-          ...messages.map(msg => ({
-            role: msg.role,
-            content: msg.content
-          })),
+          ...historyMessages,
           { role: 'user', content: userMessage }
         ],
         temperature: 0.7,
+        stream: true, // 启用流式响应
       });
 
-      // 获取AI回复
-      const aiResponse = response.choices[0]?.message?.content || '抱歉，我无法回答这个问题。';
+      let fullResponse = '';
       
-      // 添加AI回复到消息列表
+      // 使用XStream处理流式响应
+      for await (const chunk of response) {
+        const content = chunk.choices[0]?.delta?.content || '';
+        if (content) {
+          fullResponse += content;
+          setStreamingMessage(fullResponse);
+        }
+      }
+      
+      // 流式响应完成后，添加完整的AI回复到消息列表
       setMessages(prev => [
         ...prev,
         {
           id: Date.now().toString() + '-ai',
-          content: aiResponse,
+          content: fullResponse,
           role: 'assistant',
           timestamp: new Date()
         }
       ]);
+      
+      // 清空流式消息状态
+      setStreamingMessage('');
+      
     } catch (error) {
       console.error('Error calling 通义千问 API:', error);
       toast({
@@ -118,67 +148,103 @@ export default function EnhancedChatPage() {
     sendMessageToAPI(value);
   };
 
+  // 处理输入变化
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+  };
+
   return (
-    <div className="chat-container flex flex-col justify-center p-4 md:p-8">
-      <div className="main-section w-full flex items-center justify-center">
-        <Card className="chat-card w-full max-w-4xl border-0 shadow-lg bg-white backdrop-blur-sm">
-          <CardHeader className="border-b dark:border-gray-800">
-            <CardTitle className="flex items-center gap-2">
+    <div className="chat-container flex flex-col h-[calc(100vh-4rem)] relative dark:bg-gray-900">
+      <div className="main-section w-full flex-grow overflow-hidden">
+        <Card className="chat-card w-full h-full border-0 shadow-lg bg-white dark:bg-gray-800 backdrop-blur-sm flex flex-col">
+          <CardHeader className="border-b dark:border-gray-700 flex-shrink-0">
+            <CardTitle className="flex items-center gap-2 dark:text-gray-100">
               <Bot className="h-5 w-5 text-primary" />
               <span>通义千问 AI 助手</span>
             </CardTitle>
           </CardHeader>
           
           {/* 使用Ant Design X的XProvider包装聊天组件 */}
-          <XProvider
-            theme={{
-            }}
-          >
-            <div className="messages-container h-[60vh] overflow-y-auto p-4 mb-4">
+          <XProvider theme={{}}>
+            <div className="messages-container flex-grow overflow-y-auto p-4 pb-20 dark:text-gray-200">
               {messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-gray-300">
                   <Bot className="h-16 w-16 mb-4 text-primary opacity-80" />
                   <p className="text-center">开始与 通义千问 AI 助手对话吧！</p>
                   <p className="text-center text-sm mt-2 max-w-md">您可以询问任何问题，AI助手将尽力为您提供帮助。</p>
                 </div>
               ) : (
-                <Bubble.List
-                  items={convertedMessages}
-                  renderItem={(item) => (
-                    <Bubble
-                      key={item.id}
-                      type={item.role === 'user' ? 'primary' : 'secondary'}
-                      content={item.content}
+                <div className="space-y-4">
+                  {messages.map((msg) => (
+                    <div 
+                      key={msg.id}
                       className={cn(
-                        "message flex mb-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
-                        item.role === 'user' 
-                          ? "justify-end dark:text-white text-primary-foreground" 
-                          : "justify-start text-white dark:text-white font-medium"
+                        "flex animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
+                        msg.role === 'user' ? "justify-end" : "justify-start"
                       )}
-                    />
-                  )}
-                />
-              )}
-              {loading && (
-                <div className="flex justify-start mb-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
-                  <div className="message-content max-w-[80%] p-4 rounded-lg shadow-sm bg-card dark:bg-gray-800 rounded-tl-none border dark:border-gray-700">
-                    <div className="message-header flex items-center gap-2 mb-2">
-                      <span className="text-xs font-medium">通义千问 AI 正在思考...</span>
+                    >
+                      <div className={cn(
+                        "flex items-start gap-2 max-w-[80%]",
+                        msg.role === 'user' ? "flex-row-reverse" : "flex-row"
+                      )}>
+                        <div className="flex-shrink-0">
+                          {msg.role === 'user' ? (
+                            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                              <User className="h-5 w-5 text-primary-foreground" />
+                            </div>
+                          ) : (
+                            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center dark:bg-gray-700">
+                              <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
+                            </div>
+                          )}
+                        </div>
+                        <Bubble
+                          type={msg.role === 'user' ? 'primary' : 'secondary'}
+                          content={msg.content}
+                          className={cn(
+                            "p-4 rounded-lg shadow-sm",
+                            msg.role === 'user' 
+                              ? "bg-primary text-primary-foreground rounded-tr-none" 
+                              : "bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none"
+                          )}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  ))}
+                  
+                  {/* 流式响应显示 */}
+                  {streamingMessage && (
+                    <div className="flex justify-start animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
+                      <div className="flex items-start gap-2">
+                        <div className="w-8 h-8 rounded-full bg-muted dark:bg-gray-700 flex items-center justify-center">
+                          <Bot className="h-5 w-5 text-foreground dark:text-gray-200" />
+                        </div>
+                        <Bubble
+                          type="secondary"
+                          content={streamingMessage}
+                          className="p-4 rounded-lg shadow-sm bg-muted dark:bg-gray-700 text-foreground dark:text-gray-200 rounded-tl-none max-w-[80%]"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div ref={messagesEndRef} />
                 </div>
               )}
             </div>
-            
-            {/* 使用Ant Design X的Sender组件 */}
-            <div className="p-4 pt-0">
-              <Sender
-                onSubmit={handleSendMessage}
-                loading={loading}
-                disabled={loading}
-                placeholder="输入你的问题..."
-                className="flex-grow min-h-[60px] max-h-[120px] resize-none bg-background/50 border-primary/20 focus-visible:ring-primary/30"
-              />
+            {/* 浮动的消息发送框 */}
+            <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 dark:bg-gray-900/90 backdrop-blur-sm border-t dark:border-gray-700 z-10">
+              <div className="max-w-4xl mx-auto">
+                <Sender
+                  onSubmit={handleSendMessage}
+                  onChange={handleInputChange}
+                  value={inputValue}
+                  loading={loading}
+                  disabled={loading}
+                  placeholder="输入你的问题..."
+                  className="flex-grow min-h-[60px] max-h-[120px] resize-none bg-background/50 dark:bg-gray-800/50 border-primary/20 dark:border-gray-600 focus-visible:ring-primary/30 dark:text-gray-200 dark:placeholder-gray-400"
+                />
+              </div>
             </div>
           </XProvider>
         </Card>
