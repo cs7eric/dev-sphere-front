@@ -4,6 +4,8 @@ import {MainNav} from "@/views/home/components/main-nav.tsx"
 import {Search} from "@/views/home/components/search.tsx"
 import {UserNav} from "@/views/home/components/user-nav.tsx"
 import FieldSwitcher from "@/views/home/components/field-switcher.tsx";
+import React from "react";
+import Providers from "../../providers.tsx";
 
 
 export default function MainLayout({children}: { children: React.ReactNode }) {
@@ -38,7 +40,9 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="flex-1 space-y-4 p-8 mt-16">
-          {children}
+          <Providers>
+            {children}
+          </Providers>
         </div>
       </div>
     </>
