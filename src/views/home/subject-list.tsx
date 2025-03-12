@@ -50,11 +50,17 @@ export default function ListPage() {
       <Button
         onClick={() => {
           addToast({
+            size: 'lg',
             title: "Toast Title",
             description: "Toast Description",
             promise: new Promise((resolve) => setTimeout(resolve, 3000)),
-            variant: 'solid',
-            type: 'error',
+            type: 'success',
+            classNames: {
+              base: "w-[360px]"
+            },
+            radius: 'lg',
+            color: "secondary",
+            variant: 'flat'
 
           });
         }}

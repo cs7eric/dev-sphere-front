@@ -66,7 +66,7 @@ export function LabelSection() {
           }}
         >
           {labelList.map((label) => (
-            <h3>{label.labelName}</h3>
+            <h3 key={label.id}>{label.labelName}</h3>
           ))}
 
         </div>
