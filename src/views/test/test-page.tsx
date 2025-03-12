@@ -1,5 +1,24 @@
-import {addToast, Button} from "@heroui/react";
+import {addToast, Button, Select, SelectItem, Snippet, Spinner} from "@heroui/react";
 import {ToastProvider} from "@heroui/toast";
+import React from "react";
+
+
+export const animals = [
+  {key: "cat", label: "Cat"},
+  {key: "dog", label: "Dog"},
+  {key: "elephant", label: "Elephant"},
+  {key: "lion", label: "Lion"},
+  {key: "tiger", label: "Tiger"},
+  {key: "giraffe", label: "Giraffe"},
+  {key: "dolphin", label: "Dolphin"},
+  {key: "penguin", label: "Penguin"},
+  {key: "zebra", label: "Zebra"},
+  {key: "shark", label: "Shark"},
+  {key: "whale", label: "Whale"},
+  {key: "otter", label: "Otter"},
+  {key: "crocodile", label: "Crocodile"},
+];
+
 
 export default function TestPage() {
   return (
@@ -24,6 +43,25 @@ export default function TestPage() {
         }}
       />
 
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        <Select className="max-w-xs" label="Select an animal">
+          {animals.map((animal) => (
+            <SelectItem key={animal.key}>{animal.label}</SelectItem>
+          ))}
+        </Select>
+        <Select className="max-w-xs" label="Favorite Animal" placeholder="Select an animal">
+          {animals.map((animal) => (
+            <SelectItem key={animal.key}>{animal.label}</SelectItem>
+          ))}
+        </Select>
+      </div>
+
+      <Snippet>npm install @heroui/react</Snippet>
+      <div className="flex gap-4">
+        <Spinner size="sm"/>
+        <Spinner size="md"/>
+        <Spinner size="lg"/>
+      </div>
       <div className="flex flex-wrap gap-2">
         {[
           ["Solid", "solid"],
