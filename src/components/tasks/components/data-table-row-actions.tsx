@@ -28,7 +28,21 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = taskSchema.parse(row.original)
+  // 使用可选的taskSchema验证，如果验证失败则提供默认值
+  let task;
+  try {
+    task = taskSchema.parse(row.original);
+  } catch (error) {
+    // 如果验证失败，使用默认值或从row.original中提取可用值
+    const original = row.original as Record<string, any>;
+    task = {
+      id: original.id || "",
+      title: original.title || "",
+      status: original.status || "",
+      label: original.label || "",
+      priority: original.priority || "",
+    };
+  }
 
   return (
     <DropdownMenu>
@@ -46,18 +60,20 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        {labels && labels.length > 0 && (
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuRadioGroup value={task.label}>
+                {labels.map((label) => (
+                  <DropdownMenuRadioItem key={label.value} value={label.value}>
+                    {label.label}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete

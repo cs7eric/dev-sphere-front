@@ -31,11 +31,27 @@ import { DataTableToolbar } from "./data-table-toolbar"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  filterColumn?: string // 可自定义过滤列名
+  searchPlaceholder?: string // 可自定义搜索框占位符
+  facetedFilters?: Array<{
+    column: string
+    title: string
+    options: Array<{
+      label: string
+      value: string
+      icon?: React.ComponentType<{ className?: string }>
+    }>
+  }> // 可自定义过滤器配置
+  onRowClick?: (row: TData) => void // 行点击事件处理函数
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filterColumn,
+  searchPlaceholder,
+  facetedFilters,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -69,7 +85,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar 
+        table={table} 
+        filterColumn={filterColumn}
+        searchPlaceholder={searchPlaceholder}
+        facetedFilters={facetedFilters}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -97,7 +118,7 @@ export function DataTable<TData, TValue>({
                   className={'cursor-pointer'}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onClick={() => {console.log(row.id)}}
+                  onClick={() => onRowClick ? onRowClick(row.original) : console.log(row.id)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
