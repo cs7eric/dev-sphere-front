@@ -12,10 +12,10 @@ createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HeroUIProvider>
       {/* ToastProvider 必须包裹 children */}
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <RouterProvider router={router}/>
         <App/>
-        </ThemeProvider>
+      </ThemeProvider>
 
     </HeroUIProvider>
   </React.StrictMode>

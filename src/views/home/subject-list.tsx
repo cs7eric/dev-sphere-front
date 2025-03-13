@@ -80,7 +80,7 @@ export default function ListPage() {
 
   const body: SubjectInfoDTO = {
     pageNo: 1,
-    pageSize: 10
+    pageSize: 20
   }
   // 自定义渲染器 - 题目
   const subjectRenderers = {
@@ -91,14 +91,16 @@ export default function ListPage() {
 
 
   useEffect(() => {
+
+
     const fetchSubjectListData = async () => {
       const res = await getSceneSubjectPageUsingPost({body});
-      setSubjectList(res.result); // 更新状态为请求到的数据
-      console.log(res.result)
+      setSubjectList(res.data.result);
     }
 
     fetchSubjectListData();
-  }, []) // 只在组件挂载时调用
+    console.log(subjectList)
+  }, [])
 
 
   return (
@@ -117,7 +119,7 @@ export default function ListPage() {
           exampleObject={subjectData[0]}
           filterColumn="subjectName"
           searchPlaceholder="搜索题目..."
-          excludeFields={["subjectParse", "updateBy", "updateTime"]}
+          excludeFields={["subjectParse"]}
           customRenderers={subjectRenderers}
           columnTitles={{
             id: "题目ID",
