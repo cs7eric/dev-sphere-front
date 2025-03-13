@@ -5,7 +5,6 @@ import {Search} from "@/views/home/components/search.tsx"
 import {UserNav} from "@/views/home/components/user-nav.tsx"
 import FieldSwitcher from "@/views/home/components/field-switcher.tsx";
 import React from "react";
-import {ToastProvider} from "@heroui/toast";
 
 
 export default function MainLayout({children}: { children: React.ReactNode }) {
@@ -40,24 +39,7 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="flex-1 space-y-4 p-8 mt-16">
-          <ToastProvider
-            placement="top-right"
-            toastOffset={70}
-            timeout={3000}
-            maxVisibleToasts={3}
-            defaultVariant="solid"
-            classNames={{
-              base: "w-[360px] min-h-[120px] shadow-xl rounded-xl",
-              wrapper: "p-4 gap-y-3",
-              title: "text-lg font-semibold text-gray-900",
-              description: "text-sm text-gray-600 leading-5",
-              icon: "w-8 h-8 [&>svg]:w-full [&>svg]:h-full",
-              closeButton: "w-10 h-10 hover:bg-gray-100 rounded-full",
-              closeIcon: "w-5 h-5 text-gray-500",
-              progressTrack: "h-1 bg-gray-200",
-              progressIndicator: "h-1 bg-blue-500"
-            }}
-          />
+
             {children}
         </div>
       </div>

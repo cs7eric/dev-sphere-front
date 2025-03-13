@@ -15,17 +15,7 @@ export default function ListPage() {
     pageSize: 10
   }
 
-  const onToast  = () => {
-    addToast({
-      title: "Error",
-      description: "Failed to fetch data. Please try again.",
-      variant: 'flat',
-      color: "secondary",
-      radius: 'md',
-      duration: 4000,
-      size: 'sm'
-    });
-  }
+
 
 
   useEffect(() => {
@@ -47,24 +37,6 @@ export default function ListPage() {
 
       </div>
 
-      <Button
-        onClick={() => {
-          addToast({
-            size: 'lg',
-            title: "Toast Title",
-            description: "Toast Description",
-            promise: new Promise((resolve) => setTimeout(resolve, 3000)),
-            type: 'success',
-            classNames: {
-              base: "w-[360px]"
-            },
-            radius: 'lg',
-            color: "secondary",
-            variant: 'flat'
-
-          });
-        }}
-      ></Button>
 
       <div className="hidden w-full flex-1 flex-col space-y-8 px-30 md:flex">
 
