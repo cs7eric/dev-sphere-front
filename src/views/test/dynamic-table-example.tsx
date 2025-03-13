@@ -92,7 +92,8 @@ const difficultMap = [
 // 删除状态映射
 const deletedMap = [
   { label: "正常", value: 0, icon: CheckCircle },
-  { label: "已删除", value: 1, icon: XCircle }
+  { label: "已删除", value: 1, icon: XCircle },
+  {label: '已完成', value: 2, icon: XCircle}
 ]
 
 export default function DynamicTableExample() {
