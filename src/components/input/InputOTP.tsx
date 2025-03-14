@@ -40,7 +40,12 @@ export function InputOTPForm() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log('验证码值:', data.pin); // 添加控制台打印验证码值
     toast({
-      description: "Your message has been sent.",
+      description: "发送成功",
+
+      // variant: "",
+      title: '验证码'
+
+
     })
   }
 

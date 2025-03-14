@@ -3,6 +3,7 @@ import {buttonVariants} from "@/components/ui/button"
 import {UserAuthForm} from "@/views/authentication/components/user-auth-form"
 import React, { lazy, Suspense } from "react";
 import {Link} from "react-router-dom";
+import {Toaster} from "@/components/ui/toaster"
 
 // 懒加载较大的组件
 const Image = lazy(() => import("@unpic/react").then(module => ({ default: module.Image })));
@@ -11,6 +12,8 @@ const Lanyard = lazy(() => import("@/components/reactbits/Lanyard.tsx")); // 基
 export default function AuthenticationPage() {
   return (
     <>
+      <Toaster/>
+
       <div className="m-20 mx-auto border max-w-[60vw] rounded-3xl flex items-center">
         <div className="md:hidden rounded-2xl">
           <Suspense fallback={<div className="flex items-center justify-center p-4">

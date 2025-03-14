@@ -18,7 +18,9 @@ import {Image} from "@unpic/react";
 import JavaIcon from '@/assets/icon/java.svg'
 import CppIcon from '@/assets/icon/cpp.svg'
 import PythonIcon from '@/assets/icon/python.svg'
-const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python', 'React', 'Golang', 'Vue', 'C++','Java', 'Python']
+import {toast} from "@/registry/hooks/use-toast.ts";
+
+const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python']
 
 
 export default function HomePage() {
@@ -97,7 +99,18 @@ export default function HomePage() {
                   </div>
                   <LabelSection className='my-6'></LabelSection>
                   <ListPage></ListPage>
+                  <Button
+                    onClick={() => {
+                      toast({
+                        description: "发送成功",
 
+                        // variant: "",
+                        title: '验证码'
+
+
+                      })
+                    }}
+                  >click</Button>
                 </div>
                 <div className="right-section flex-1/5  h-auto">
 
@@ -112,7 +125,8 @@ export default function HomePage() {
                         <div className="field-list flex flex-wrap gap-2">
 
                           {items.map((item, index) => (
-                            <div className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]">{item}'{index}</div>
+                            <div
+                              className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]">{item}'{index}</div>
                           ))}
 
                         </div>
@@ -126,7 +140,8 @@ export default function HomePage() {
                     {/*userList*/}
                     <Card className="mt-3 h-90"></Card>
                     {/*website*/}
-                    <div className="mt-6 hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626] ">
+                    <div
+                      className="mt-6 hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626] ">
                       <div className="website  gap-2">
                         <div className="flex">
                           <div
@@ -149,14 +164,14 @@ export default function HomePage() {
                           &copy cccs7/cs7eric
                         </div>
                         <div
-                          className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">联系邮箱: csq020611@gmail.com</div>
+                          className="website-item p-2 text-[#a1a1a1] hover:bg-[#262626] cursor-pointer text-sm hover:text-[#fff] rounded-sm">联系邮箱:
+                          csq020611@gmail.com
+                        </div>
                       </div>
-
 
 
                     </div>
                   </div>
-
 
 
                 </div>

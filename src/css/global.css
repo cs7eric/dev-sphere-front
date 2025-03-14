@@ -203,4 +203,23 @@
   border-top-color: rgba(255, 255, 255, 0.1);
 }
 
+/* global.css */
+@layer base {
+  :root {
+    /* 蓝色系 */
+    --color-blue-100: #E6F4FF;
+    --color-blue-800: #0A4B9A;
 
+    /* 绿色系 */
+    --color-green-100: #E6F7ED;
+    --color-green-800: #0F7139;
+
+    /* 黄色系 */
+    --color-yellow-100: #FFF8E6;
+    --color-yellow-800: #8C6700;
+
+    /* 红色系 */
+    --color-red-100: #FFE6E9;
+    --color-red-800: #9B1C1C;
+  }
+}

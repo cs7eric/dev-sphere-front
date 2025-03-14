@@ -1,5 +1,5 @@
-import { notification } from 'antd';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, {AxiosRequestConfig} from 'axios';
+import {toast} from "@/registry/hooks/use-toast.ts";
 
 const BASE_URL = 'http://localhost:5000';
 
@@ -13,21 +13,38 @@ const instance = axios.create({
 
 instance.interceptors.response.use(
   (response) => {
-    // data解构
-    if (response.data) {
-      return response.data;
+    // 成功响应处理
+    const {success, code, message} = response.data
+    if (success || code === 200) {
+      toast({
+        variant: "success",
+        title: "操作成功",
+        description: message || "请求已完成"
+      })
+    } else { // 业务逻辑错误（success=false 但 http status=200）
+      toast({
+        variant: "danger",
+        title: "业务错误",
+        description: message || "操作未成功"
+      })
     }
-    return response;
+    return response.data;
   },
   (error) => {
     // 统一错误处理
-    if (error.response.status >= 300) {
-      notification.error({
-        message: error.response.data?.msg,
-        duration: 2,
-      });
-    }
-    return Promise.reject(error);
+    // 网络错误处理
+    const responseData = error.response?.data || {}
+    const errorMessage = responseData.message ||
+      error.message ||
+      `请求失败 (${error.response?.status || '未知错误'})`
+
+    toast({
+      variant: "danger",
+      title: responseData.code ? `错误代码 ${responseData.code}` : "网络错误",
+      description: errorMessage,
+    })
+
+    return Promise.reject(error)
   }
 );
 
