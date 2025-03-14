@@ -4,7 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {z} from "zod"
 
-import {toast} from "@/registry/hooks/use-toast"
+import {useToast} from "@/registry/hooks/use-toast"
 import {Button} from "@/components/ui/button"
 import {
   Form,
@@ -28,23 +28,22 @@ const FormSchema = z.object({
 })
 
 export function InputOTPForm() {
+  const {toast} = useToast()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pin: "",
     },
   })
+
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log('验证码值:', data.pin); // 添加控制台打印验证码值
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      description: "Your message has been sent.",
     })
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
@@ -57,14 +56,14 @@ export function InputOTPForm() {
               <FormControl>
                 <InputOTP
                   maxLength={6}
-                  {...field}  // 关键修复：正确绑定表单字段
+                  {...field} // 关键修复：正确绑定表单字段
                 >
                   <InputOTPGroup className="mt-4 gap-2">
                     {[...Array(6)].map((_, index) => (
                       <InputOTPSlot
                         key={index}
                         index={index}
-                        className="h-12 w-12 text-lg"
+                        className="h-12 w-12 text-md border"
                       />
                     ))}
                   </InputOTPGroup>

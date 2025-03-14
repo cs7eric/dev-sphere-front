@@ -7,12 +7,8 @@ import { Icons } from "@/components/ui/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
+import {Image} from '@unpic/react'
+
 
 // 懒加载OTP表单组件
 const InputOTPForm = React.lazy(() => import("@/components/input/InputOTP.tsx").then(module => ({ default: module.InputOTPForm })));
@@ -25,9 +21,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     event.preventDefault()
     setIsLoading(true)
 
+
+
     setTimeout(() => {
       setIsLoading(false)
-    }, 3000)
+    }, 2000)
   }
 
   return (
@@ -68,7 +66,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       </div>
 
       {showInput ? (
-        <React.Suspense fallback={<div className="flex items-center justify-center p-4"><Icons.spinner className="h-6 w-6 animate-spin" /></div>}>
+        <React.Suspense fallback={<div className="flex items-center justify-center p-3"><Icons.spinner className="h-6 w-6 animate-spin" /></div>}>
+          <div className='flex justify-center'>
+            <Image
+              src={'https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20250314211249700.png'}
+              width={'100px'}
+              className='rounded-sm'
+            ></Image>
+          </div>
+
           <InputOTPForm></InputOTPForm>
         </React.Suspense>
       ):''}

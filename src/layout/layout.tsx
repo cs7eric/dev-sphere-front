@@ -5,9 +5,11 @@ import {Search} from "@/views/home/components/search.tsx"
 import {UserNav} from "@/views/home/components/user-nav.tsx"
 import FieldSwitcher from "@/views/home/components/field-switcher.tsx";
 import React from "react";
+import { Toaster } from "@/components/ui/toaster"
 
 
 export default function MainLayout({children}: { children: React.ReactNode }) {
+
   return (
     <>
 
@@ -39,8 +41,8 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="flex-1 space-y-4 p-8 mt-16">
-
-            {children}
+          <main>{children}</main>
+          <Toaster/>
         </div>
       </div>
     </>
