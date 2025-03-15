@@ -4,7 +4,7 @@ import request from '@/utils/request.ts';
 
 import * as API from './types';
 
-/** changeStatus POST /user/changeStatus */
+/** changeStatus POST /auth/user/changeStatus */
 export async function changeStatusUsingPost({
   body,
   options,
@@ -12,7 +12,7 @@ export async function changeStatusUsingPost({
   body: API.AuthUserDTO;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.Result>('/user/changeStatus', {
+  return request<API.Result>('/auth/user/changeStatus', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function changeStatusUsingPost({
   });
 }
 
-/** delete DELETE /user/delete */
+/** delete DELETE /auth/user/delete */
 export async function deleteUsingDelete2({
   body,
   options,
@@ -30,7 +30,7 @@ export async function deleteUsingDelete2({
   body: API.AuthUserDTO;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.Result>('/user/delete', {
+  return request<API.Result>('/auth/user/delete', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export async function deleteUsingDelete2({
   });
 }
 
-/** doLogin GET /user/doLogin */
+/** doLogin GET /auth/user/doLogin */
 export async function doLoginUsingGet1({
   params,
   options,
@@ -49,7 +49,7 @@ export async function doLoginUsingGet1({
   params: API.doLoginUsingGET1Params;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.ResultSaTokenInfo_>('/user/doLogin', {
+  return request<API.ResultSaTokenInfo_>('/auth/user/doLogin', {
     method: 'GET',
     params: {
       ...params,
@@ -58,79 +58,7 @@ export async function doLoginUsingGet1({
   });
 }
 
-/** doLogin PUT /user/doLogin */
-export async function doLoginUsingPut1({
-  params,
-  options,
-}: {
-  // 叠加生成的Param类型 (非body参数openapi默认没有生成对象)
-  params: API.doLoginUsingPUT1Params;
-  options?: { [key: string]: unknown };
-}) {
-  return request<API.ResultSaTokenInfo_>('/user/doLogin', {
-    method: 'PUT',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
-/** doLogin POST /user/doLogin */
-export async function doLoginUsingPost1({
-  params,
-  options,
-}: {
-  // 叠加生成的Param类型 (非body参数openapi默认没有生成对象)
-  params: API.doLoginUsingPOST1Params;
-  options?: { [key: string]: unknown };
-}) {
-  return request<API.ResultSaTokenInfo_>('/user/doLogin', {
-    method: 'POST',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
-/** doLogin DELETE /user/doLogin */
-export async function doLoginUsingDelete1({
-  params,
-  options,
-}: {
-  // 叠加生成的Param类型 (非body参数openapi默认没有生成对象)
-  params: API.doLoginUsingDELETE1Params;
-  options?: { [key: string]: unknown };
-}) {
-  return request<API.ResultSaTokenInfo_>('/user/doLogin', {
-    method: 'DELETE',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
-/** doLogin PATCH /user/doLogin */
-export async function doLoginUsingPatch1({
-  params,
-  options,
-}: {
-  // 叠加生成的Param类型 (非body参数openapi默认没有生成对象)
-  params: API.doLoginUsingPATCH1Params;
-  options?: { [key: string]: unknown };
-}) {
-  return request<API.ResultSaTokenInfo_>('/user/doLogin', {
-    method: 'PATCH',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
-/** getUserInfo GET /user/getUserInfo */
+/** getUserInfo GET /auth/user/getUserInfo */
 export async function getUserInfoUsingGet({
   body,
   options,
@@ -138,7 +66,7 @@ export async function getUserInfoUsingGet({
   body: API.AuthUserDTO;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.ResultAuthUserDTO_>('/user/getUserInfo', {
+  return request<API.ResultAuthUserDTO_>('/auth/user/getUserInfo', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -148,7 +76,7 @@ export async function getUserInfoUsingGet({
   });
 }
 
-/** register POST /user/register */
+/** register POST /auth/user/register */
 export async function registerUsingPost({
   body,
   options,
@@ -156,7 +84,7 @@ export async function registerUsingPost({
   body: API.AuthUserDTO;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.Result>('/user/register', {
+  return request<API.Result>('/auth/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -166,7 +94,7 @@ export async function registerUsingPost({
   });
 }
 
-/** update POST /user/update */
+/** update POST /auth/user/update */
 export async function updateUsingPost2({
   body,
   options,
@@ -174,7 +102,7 @@ export async function updateUsingPost2({
   body: API.AuthUserDTO;
   options?: { [key: string]: unknown };
 }) {
-  return request<API.Result>('/user/update', {
+  return request<API.Result>('/auth/user/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -3,7 +3,7 @@
 export * from './types';
 
 export * from './authController';
+export * from './userController';
 export * from './permissionController';
 export * from './roleController';
 export * from './rolePermissionController';
-export * from './userController';

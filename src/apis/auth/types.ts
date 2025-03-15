@@ -50,11 +50,6 @@ export type AuthUserDTO = {
   userName?: string;
 };
 
-export type doLoginUsingDELETE1Params = {
-  /** validCode */
-  validCode: string;
-};
-
 export type doLoginUsingDELETEParams = {
   /** password */
   password?: string;
@@ -74,11 +69,6 @@ export type doLoginUsingGETParams = {
   username?: string;
 };
 
-export type doLoginUsingPATCH1Params = {
-  /** validCode */
-  validCode: string;
-};
-
 export type doLoginUsingPATCHParams = {
   /** password */
   password?: string;
@@ -86,21 +76,11 @@ export type doLoginUsingPATCHParams = {
   username?: string;
 };
 
-export type doLoginUsingPOST1Params = {
-  /** validCode */
-  validCode: string;
-};
-
 export type doLoginUsingPOSTParams = {
   /** password */
   password?: string;
   /** username */
   username?: string;
-};
-
-export type doLoginUsingPUT1Params = {
-  /** validCode */
-  validCode: string;
 };
 
 export type doLoginUsingPUTParams = {

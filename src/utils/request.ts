@@ -55,7 +55,10 @@ instance.interceptors.request.use((config) => {
 
 const request = async <T = unknown>(
   url: string,
-  options: AxiosRequestConfig = {}
+  options: AxiosRequestConfig = {},
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+  }
 ) => {
   return await instance.request<T, T>({
     url,

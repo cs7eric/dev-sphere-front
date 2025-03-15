@@ -20,6 +20,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
+import {doLoginUsingGet1} from "@/apis/auth";
+
 
 const FormSchema = z.object({
   pin: z.string().length(6, {
@@ -37,16 +39,19 @@ export function InputOTPForm() {
   })
 
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     console.log('验证码值:', data.pin); // 添加控制台打印验证码值
     toast({
       description: "发送成功",
-
-      // variant: "",
       title: '验证码'
-
-
     })
+    const params = {
+      validCode: String
+    }
+    params.validCode = data.pin
+    const res = await doLoginUsingGet1({params})
+    const { tokenValue, loginId } = res.data.data;
+    console.log(res)
   }
 
   return (
