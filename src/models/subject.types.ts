@@ -1,4 +1,5 @@
 export interface Subject {
+  labelName: string[];
   id: string
   subjectName?: string
   subjectDifficult?: number
