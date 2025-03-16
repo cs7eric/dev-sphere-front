@@ -28,11 +28,14 @@ export const userInfoSlice = createSlice({
     // 定义一个加的方法
     saveUserInfo: (state, { payload }) => {
       state.userInfo = { ...state.userInfo, ...payload }
+    },
+    removeUserInfo : (state) => {
+      state.userInfo = {}
     }
   }
 })
 // 导出方法
-export const { saveUserInfo } = userInfoSlice.actions
+export const { saveUserInfo, removeUserInfo } = userInfoSlice.actions
 
 // 默认导出
 export default userInfoSlice.reducer

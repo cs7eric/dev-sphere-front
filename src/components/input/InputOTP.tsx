@@ -20,7 +20,10 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
-import {doLoginUsingGet1} from "@/apis/auth";
+import {doLoginUsingGet1, getUserInfoUsingGet, getUserInfoUsingPost} from "@/apis/auth";
+import store from "@/store";
+import {saveUserInfo} from "@/store/features/user/userInfoSlice.ts";
+import {useNavigate} from "react-router-dom";
 
 
 const FormSchema = z.object({
@@ -38,20 +41,53 @@ export function InputOTPForm() {
     },
   })
 
+  const navigate = useNavigate()
+
+  const fetchUserInfo = async (loginId) => {
+
+    const body = {
+      userName: loginId
+    }
+
+    getUserInfoUsingPost({body})
+    .then(res => {
+      if (res?.success && res?.data) {
+        // 存储到localStorage
+        // localStorage.setItem('userInfo', JSON.stringify(res.data))
+        // 更新Redux store
+        store.dispatch(saveUserInfo(res.data));
+      }
+    })
+  }
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    console.log('验证码值:', data.pin); // 添加控制台打印验证码值
-    toast({
-      description: "发送成功",
-      title: '验证码'
-    })
-    const params = {
-      validCode: String
+    try {
+      const params = {
+        validCode: String
+      }
+      params.validCode = data.pin
+      const res = await doLoginUsingGet1({params})
+      if (res.success == false) {
+        toast({
+          variant: "danger",
+          title: "登录失败",
+          description: res.data
+        })
+        return
+      }
+      localStorage.setItem('userInfo', JSON.stringify(res.data))
+
+      await fetchUserInfo(res.data.loginId)
+
+      toast({
+        variant: "success",
+        title: "登录成功",
+        description: "欢迎回来"
+      })
+      navigate('/')
+    } catch (error) {
+      console.log("登录失败" + error)
     }
-    params.validCode = data.pin
-    const res = await doLoginUsingGet1({params})
-    const { tokenValue, loginId } = res.data.data;
-    console.log(res)
   }
 
   return (

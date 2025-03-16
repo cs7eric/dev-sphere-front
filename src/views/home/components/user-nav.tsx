@@ -27,16 +27,62 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
+import {getUserInfoUsingPost} from "@/apis/auth";
+import {removeUserInfo} from "@/store/features/user/userInfoSlice.ts";
+
+interface UserInfo {
+  nickName?: string
+  phone?: string
+  email?: string
+  sex?: string | number
+  introduce?: string
+  avatar?: string
+}
 
 export function UserNav() {
+  const userInfoStorageString = localStorage.getItem('userInfo')
+  const userInfoStorage = JSON.parse(userInfoStorageString)
+  const {loginId, tokenValue} = userInfoStorage
+  const [userInfo, setUserInfo] = useState<UserInfo>({})
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const getUserInfo = async () => {
+
+    const body = {
+      userName: loginId
+    }
+    await getUserInfoUsingPost({body})
+      .then((res) => {
+        if (res.success) {
+          setUserInfo(res.data)
+        }
+      })
+    console.log(loginId, tokenValue)
+
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [loginId]);
+
+  const logout = () => {
+
+    localStorage.removeItem('userInfo')
+    dispatch(removeUserInfo)
+    navigate('/authentication')
+  }
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src="/avatars/01.png" alt="@shadcn"/>
+              <AvatarImage src={userInfo ? userInfo.avatar : '@/assets/user/avatar.jpg'} alt="@shadcn"/>
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
           </Button>
@@ -95,7 +141,10 @@ export function UserNav() {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction>
-                  <Link to="/authentication">Continue</Link>
+                  <Link to="/authentication"
+                        onClick={() => logout()}
+                  >Continue</Link>
+
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

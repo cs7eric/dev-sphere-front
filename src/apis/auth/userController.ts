@@ -58,8 +58,8 @@ export async function doLoginUsingGet1({
   });
 }
 
-/** getUserInfo GET /auth/user/getUserInfo */
-export async function getUserInfoUsingGet({
+/** getUserInfo POST /auth/user/getUserInfo */
+export async function getUserInfoUsingPost({
   body,
   options,
 }: {
@@ -67,7 +67,7 @@ export async function getUserInfoUsingGet({
   options?: { [key: string]: unknown };
 }) {
   return request<API.ResultAuthUserDTO_>('/auth/user/getUserInfo', {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

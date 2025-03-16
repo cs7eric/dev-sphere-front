@@ -22,7 +22,7 @@ export function LabelSection() {
   };
 
   const body: SubjectLabelDTO = {
-    categoryId: 3
+    categoryId: 14
   }
 
   const [labelList, setLabelList] = useState<SubjectLabelDTO[]>([])
@@ -65,9 +65,17 @@ export function LabelSection() {
               : "none"
           }}
         >
-          {labelList.map((label) => (
-            <h3 key={label.id}>{label.labelName}</h3>
-          ))}
+          {Array.isArray(labelList) && labelList.length > 0 ? (
+            labelList.map((label) => (
+              <h3
+                className='p-1 hover:rounded-md hover:bg-[#262626] cursor-pointer'
+                key={label.id}
+                onClick={() => console.log(label.id)}
+              >{label.labelName}</h3>
+            ))
+          ) : (
+            <div className="empty w-full"></div>
+          )}
 
         </div>
 
