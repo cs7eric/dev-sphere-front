@@ -83,7 +83,7 @@ export default function ListPage() {
     labelName: (row:Subject) => (
       <div className='space-x-2'>
         {["java", "Spring", "JVM"].map((item) => (
-          <span className='p-1.5 rounded-md border'>{item}</span>
+          <span className='p-1.5 rounded-md border bg-[#262626] text-xs px-2'>{item}</span>
         ))}
       </div>
 

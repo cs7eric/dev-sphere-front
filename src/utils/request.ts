@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {toast} from "@/registry/hooks/use-toast.ts";
 
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'http://14.103.134.185:5000';
 
 // 从 localStorage 中获取 用户信息
 const getStoredUserInfo = () => {

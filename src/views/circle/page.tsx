@@ -2,7 +2,6 @@ import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {RiSearch2Line} from "react-icons/ri";
 import CircleList from "@/views/circle/components/circle-list.tsx";
-import {Divider} from "@heroui/react";
 
 
 export default function CirclePage() {
