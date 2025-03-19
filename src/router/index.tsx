@@ -6,10 +6,10 @@ import TestPage from "@/views/test/test-page.tsx";
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
 const AnswerSubject = React.lazy(() => import('@/views/subject/answer-subject/page.tsx'))
-const SettingsAccountPage = React.lazy(() => import("@/views/forms/account/page.tsx"))
+const SettingsAccountPage = React.lazy(() => import("@/views/forms/data/page.tsx"))
 const SettingsAppearancePage = React.lazy(() => import("@/views/forms/appearance/page.tsx"))
 const SettingsDisplayPage = React.lazy(() => import("@/views/forms/display/page.tsx"))
-const SettingsNotificationsPage = React.lazy(() => import("@/views/forms/notifications/page.tsx"))
+const SettingsSocialContactPage = React.lazy(() => import("@/views/forms/social-contact/page.tsx"))
 const SettingsProfilePage = React.lazy(() => import("@/views/forms/profile/page.tsx"))
 const SettingsPage = React.lazy(() => import("@/views/forms/page.tsx"))
 const SettingsLayout = React.lazy(() => import("@/views/forms/layout.tsx"))
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
       </MainLayout>
   },
   {
-    path: '/settings/account',
+    path: '/settings/data',
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
@@ -104,12 +104,12 @@ const router = createBrowserRouter([
       </MainLayout>
   },
   {
-    path: '/settings/notifications',
+    path: '/settings/social-contact',
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
           <SettingsLayout>
-            <SettingsNotificationsPage></SettingsNotificationsPage>
+            <SettingsSocialContactPage></SettingsSocialContactPage>
           </SettingsLayout>
         </Suspense>
       </MainLayout>

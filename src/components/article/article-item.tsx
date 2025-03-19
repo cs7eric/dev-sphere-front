@@ -1,4 +1,4 @@
-import {Avatar, Card, Tooltip} from "@heroui/react";
+import { Card, Tooltip} from "@heroui/react";
 import {GoAlertFill} from "react-icons/go";
 import {Image} from "@unpic/react";
 import {Button} from "@/components/ui/button.tsx";

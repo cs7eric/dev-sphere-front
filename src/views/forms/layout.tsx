@@ -10,16 +10,16 @@ const sidebarNavItems = [
     href: "/settings",
   },
   {
-    title: "Account",
-    href: "/settings/account",
+    title: "Data",
+    href: "/settings/data",
   },
   {
     title: "Appearance",
     href: "/settings/appearance",
   },
   {
-    title: "Notifications",
-    href: "/settings/notifications",
+    title: "SocialContact",
+    href: "/settings/social-contact",
   },
   {
     title: "Display",
