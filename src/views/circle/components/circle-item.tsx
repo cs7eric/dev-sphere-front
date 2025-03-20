@@ -1,14 +1,7 @@
 import type {Circle} from "@/models/circle.types.ts";
 import React from "react";
 import {Image} from '@unpic/react'
-import {
-  Drawer, DrawerClose,
-  DrawerContent,
-  DrawerDescription, DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from "@/components/ui/drawer.tsx";
+
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog, DialogClose,
@@ -18,9 +11,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog.tsx";
-import {Label} from "@/components/ui/label.tsx";
-import {Input} from "@/components/ui/input.tsx";
-import {Copy} from "lucide-react";
+
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import ArticleList from "@/components/article/article-list.tsx";
 

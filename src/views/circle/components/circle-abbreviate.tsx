@@ -31,8 +31,7 @@ const CircleAbbreviate: React.FC<Props> = ({circle}) => {
         <div className="function-action">
           <Button
             size={'sm'}
-            variant={'outline'}
-            className={'font-semibold'}
+            variant={'ghost'}
           >join</Button>
         </div>
       </div>

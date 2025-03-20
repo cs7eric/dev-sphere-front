@@ -6,7 +6,14 @@ import React, {
   MouseEventHandler,
   UIEvent,
 } from "react";
-import { motion, useInView } from "framer-motion";
+import {motion, useInView} from "framer-motion";
+import UserAbbreviate from "@/components/user/user-abbreviate";
+import ArticleAbbreviate from "@/components/article/article-abbreviate";
+import SubjectAbbreviate from "@/views/subject/components/subject-abbreviate";
+import { User } from "@/models/user.types";
+import { Article } from "@/models/article.types";
+import { Subject } from "@/models/subject.types";
+import { AuthUserDTO } from "@/apis/auth";
 
 interface AnimatedItemProps {
   children: ReactNode;
@@ -24,16 +31,16 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
                                                      onClick,
                                                    }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.5, once: false });
+  const inView = useInView(ref, {amount: 0.5, once: false});
   return (
     <motion.div
       ref={ref}
       data-index={index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
-      initial={{ scale: 0.7, opacity: 0 }}
-      animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.7, opacity: 0 }}
-      transition={{ duration: 0.2, delay }}
+      initial={{scale: 0.7, opacity: 0}}
+      animate={inView ? {scale: 1, opacity: 1} : {scale: 0.7, opacity: 0}}
+      transition={{duration: 0.2, delay}}
       className="mb-4 cursor-pointer"
     >
       {children}
@@ -41,35 +48,26 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
   );
 };
 
+type ItemType = "string" | "user" | "article" | "subject";
+type ItemData = string | AuthUserDTO | Article | Subject;
+
 interface AnimatedListProps {
-  items?: string[];
-  onItemSelect?: (item: string, index: number) => void;
+  items?: ItemData[];
+  itemType?: ItemType;
+  onItemSelect?: (item: ItemData, index: number) => void;
   showGradients?: boolean;
   enableArrowNavigation?: boolean;
   className?: string;
   itemClassName?: string;
   displayScrollbar?: boolean;
   initialSelectedIndex?: number;
+  isFollowed?: boolean;
+  requiredFollow?: boolean;
 }
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
-                                                     items = [
-                                                       "Item 1",
-                                                       "Item 2",
-                                                       "Item 3",
-                                                       "Item 4",
-                                                       "Item 5",
-                                                       "Item 6",
-                                                       "Item 7",
-                                                       "Item 8",
-                                                       "Item 9",
-                                                       "Item 10",
-                                                       "Item 11",
-                                                       "Item 12",
-                                                       "Item 13",
-                                                       "Item 14",
-                                                       "Item 15",
-                                                     ],
+                                                     items,
+                                                     itemType,
                                                      onItemSelect,
                                                      showGradients = true,
                                                      enableArrowNavigation = true,
@@ -77,6 +75,8 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                                                      itemClassName = "",
                                                      displayScrollbar = true,
                                                      initialSelectedIndex = -1,
+                                                     isFollowed = false,
+                                                     requiredFollow = false,
                                                    }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] =
@@ -86,7 +86,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } =
+    const {scrollTop, scrollHeight, clientHeight} =
       e.target as HTMLDivElement;
     setTopGradientOpacity(Math.min(scrollTop / 50, 1));
     const bottomDistance = scrollHeight - (scrollTop + clientHeight);
@@ -135,7 +135,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       const itemTop = selectedItem.offsetTop;
       const itemBottom = itemTop + selectedItem.offsetHeight;
       if (itemTop < containerScrollTop + extraMargin) {
-        container.scrollTo({ top: itemTop - extraMargin, behavior: "smooth" });
+        container.scrollTo({top: itemTop - extraMargin, behavior: "smooth"});
       } else if (
         itemBottom >
         containerScrollTop + containerHeight - extraMargin
@@ -148,6 +148,32 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     }
     setKeyboardNav(false);
   }, [selectedIndex, keyboardNav]);
+
+  // 根据不同的itemType渲染不同的组件
+  const renderItem = (item: ItemData, index: number) => {
+    switch (itemType) {
+      case "user":
+        return (
+          <UserAbbreviate 
+            user={item as AuthUserDTO} 
+            isFollowed={isFollowed} 
+            requiredFollow={requiredFollow} 
+          />
+        );
+      case "article":
+        return <ArticleAbbreviate article={item as Article} />;
+      case "subject":
+        return <SubjectAbbreviate subject={item as Subject} />;
+      default:
+        return (
+          <div
+            className={`p-4 bg-[#111] rounded-lg ${selectedIndex === index ? "bg-[#222]" : ""} ${itemClassName}`}
+          >
+            <p className="text-white m-0">{item as string}</p>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className={`relative w-[400px] ${className}`}>
@@ -177,11 +203,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
               }
             }}
           >
-            <div
-              className={`p-4 bg-[#111] rounded-lg ${selectedIndex === index ? "bg-[#222]" : ""} ${itemClassName}`}
-            >
-              <p className="text-white m-0">{item}</p>
-            </div>
+            {renderItem(item, index)}
           </AnimatedItem>
         ))}
       </div>
@@ -189,11 +211,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         <>
           <div
             className="absolute top-0 left-0 right-0 h-[50px] bg-gradient-to-b from-[#060606] to-transparent pointer-events-none transition-opacity duration-300 ease"
-            style={{ opacity: topGradientOpacity }}
+            style={{opacity: topGradientOpacity}}
           ></div>
           <div
             className="absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-t from-[#060606] to-transparent pointer-events-none transition-opacity duration-300 ease"
-            style={{ opacity: bottomGradientOpacity }}
+            style={{opacity: bottomGradientOpacity}}
           ></div>
         </>
       )}

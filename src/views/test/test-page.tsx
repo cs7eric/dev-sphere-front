@@ -1,13 +1,11 @@
 import React from "react";
-import DynamicTableExample from "./dynamic-table-example";
-
-
+import DynamicListExample from "./dynamic-list-example";
+import EnhancedListExample from "./enhanced-list-example";
 
 export default function TestPage() {
   return (
-
     <>
-      <DynamicTableExample/>
+      <EnhancedListExample />
     </>
   );
 }

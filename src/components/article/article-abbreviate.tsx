@@ -1,39 +1,38 @@
 import React from "react";
-import {Image} from "@unpic/react";
-import CircleImage from "@/assets/user/avatar.jpg";
+import {Article} from "@/models/article.types.ts";
 import {Button} from "@/components/ui/button.tsx";
 
+
+
 interface Props {
-  article
+  article: Article
 }
 
 const ArticleAbbreviate: React.FC<Props> = ({article}) => {
 
   return (
     <>
-      <div className="circle-abbreviate flex items-center text-xs justify-between space-x-3 rounded-base bg-neutral-900 p-2 rounded-sm transition-transform hover:scale-102 duration-250 cursor-pointer">
-        <div className="left-content flex space-x-3 items-center  ">
-          <div className="circle-image p-0.5 bg-neutral-500 rounded-md">
-            <Image
-              src={article.image ? CircleImage : article.image}
-              width="30px"
-              height="30px"
-              className={'rounded-md'}
-            />
+      <div
+        className="article-abbreviate flex justify-between dark:bg-neutral-900 p-3 rounded-lg transition-transform hover:scale-98 duration-150 cursor-pointer"
+        onClick={() => {
+          console.log(article.id)
+        }}
+      >
+        <section className="left flex flex-col w-full space-y-0.5">
+          <h3 className="article-title text-xs">{article.articleTitle}</h3>
+          <div className="article-data space-x-1.5 text-neutral-400 text-[10px]">
+            <span className="like">{article.likeCount} likes</span>
+            <span className="collect">{article.collectCount} collections</span>
+            <span className="collect">{article.viewCount} views</span>
           </div>
-          <div className="circle-info flex flex-col">
-            <div className="circle-name">Java</div>
-            <div className="circle-intro">Java programmers' home</div>
-          </div>
-        </div>
-
-        <div className="function-action">
-          <Button
-            size={'sm'}
-            variant={'outline'}
-            className={'font-semibold'}
-          >join</Button>
-        </div>
+        </section>
+        {/*<section className="right">*/}
+        {/*  <Button*/}
+        {/*    variant='outline'*/}
+        {/*    size='sm'*/}
+        {/*    onClick={() => {console.log(article.id)}}*/}
+        {/*  >brush</Button>*/}
+        {/*</section>*/}
       </div>
     </>
 

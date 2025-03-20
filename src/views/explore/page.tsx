@@ -8,6 +8,8 @@ import ArticleList from "@/components/article/article-list.tsx";
 import {Card} from "@/components/ui/card.tsx";
 import AnimatedList from "@/components/list/animated-list.tsx";
 import {FaHotjar} from "react-icons/fa";
+import {mockSubjectList} from "@/models/subject.types.ts";
+import SubjectAbbreviate from "@/views/subject/components/subject-abbreviate.tsx";
 
 export default function ExplorePage() {
   const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10'];
@@ -61,7 +63,8 @@ export default function ExplorePage() {
 
                       <AnimatedList
                         className="max-w-5xl "
-                        items={items}
+                        items={mockSubjectList}
+                        itemType='subject'
                         onItemSelect={(item, index) => console.log(item, index)}
                         showGradients={true}
                         enableArrowNavigation={true}
