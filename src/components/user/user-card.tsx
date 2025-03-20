@@ -2,7 +2,6 @@ import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Button} from "@heroui/react";
 import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
 import {LazyImage} from "@/components/ui/lazy-image";
-import { Label } from "recharts"
 import {
   Dialog,
   DialogContent,
@@ -10,24 +9,21 @@ import {
 } from "@/components/ui/dialog"
 import {Image} from "@unpic/react";
 import UserAvatar from "@/assets/user/avatar.jpg";
-import {Area, AreaChart, CartesianGrid, XAxis} from "recharts"
-import {
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-import {UserPieChart} from "@/views/forms/social-contact/components/user-pie-chart.tsx";
+
 import {UserLineChart} from "@/views/forms/social-contact/components/user-line-chart.tsx";
+import CircleAbbreviate from "@/views/circle/components/circle-abbreviate.tsx";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
 
 
 
 export default function UserCard() {
   const [isFollowed, setIsFollowed] = React.useState(false);
+
+  const circle = {
+    id: 1,
+    image: '',
+    circleName: 'Java'
+  }
 
   const labelList = [
     {
@@ -153,9 +149,24 @@ export default function UserCard() {
           <div className="user-data-charts mt-8">
             <UserLineChart></UserLineChart>
           </div>
+          <div className="user-circle-list space-y-3">
+            <CircleAbbreviate circle={circle}></CircleAbbreviate>
+            <CircleAbbreviate circle={circle}></CircleAbbreviate>
+            <CircleAbbreviate circle={circle}></CircleAbbreviate>
+            <CircleAbbreviate circle={circle}></CircleAbbreviate>
 
+          </div>
         </section>
-        <section className="right">2</section>
+        <section className="right">
+          <Tabs defaultValue="article" className="w-[200px]">
+          <TabsList>
+            <TabsTrigger value="article">article</TabsTrigger>
+            <TabsTrigger value="subject">subject</TabsTrigger>
+          </TabsList>
+          <TabsContent value="article"></TabsContent>
+          <TabsContent value="subject"></TabsContent>
+        </Tabs>
+        </section>
       </DialogContent>
     </Dialog>
 
