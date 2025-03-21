@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface UserInfo {
+  userName?: string
   nickName?: string
   phone?: string
   email?: string
@@ -9,6 +10,7 @@ export interface UserInfo {
   avatar?: string
 }
 const initialState: UserInfo = {
+  userName: '',
   nickName: '',
   phone: '',
   email: '',

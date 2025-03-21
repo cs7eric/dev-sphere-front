@@ -17,9 +17,12 @@ import {
 import {Input} from "@/components/ui/input.tsx"
 
 import {Textarea} from "@/components/ui/textarea.tsx"
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group.tsx";
+import {useDispatch} from "react-redux";
+import {UserInfo} from "@/store/features/user/userInfoSlice.ts";
+import {getUserInfoUsingPost, updateUsingPost2} from "@/apis/auth";
 
 const userInfoSchema = z.object({
   nickName: z
@@ -35,40 +38,121 @@ const userInfoSchema = z.object({
       required_error: "Please select an email to display.",
     })
     .email(),
-  bio: z.string().max(160).min(4),
+  introduce: z.string().max(160).min(4),
   phone: z
     .string()
     .min(11, {
       required_error: "phone must not be shorter than 11 characters."
     }),
-  gender: z
-    .any()
+  sex: z
+    .any(),
 })
 
 type ProfileFormValues = z.infer<typeof userInfoSchema>
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: "I own a computer."
-}
-
 export function ProfileForm() {
+  const [userInfo, setUserInfo] = useState<UserInfo>({})
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  // 从localStorage获取用户信息
+  const userInfoStorageString = localStorage.getItem('userInfo')
+  const userInfoStorage = userInfoStorageString ? JSON.parse(userInfoStorageString) : {}
+  const {loginId, tokenValue} = userInfoStorage
+  const getUserInfo = async () => {
+
+    const body = {
+      userName: loginId
+    }
+    await getUserInfoUsingPost({body})
+      .then((res) => {
+        if (res.success) {
+          setUserInfo(res.data)
+        }
+      })
+    console.log(loginId, tokenValue)
+
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [loginId]);
+
+
+  // 设置表单默认值
+  const [defaultValues, setDefaultValues] = useState<Partial<ProfileFormValues>>({
+    userName: loginId,
+    nickName: '',
+    phone: '',
+    email: '',
+    introduce: '',
+    gender: ''
+  })
+
+  // 创建表单实例
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(userInfoSchema),
     defaultValues,
     mode: "onChange",
   })
 
+  // 当用户信息更新时，重置表单值
+  useEffect(() => {
+    if (userInfo && Object.keys(userInfo).length > 0) {
+      setDefaultValues({
+        nickName: userInfo.nickName || '',
+        phone: userInfo.phone || '',
+        email: userInfo.email || '',
+        introduce: userInfo.introduce || '',
+        sex: userInfo.sex || ''
+      })
 
-  function onSubmit(data: ProfileFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+      form.reset({
+        nickName: userInfo.nickName || '',
+        phone: userInfo.phone || '',
+        email: userInfo.email || '',
+        introduce: userInfo.introduce || '',
+        sex: userInfo.sex || ''
+      })
+    }
+  }, [userInfo, form])
+
+
+  // 处理表单提交
+  async function onSubmit(data: ProfileFormValues) {
+    try {
+      // 这里应该调用更新用户信息的API
+      const response = await updateUsingPost2({body: {...data, userName:loginId} })
+
+
+      if (response.success) {
+        // 更新本地用户信息
+        setUserInfo(prev => ({...prev, ...data}))
+
+        // 显示成功提示
+        toast({
+          title: "用户信息更新成功",
+          description: "您的个人资料已成功更新"
+        })
+      } else {
+        // 显示错误提示
+        toast({
+          title: "更新失败",
+          description: response.message || "更新用户信息时出错，请稍后重试",
+          variant: "destructive"
+        })
+      }
+    } catch
+      (error) {
+      console.error('更新用户信息出错:', error)
+      toast({
+        title: "更新失败",
+        description: "更新用户信息时出错，请稍后重试",
+        variant: "destructive"
+      })
+    }
+
+
   }
 
   return (
@@ -120,7 +204,7 @@ export function ProfileForm() {
                            </FormItem>
                            <FormItem className="flex items-center space-x-3 space-y-0">
                              <FormControl>
-                               <RadioGroupItem value="secret"/>
+                               <RadioGroupItem value="2"/>
                              </FormControl>
                              <FormLabel className="font-normal">secret</FormLabel>
                            </FormItem>
