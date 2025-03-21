@@ -6,39 +6,90 @@ import {
 
 
 import {Button} from "@/components/ui/button.tsx";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SubjectItem from "@/views/subject/components/subject-item.tsx";
 import {Subject} from "@/models/subject.types.ts";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import {useParams} from "react-router-dom";
+import {getSubjectInfoUsingPost, SubjectInfoDTO} from "@/apis/subject";
+import Loader from "@/components/styled/loader.tsx";
+import Skeleton from "@/components/skeleton/skeleton.tsx";
+
+interface Props {
+  subject: Subject
+}
 
 
+const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
+  const {subjectId} = useParams()
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [subjectInfo, setSubjectInfo] = useState<Subject>(null)
+  const fetchSubjectInfoData = async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
 
-const AnswerSubjectPage:React.FC = () => {
+      const response = await getSubjectInfoUsingPost({
+        body: {id: subjectId}
+      })
 
-  const fakeSubjectData: Subject = {
-    id: '1',
-    subjectName: 'What is the capital of France?',
-    subjectDifficult: 2, // 假设难度为 2
-    settleName: 'Geography',
-    subjectType: 1, // 单选
-    subjectScore: 5,
-    subjectParse: 'The capital of France is Paris.',
-    createdBy: 'admin',
-    createdTime: new Date('2023-01-01T12:00:00Z'),
-    updateBy: 'admin',
-    updateTime: new Date('2023-01-10T12:00:00Z'),
-    isDeleted: 0 // 表示没有被删除
-  };
+      if (!response.success) {
+        throw new Error('Failed to fetch subject info')
+      }
 
+      setSubjectInfo(response.data || null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '未知错误')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-  const [subjectInfo, setSubjectInfo] = useState<Subject>(fakeSubjectData)
+  useEffect(() => {
+    const abortController = new AbortController()
 
-  const updateSubject = () => {
-    setSubjectInfo({
-      ...fakeSubjectData
-    })
+    fetchSubjectInfoData()
+
+    return () => {
+      abortController.abort()
+    }
+  }, [subjectId])  // 当 subjectId 变化时重新获取
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <div className="space-y-4 p-4">
+
+        <Skeleton rows={2}/>
+      </div>
+    }
+
+    if (error) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full gap-4">
+          <p className="text-red-500">错误：{error}</p>
+          <Button
+            size='sm'
+            variant="outline"
+            onClick={fetchSubjectInfoData}
+          >
+            重试
+          </Button>
+        </div>
+      )
+    }
+
+    if (!subjectInfo) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-gray-500">暂无题目信息</p>
+        </div>
+      )
+    }
+
+    return <SubjectItem subject={subjectInfo}/>
   }
 
   return (
@@ -55,17 +106,19 @@ const AnswerSubjectPage:React.FC = () => {
               <TabsTrigger
                 className={'font-semibold'}
                 value="subjectParse"
-                onClick={() => {console.log('2')}}
+                onClick={() => {
+                  console.log('2')
+                }}
               >Parse</TabsTrigger>
             </TabsList>
             <TabsContent className='min-w-full' value="subjectInfo">
-              <SubjectItem subject={subjectInfo}></SubjectItem>
+              {renderContent()}
+
             </TabsContent>
             <TabsContent className='min-w-full' value="subjectParse">
+              <p>{subjectInfo?.subjectParse}</p>
             </TabsContent>
           </Tabs>
-
-
 
 
         </ResizablePanel>
@@ -75,18 +128,18 @@ const AnswerSubjectPage:React.FC = () => {
             <ResizablePanel defaultSize={5}>
               <div className="flex h-full items-center justify-center gap-4 p-6">
                 <Button variant="outline" size="icon">
-                  <ChevronLeft />
+                  <ChevronLeft/>
 
                 </Button>
                 <Button
                   className="p-4 h-8 w-20 font-semibold"
                   variant='outline'
                 >reset</Button>
-                <Button className="p-4 h-8 w-20 font-semibold" variant="secondary" >collect</Button>
+                <Button className="p-4 h-8 w-20 font-semibold" variant="secondary">collect</Button>
 
                 <Button className="p-4 h-8 w-20 font-semibold">submit</Button>
                 <Button variant="outline" size="icon">
-                  <ChevronRight />
+                  <ChevronRight/>
 
                 </Button>
               </div>
@@ -96,7 +149,7 @@ const AnswerSubjectPage:React.FC = () => {
               <div className="flex h-full items-center justify-center p-6">
                 <Textarea
                   className={'h-full'}
-                  placeholder="Type your answer here." />
+                  placeholder="Type your answer here."/>
 
               </div>
             </ResizablePanel>

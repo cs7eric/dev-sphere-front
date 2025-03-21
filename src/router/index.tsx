@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       </Suspense>
   },
   {
-    path: '/subject',
+    path: '/subject/:subjectId',
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>

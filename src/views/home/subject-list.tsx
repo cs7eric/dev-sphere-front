@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getSceneSubjectPageUsingPost, SubjectInfoDTO} from "@/apis/subject";
 import {DynamicTable} from "@/components/tasks/components/dynamic-table.tsx";
 import {Subject} from "@/models/subject.types.ts";
+import {useNavigate} from "react-router-dom";
 
 // Simulate a database read for tasks.
 
@@ -77,10 +78,10 @@ export default function ListPage() {
     subjectDifficult: (row: Subject) => (
       <span className='p-1.5 rounded-md border'>{row.subjectDifficult == 1 ? 'easy' : 'hard'}</span>
     ),
-    subjectType: (row:Subject) => (
+    subjectType: (row: Subject) => (
       <span>{row.subjectType == 5 ? '场景题' : '面试题'}</span>
     ),
-    labelName: (row:Subject) => (
+    labelName: (row: Subject) => (
       <div className='space-x-2'>
         {["java", "Spring", "JVM"].map((item) => (
           <span className='p-1.5 rounded-md border bg-[#262626] text-xs px-2'>{item}</span>
@@ -103,6 +104,12 @@ export default function ListPage() {
     fetchSubjectListData();
     console.log(subjectList)
   }, [])
+
+  const navigate = useNavigate()
+  const handleRowClick = (id) => {
+    console.log("点击了题目:", id);
+    navigate(`/subject/${id}`); // 跳转到指定路由
+  };
 
 
   return (
@@ -135,7 +142,7 @@ export default function ListPage() {
             subjectDifficult: difficultMap,
           }}
           includeFilterFields={["subjectType", "subjectDifficult", "isDeleted"]}
-          onRowClick={(row) => console.log("点击了题目:", row.subjectName)}
+          onRowClick={(row) => handleRowClick(row.id)}
         />
       </div>
     </>
