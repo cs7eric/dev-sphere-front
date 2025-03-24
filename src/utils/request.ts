@@ -14,8 +14,6 @@ const getStoredUserInfo = () => {
     return {};
   }
 };
-
-
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -39,19 +37,13 @@ instance.interceptors.request.use((config) => {
   }
 
   return config;
-})
+});
 
-
-//响应拦截器
 instance.interceptors.response.use(
-  (response: AxiosResponse) => {
-
-
+  // 成功响应处理
+  (response) => {
     // 成功响应处理
     const {success, code, message} = response.data
-
-
-
     // 处理未认证情况
     if (code === 401) {
       window.location.href = '/authentication';

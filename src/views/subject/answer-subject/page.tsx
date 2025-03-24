@@ -12,10 +12,11 @@ import {Subject} from "@/models/subject.types.ts";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
-import {useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 import {getSubjectInfoUsingPost, SubjectInfoDTO} from "@/apis/subject";
 import Loader from "@/components/styled/loader.tsx";
 import Skeleton from "@/components/skeleton/skeleton.tsx";
+import TiptapEditor from "@/components/tiptap/TiptapEditor"
 
 interface Props {
   subject: Subject
@@ -24,9 +25,14 @@ interface Props {
 
 const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
   const {subjectId} = useParams()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const language = queryParams.get('language') || 'java'
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [subjectInfo, setSubjectInfo] = useState<Subject>(null)
+  const [answerContent, setAnswerContent] = useState<string>('')
+
   const fetchSubjectInfoData = async () => {
     try {
       setIsLoading(true)
@@ -53,10 +59,12 @@ const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
 
     fetchSubjectInfoData()
 
+    console.log("当前题目语言:", language)
+
     return () => {
       abortController.abort()
     }
-  }, [subjectId])  // 当 subjectId 变化时重新获取
+  }, [subjectId, language])  // 当 subjectId 变化时重新获取
 
   const renderContent = () => {
     if (isLoading) {
@@ -90,6 +98,11 @@ const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
     }
 
     return <SubjectItem subject={subjectInfo}/>
+  }
+
+  const handleSubmit = () => {
+    console.log('提交的答案内容:', answerContent)
+    // 这里添加提交答案的逻辑
   }
 
   return (
@@ -137,7 +150,10 @@ const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
                 >reset</Button>
                 <Button className="p-4 h-8 w-20 font-semibold" variant="secondary">collect</Button>
 
-                <Button className="p-4 h-8 w-20 font-semibold">submit</Button>
+                <Button 
+                  className="p-4 h-8 w-20 font-semibold"
+                  onClick={handleSubmit}
+                >submit</Button>
                 <Button variant="outline" size="icon">
                   <ChevronRight/>
 
@@ -147,9 +163,12 @@ const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
             <ResizableHandle/>
             <ResizablePanel defaultSize={75}>
               <div className="flex h-full items-center justify-center p-6">
-                <Textarea
-                  className={'h-full'}
-                  placeholder="Type your answer here."/>
+                <TiptapEditor
+                  className="h-full w-full min-h-[400px]"
+                  content={answerContent}
+                  onChange={(content) => setAnswerContent(content)}
+                  placeholder="请输入你的回答..."
+                />
 
               </div>
             </ResizablePanel>

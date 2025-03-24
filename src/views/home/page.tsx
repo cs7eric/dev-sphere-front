@@ -1,5 +1,5 @@
 import {Button} from "@/components/ui/button"
-
+import { useNavigate } from "react-router-dom";
 import {
   Tabs,
   TabsContent,
@@ -26,8 +26,10 @@ const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Pytho
 
 
 export default function HomePage() {
-
+  const navigate = useNavigate();
   const [parentCategoryList, setParentCategoryList] = useState<SubjectCategoryDTO[]>([])
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const body = {
     parentId: 0,
@@ -43,6 +45,38 @@ export default function HomePage() {
   useEffect(() => {
     fetchParentCategoryList()
   }, []);
+
+  // 处理语言变化
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    console.log("语言已切换为:", language);
+  };
+  
+  // 处理刷题按钮点击
+  const handleBrushSubject = () => {
+    setIsLoading(true);
+    
+    try {
+      // 从 state 或 localStorage 获取语言
+      const language = selectedLanguage || localStorage.getItem('selectedLanguage') || 'java';
+      console.log("刷题语言:", language);
+      
+      // 生成随机题目ID (1-100)
+      const randomSubjectId = Math.floor(Math.random() * 100) + 1;
+      
+      // 导航到答题页面
+      navigate(`/subject/answer-subject/${randomSubjectId}?language=${language}`);
+    } catch (error) {
+      console.error("错误:", error);
+      toast({
+        title: "发生错误",
+        description: "请稍后重试",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -68,8 +102,17 @@ export default function HomePage() {
               </div>
             </h2>
             <div className="flex items-center space-x-2">
-              <LanguageSwitcher className="mr-4"/>
-              <Button className="font-bold">Brush Subject</Button>
+              <LanguageSwitcher 
+                className="mr-4"
+                onLanguageChange={handleLanguageChange}
+              />
+              <Button 
+                className="font-bold"
+                onClick={handleBrushSubject}
+                disabled={isLoading}
+              >
+                {isLoading ? "加载中..." : "Brush Subject"}
+              </Button>
             </div>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">

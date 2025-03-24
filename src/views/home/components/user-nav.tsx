@@ -44,13 +44,14 @@ interface UserInfo {
 
 export function UserNav() {
   const userInfoStorageString = localStorage.getItem('userInfo')
-  const userInfoStorage = JSON.parse(userInfoStorageString)
-  const {loginId, tokenValue} = userInfoStorage
+  const userInfoStorage = userInfoStorageString ? JSON.parse(userInfoStorageString) : {}
+  const {loginId, tokenValue} = userInfoStorage || {}
   const [userInfo, setUserInfo] = useState<UserInfo>({})
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const getUserInfo = async () => {
+    if (!loginId) return;
 
     const body = {
       userName: loginId
@@ -62,7 +63,6 @@ export function UserNav() {
         }
       })
     console.log(loginId, tokenValue)
-
   }
 
   useEffect(() => {
@@ -70,7 +70,6 @@ export function UserNav() {
   }, [loginId]);
 
   const logout = () => {
-
     localStorage.removeItem('userInfo')
     dispatch(removeUserInfo)
     navigate('/authentication')

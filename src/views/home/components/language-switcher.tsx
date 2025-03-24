@@ -19,32 +19,44 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
+const languages = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "java",
+    label: "Java",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "python",
+    label: "Python",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "javascript",
+    label: "JavaScript",
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "cpp",
+    label: "C++",
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: "go",
+    label: "Go",
   },
 ]
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  className?: string;
+  onLanguageChange?: (language: string) => void;
+}
+
+export function LanguageSwitcher({ className, onLanguageChange }: LanguageSwitcherProps) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
+  
+  React.useEffect(() => {
+    const savedLanguage = localStorage.getItem('selectedLanguage');
+    if (savedLanguage) {
+      setValue(savedLanguage);
+    }
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -53,34 +65,40 @@ export function LanguageSwitcher() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className={cn("w-[200px] justify-between", className)}
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? languages.find((language) => language.value === value)?.label
+            : "选择编程语言..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="搜索编程语言..." />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>未找到匹配的语言</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {languages.map((language) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={language.value}
+                  value={language.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
+                    localStorage.setItem('selectedLanguage', currentValue);
+                    setValue(currentValue === value ? "" : currentValue);
+                    
+                    if (onLanguageChange) {
+                      onLanguageChange(currentValue === value ? "" : currentValue);
+                    }
+                    
+                    setOpen(false);
                   }}
                 >
-                  {framework.label}
+                  {language.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === language.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
