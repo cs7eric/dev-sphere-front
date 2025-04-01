@@ -13,8 +13,7 @@ import {Textarea} from "@/components/ui/textarea.tsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import {useParams} from "react-router-dom";
-import {getSubjectInfoUsingPost, SubjectInfoDTO} from "@/apis/subject";
-import Loader from "@/components/styled/loader.tsx";
+import {getSubjectInfoUsingPost} from "@/apis/subject";
 import Skeleton from "@/components/skeleton/skeleton.tsx";
 
 interface Props {

@@ -9,18 +9,19 @@ import {Toaster} from "@/components/ui/toaster.tsx";
 import App from "@/App.tsx";
 import {ThemeProvider} from "@/components/theme-provider.tsx";
 import React from "react";
+import {LoaderProvider} from "@/components/loader/loader-provider.tsx";
 
-export default function Providers(children) {
+export default function Providers({children}: { children: React.ReactNode }) {
   return (
-
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Provider store={store} children={children}>
-        <RouterProvider router={router}/>
-
-        <App/>
-        <Toaster/>
-        </Provider>
+      <Provider store={store}>
+        <LoaderProvider>
+          <App/>
+          {children}
+          <RouterProvider router={router}/>
+          <Toaster/>
+        </LoaderProvider>
+      </Provider>
     </ThemeProvider>
-
-  )
+  );
 }
