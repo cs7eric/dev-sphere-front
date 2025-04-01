@@ -27,6 +27,7 @@ import ArticleList from "@/components/article/article-list.tsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {FaRegGrinStars} from "react-icons/fa";
 import {MdSettingsSuggest} from "react-icons/md";
+import {MomentDialog} from "@/views/article/components/moment-dialog.tsx";
 
 export default function CirclePage() {
 
@@ -219,6 +220,7 @@ export default function CirclePage() {
                 </div>
               </DialogContent>
             </Dialog>
+            <MomentDialog></MomentDialog>
 
           </div>
         </div>
