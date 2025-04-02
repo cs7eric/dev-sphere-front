@@ -15,14 +15,12 @@ import ListPage from "@/views/home/subject-list.tsx";
 import MainLayout from "@/layout/layout.tsx";
 import {Image} from "@unpic/react";
 
-import JavaIcon from '@/assets/icon/java.svg'
 import CppIcon from '@/assets/icon/cpp.svg'
 import PythonIcon from '@/assets/icon/python.svg'
-import {toast} from "@/registry/hooks/use-toast.ts";
-import {getSubjectInfoUsingPost, queryPrimaryCategoryUsingPost, SubjectCategoryDTO} from "@/apis/subject";
+import { queryPrimaryCategoryUsingPost, SubjectCategoryDTO} from "@/apis/subject";
 import {useEffect, useState} from "react";
+import ReverseCard from "@/components/card/reverse-card.tsx";
 
-const items = ['Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python', 'React', 'Golang', 'Vue', 'C++', 'Java', 'Python']
 
 
 export default function HomePage() {
@@ -90,55 +88,10 @@ export default function HomePage() {
 
               <div className="container-items flex flex-row ">
                 <div className="left-section flex-4/5  border-[#262626] w-full p-6">
-                  <div className="recommend-list flex ">
-                    <Card className="flex-1/4 mx-3 gap-2 p-5 dark:bg-[#262626]  ">
-
-                      <div className='p-4 flex gap-2 space-x-4 hover:bg-[#181818] cursor-pointer rounded-2xl'>
-                        <Image
-                          src={JavaIcon}
-                          width={'80px'}
-                          height={'80px'}
-                          className='bg-[#fafafa] p-2 rounded-lg'
-                        ></Image>
-                        <div className='flex flex-col space-y-1 justify-center'>
-                          <h3 className="title text-lg font-bold">Java必刷50道场景题</h3>
-                          <span
-                            className='text-xs'>涵盖多线程、集合、面向对象设计等核心概念，帮助你深入理解Java的应用与技巧。无论初学者还是经验丰富的开发者都可以学习</span>
-                        </div>
-                      </div>
-
-                    </Card>
-                    <Card className="flex-1/4 mx-3 justify-center gap-2 p-5 dark:bg-[#262626]">
-                      <div className='p-4 flex gap-2 space-x-4 hover:bg-[#181818] cursor-pointer rounded-2xl'>
-                        <Image
-                          src={PythonIcon}
-                          width={'80px'}
-                          height={'80px'}
-                          className='  bg-[#fafafa] p-2 rounded-lg'
-                        ></Image>
-                        <div className='flex flex-col space-y-1 justify-center'>
-                          <h3 className="title text-lg font-bold">Python必须掌握的20个框架</h3>
-                          <span
-                            className='text-xs overflow-hidden'>对Python常用的框架进行了梳理，这些框架包括事件I/O，OLAP，Web开发，高性能网络通信，测试，爬虫等</span>
-                        </div>
-                      </div>
-                    </Card>
-                    <Card className="flex-1/4 mx-3 gap-2 p-5 dark:bg-[#262626]">
-                      <div className='p-4 flex gap-2 space-x-4 hover:bg-[#181818] cursor-pointer rounded-2xl'>
-                        <Image
-                          src={CppIcon}
-                          width={'80px'}
-                          height={'80px'}
-                          className=' bg-[#fafafa] p-2 rounded-lg'
-                        ></Image>
-                        <div className='flex flex-col space-y-1 justify-center'>
-                          <h3 className="title text-lg font-bold">C++必刷的100道算法题</h3>
-                          <span
-                            className='text-xs'>精选100道算法题，涵盖基础算法、动态规划、图论等，旨在提升你的编程能力和问题解决技巧，助你在面试中脱颖而出。适合各个阶段的开发者练习与提升</span>
-                        </div>
-                      </div>
-
-                    </Card>
+                  <div className="recommend-list grid grid-cols-3 ">
+                    <ReverseCard></ReverseCard>
+                    <ReverseCard></ReverseCard>
+                    <ReverseCard></ReverseCard>
 
 
                   </div>

@@ -29,7 +29,12 @@ const LoaderOverlay = styled.div`
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 9999; // 确保Loader显示在所有内容之上
-  pointer-events: auto;
+  pointer-events: none;
+  cursor: not-allowed;
+
+  & > * {
+    pointer-events: none;
+  }
 `;
 
 export default GlobalLoader;

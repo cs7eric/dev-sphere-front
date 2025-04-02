@@ -17,14 +17,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {toast} from "@/registry/hooks/use-toast.ts";
 import {useLoader} from "@/hooks/use-loader.ts";
-import {Textarea} from "@/components/ui/textarea.tsx";
 import rehypeSanitize from "rehype-sanitize";
 import MDEditor from "@uiw/react-md-editor";
 import ComboboxArea from "@/components/input/combobox-area.tsx";
 import {queryPrimaryCategoryUsingPost} from "@/apis/subject";
 import { BiSolidCategory } from "react-icons/bi";
 export function MomentDialog() {
-  const [value, setValue] = useState("**Hello World!**");
   const {showGlobalLoader, hideGlobalLoader} = useLoader()
   const MomentFormSchema = z.object({
     momentTitle: z.string().min(2, {
