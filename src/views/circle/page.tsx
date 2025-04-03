@@ -230,7 +230,6 @@ export default function CirclePage() {
           <div className="circle-list">
             <h3 className={'text-2xl font-bold'}>Back End </h3>
             <CircleList className={'mt-3'}></CircleList>
-            <CircleList className={'mt-3'}></CircleList>
             <Button
               variant={'secondary'}
               className={'mt-6'}

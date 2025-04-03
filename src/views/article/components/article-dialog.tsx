@@ -6,7 +6,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {Input} from "@/components/ui/input"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form.tsx";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -15,7 +15,6 @@ import {toast} from "@/registry/hooks/use-toast.ts";
 import {useLoader} from "@/hooks/use-loader.ts";
 import rehypeSanitize from "rehype-sanitize";
 import MDEditor from "@uiw/react-md-editor";
-import {queryPrimaryCategoryUsingPost} from "@/apis/subject";
 import { TbWritingSign } from "react-icons/tb";
 import { FaDraftingCompass } from "react-icons/fa";
 import { BsSendArrowUp } from "react-icons/bs";
@@ -27,7 +26,6 @@ export function ArticleDialog() {
       message: "circleName must be at least 2 characters.",
     }),
     content: z.string().nonempty(),
-    category: z.string().nonempty()
 
   })
 
@@ -36,6 +34,7 @@ export function ArticleDialog() {
     resolver: zodResolver(ArticleFormSchema),
     defaultValues: {
       articleTitle: "",
+      content: "",
     },
   })
 
@@ -55,7 +54,15 @@ export function ArticleDialog() {
     })
   }
   const handleReset = () => {
-    articleForm.reset('')
+    articleForm.reset({
+      articleTitle: "",
+      content: "",
+    });
+  }
+
+  const handleSubmit = () => {
+
+    onSubmit(articleForm.getValues())
   }
 
   return (
@@ -106,10 +113,13 @@ export function ArticleDialog() {
 
 
               <div className="col-span-2 space-x-4 mr-5 flex justify-end">
-                <Button type={'submit'}>
-                  <BsSendArrowUp />
-                  publish
-                </Button>
+                  <Button
+                    onClick={handleSubmit}
+                    >
+                    <BsSendArrowUp />
+                    publish
+                  </Button>
+
                 <Button variant='outline'>
                   <FaDraftingCompass/>draft
                 </Button>
