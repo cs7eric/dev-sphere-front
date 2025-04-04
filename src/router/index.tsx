@@ -2,6 +2,8 @@ import {createBrowserRouter, Navigate} from 'react-router-dom'
 import React, { Suspense } from 'react'
 import MainLayout from "@/layout/layout";
 import TestPage from "@/views/test/test-page.tsx";
+import LoaderExample from "@/views/test/loader-example.tsx";
+import MdTest from "@/views/test/md-test.tsx";
 
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
@@ -190,7 +192,7 @@ const router = createBrowserRouter([
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
-          <TestPage/>
+          <MdTest/>
         </Suspense>
       </MainLayout>
   }

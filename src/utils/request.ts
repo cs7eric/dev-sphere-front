@@ -14,17 +14,18 @@ const getStoredUserInfo = () => {
     return {};
   }
 };
+
+
 const instance = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
   // timeout: 120000, // 超时时间120秒
 })
 
 // 请求拦截器
 instance.interceptors.request.use((config) => {
   const userInfo = getStoredUserInfo();
+
+
 
   // 添加认证头
   if (userInfo.tokenName && userInfo.tokenValue) {
@@ -37,13 +38,18 @@ instance.interceptors.request.use((config) => {
   }
 
   return config;
-});
+})
 
+
+//响应拦截器
 instance.interceptors.response.use(
-  // 成功响应处理
-  (response) => {
+  (response: AxiosResponse) => {
+
+
     // 成功响应处理
     const {success, code, message} = response.data
+
+
     // 处理未认证情况
     if (code === 401) {
       window.location.href = '/authentication';
@@ -93,10 +99,8 @@ instance.interceptors.response.use(
 const request = async <T = unknown>(
   url: string,
   options: AxiosRequestConfig = {},
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-  }
 ) => {
+
   return await instance.request<T, T>({
     url,
     ...options,
