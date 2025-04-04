@@ -1,6 +1,5 @@
 import React from "react";
 import {Subject} from "@/models/subject.types.ts";
-import {DialogContent} from "@/components/ui/dialog.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Tooltip} from "@heroui/react";
 import {Button} from "@/components/ui/button.tsx";
@@ -10,19 +9,43 @@ import {GoAlertFill} from "react-icons/go";
 import {FaShareFromSquare} from "react-icons/fa6";
 import {Image} from "@unpic/react";
 import UserAvatar from "@/assets/user/avatar.jpg";
-import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
 import CommentItem from "@/components/article/comment-item.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {IoIosSend} from "react-icons/io";
 import UserAbbreviate from "@/components/user/user-abbreviate.tsx";
 import {userAbbreviateInfo} from "@/mock/user.ts";
+import MDEditor from "@uiw/react-md-editor";
 
 
 interface Props {
   subject: Subject
 }
 
-const ArticleProfile: React.FC<Props> = ({subject}) => {
+
+const ArticleProfile: React.FC<Props> = ({article}) => {
+
+  const text = "送\n" +
+    "```\n" +
+    "public void static \n" +
+    "\n" +
+    "```\n" +
+    "ss \n" +
+    "| Header | Header |\n" +
+    "|--------|--------|\n" +
+    "| Cesssll | Cell |\n" +
+    "| Cdadell | Cell |\n" +
+    "| Cell | Cell |\n" +
+    "\n" +
+    "- sss\n" +
+    "- adsa adas\n" +
+    "- \n" +
+    "\n" +
+    "- [ ] da\n" +
+    "- [ ] \n" +
+    "- [ ] \n" +
+    "\n" +
+    "1.  sdad\n" +
+    "2. asdad"
 
   return (
     <>
@@ -53,48 +76,21 @@ const ArticleProfile: React.FC<Props> = ({subject}) => {
               </div>
             </div>
             <ScrollArea className='max-w-[1380px] h-[650px]'>
-              <div className="article-detail text-sm text-neutral-300 leading-8">
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-                <p>不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-                  是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-                  T，E，K，V，?有所了解。</p>
-                <p>在介绍这几个通配符之前，我们先介绍介绍泛型，看看泛型带给我们的好处。
-                  Java泛型是JDK5中引入的一个新特性，泛型提供了编译是类型安全检测机制，这个机制允许开发者在编译是检测非法类型。泛型的本质就是参数化类型，就是在编译时对输入的参数指定一个数据类型。</p>
-              </div>
+              <MDEditor.Markdown
+                className='text-sm text-neutral-300 leading-8'
+                source={text}
+                style={{
+                  background: "#0a0a0a",
+                  padding: "16px",
+                  borderRadius: "8px",
+                  "& pre": {
+                    background: "#282c34 !important", // 代码块背景色
+                    color: "#abb2bf !important",      // 代码文字颜色
+                    padding: "16px",
+                    borderRadius: "6px"
+                  }
+              }}
+              />
 
             </ScrollArea>
           </div>

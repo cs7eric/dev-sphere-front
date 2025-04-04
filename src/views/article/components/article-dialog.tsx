@@ -62,6 +62,7 @@ export function ArticleDialog() {
 
   const handleSubmit = () => {
 
+    console.log(articleForm.getValues('content'))
     onSubmit(articleForm.getValues())
   }
 

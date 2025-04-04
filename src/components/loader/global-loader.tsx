@@ -32,9 +32,7 @@ const LoaderOverlay = styled.div`
   pointer-events: none;
   cursor: not-allowed;
 
-  & > * {
-    pointer-events: none;
-  }
+ 
 `;
 
 export default GlobalLoader;
