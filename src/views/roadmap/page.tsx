@@ -1,4 +1,4 @@
-import { RoadmapTree } from './components/RoadmapTree';
+import { MultiLevelRoadmap } from './components/MultiLevelRoadmap';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
@@ -18,7 +18,7 @@ export default function RoadmapPage () {
             <CardDescription>从基础到高级的前端开发学习路径</CardDescription>
           </CardHeader>
           <CardContent>
-            <RoadmapTree className="mt-4" />
+            <MultiLevelRoadmap className="mt-4" />
           </CardContent>
         </Card>
       </div>
