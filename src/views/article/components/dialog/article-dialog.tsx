@@ -1,11 +1,11 @@
-import {Button} from "@/components/ui/button"
+import {Button} from "@/components/ui/button.tsx"
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import {Input} from "@/components/ui/input"
+} from "@/components/ui/dialog.tsx"
+import {Input} from "@/components/ui/input.tsx"
 import React from "react";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form.tsx";
 import {useForm} from "react-hook-form";
@@ -19,6 +19,7 @@ import { TbWritingSign } from "react-icons/tb";
 import { FaDraftingCompass } from "react-icons/fa";
 import { BsSendArrowUp } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
+import ArticlePublishDialog from "@/views/article/components/dialog/article-publish-dialog.tsx";
 export function ArticleDialog() {
   const {showGlobalLoader, hideGlobalLoader} = useLoader()
   const ArticleFormSchema = z.object({
@@ -38,21 +39,21 @@ export function ArticleDialog() {
     },
   })
 
-  function onSubmit(data: z.infer<typeof ArticleFormSchema>) {
-
-    showGlobalLoader()
-    setTimeout(() => {
-      hideGlobalLoader();
-    }, 5000);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
-  }
+  // function onSubmit(data: z.infer<typeof ArticleFormSchema>) {
+  //
+  //   showGlobalLoader()
+  //   setTimeout(() => {
+  //     hideGlobalLoader();
+  //   }, 5000);
+  //   toast({
+  //     title: "You submitted the following values:",
+  //     description: (
+  //       <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+  //         <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+  //       </pre>
+  //     ),
+  //   })
+  // }
   const handleReset = () => {
     articleForm.reset({
       articleTitle: "",
@@ -63,8 +64,9 @@ export function ArticleDialog() {
   const handleSubmit = () => {
 
     console.log(articleForm.getValues('content'))
-    onSubmit(articleForm.getValues())
+    // onSubmit(articleForm.getValues())
   }
+  const watchedValues = articleForm.watch();
 
   return (
     <Dialog>
@@ -85,7 +87,8 @@ export function ArticleDialog() {
         >
           <form
             className={'space-y-6'}
-            onSubmit={articleForm.handleSubmit(onSubmit)}>
+            // onSubmit={articleForm.handleSubmit(onSubmit)}
+          >
 
             <div className="grid grid-cols-7 space-x-4 ">
               <div className={'col-span-5'}>
@@ -114,12 +117,11 @@ export function ArticleDialog() {
 
 
               <div className="col-span-2 space-x-4 mr-5 flex justify-end">
-                  <Button
-                    onClick={handleSubmit}
-                    >
-                    <BsSendArrowUp />
-                    publish
-                  </Button>
+                <ArticlePublishDialog
+                  articleForm={articleForm}
+                  key={articleForm.getValues('content')}
+                  onPublish={handleSubmit}
+                ></ArticlePublishDialog>
 
                 <Button variant='outline'>
                   <FaDraftingCompass/>draft

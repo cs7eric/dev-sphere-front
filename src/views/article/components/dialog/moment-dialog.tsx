@@ -1,4 +1,4 @@
-import {Button} from "@/components/ui/button"
+import {Button} from "@/components/ui/button.tsx"
 import {
   Dialog,
   DialogContent,
@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import {Input} from "@/components/ui/input"
+} from "@/components/ui/dialog.tsx"
+import {Input} from "@/components/ui/input.tsx"
 import {LuThermometerSun} from "react-icons/lu";
 import React, {useEffect, useState} from "react";
 import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form.tsx";

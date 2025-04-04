@@ -16,7 +16,7 @@ const CircleAbbreviate: React.FC<Props> = ({circle}) => {
         <div className="left-content flex space-x-3 items-center  ">
           <div className="circle-image p-0.5 bg-neutral-500 rounded-md">
             <Image
-              src={circle.image ? CircleImage : circle.image}
+              src={circle.icon ? CircleImage : circle.icon}
               width="30px"
               height="30px"
               className={'rounded-md'}

@@ -1,4 +1,3 @@
-import CircleItem from "@/views/circle/components/circle-item";
 import { Circle } from "@/models/circle.types";
 import CircleCard from "@/components/card/circle-card.tsx";
 
