@@ -119,7 +119,6 @@ export function ArticleDialog() {
               <div className="col-span-2 space-x-4 mr-5 flex justify-end">
                 <ArticlePublishDialog
                   articleForm={articleForm}
-                  key={articleForm.getValues('content')}
                   onPublish={handleSubmit}
                 ></ArticlePublishDialog>
 

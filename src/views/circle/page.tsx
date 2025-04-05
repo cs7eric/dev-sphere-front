@@ -29,7 +29,8 @@ import {FaRegGrinStars} from "react-icons/fa";
 import {MdSettingsSuggest} from "react-icons/md";
 import {MomentDialog} from "@/views/article/components/dialog/moment-dialog.tsx";
 import {ArticleDialog} from "@/views/article/components/dialog/article-dialog.tsx";
-
+import {addUsingPost1} from "@/apis/circle";
+import {getStoredUserInfo} from '@/utils/user.ts'
 export default function CirclePage() {
 
   const [circleCategoryList, setCircleCategoryList] = useState()<[]>
@@ -54,7 +55,7 @@ export default function CirclePage() {
     circleName: z.string().min(2, {
       message: "circleName must be at least 2 characters.",
     }),
-    category: z.string().nonempty({
+    categoryId: z.number({
       message: "not null"
     }),
     intro: z.string().optional(), // 添加介绍字段
@@ -67,25 +68,45 @@ export default function CirclePage() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       circleName: "",
-      category: ""
+      categoryId: ""
     },
   })
 
+  const [isOpen, setIsOpen] = useState(false);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
 
+
+    const userInfo = getStoredUserInfo()
+    setIsOpen(true)
+
+    const body = {
+      userName: userInfo.loginId,
+      circleName: data.circleName,
+      categoryId: data.categoryId,
+      circleIntro: data.intro,
+      icon: data.imageUrl
+    }
     showGlobalLoader()
-    setTimeout(() => {
+
+    const res = await addUsingPost1({body})
+    if (res.success) {
+      toast({
+        title: "Success",
+        description: "创建成功"
+      })
+      setIsOpen(false);
+      form.reset();
       hideGlobalLoader();
-    }, 5000);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    } else {
+      toast({
+        title: "Error",
+        description: "失败，请重新尝试"
+      })
+      hideGlobalLoader();
+    }
+
+
   }
 
   const [articleList, setArticleList] = useState()<[]>
@@ -111,9 +132,10 @@ export default function CirclePage() {
               <span className="font-bold">Search</span>
             </Button>
 
-            <Dialog>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger>
                 <Button
+                  onClick={()=> {setIsOpen(true)}}
                   className="h-12 px-1" variant='outline'
                 >
                   <IoAddCircle className="transform scale-120"/>
@@ -154,7 +176,7 @@ export default function CirclePage() {
                           />
                           <FormField
                             control={form.control}
-                            name="category"
+                            name="categoryId"
                             render={({field}) => (
                               <div className='flex items-start '>
                                 <FormItem>
@@ -162,8 +184,6 @@ export default function CirclePage() {
                                   <FormControl>
                                     <ComboboxArea
                                       list={circleCategoryList}
-                                      value={field.value}
-                                      onChange={field.onChange}
                                       {...field}
                                     ></ComboboxArea>
                                   </FormControl>

@@ -19,18 +19,50 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+
+
+
 interface Props {
   list,
-  onChange?: (value: string) => void
+  onChange?: (id: string) => void;
+  value?: string;
+  name?: string;
+  categoryId?: string;
+  onCategoryIdChange?: (id: string) => void;
 }
 
-const ComboboxArea: React.FC<Props> = ({list, value, onChange}) => {
+const ComboboxArea: React.FC<Props> = ({list, value, onChange, onCategoryIdChange}) => {
   const [open, setOpen] = React.useState(false)
+  const [displayValue, setDisplayValue] = React.useState<string>("") // 用于显示的值
+
+  // 当外部value变化时，更新显示值
+  React.useEffect(() => {
+    // 如果value是id，则查找对应的categoryName作为显示值
+    if (value) {
+      const category = list.find((cat) => cat.id === value);
+      if (category) {
+        setDisplayValue(category.categoryName);
+      }
+    } else {
+      setDisplayValue("");
+    }
+  }, [value, list]);
 
   const handleSelect = (currentValue: string) => {
-    const newValue = currentValue === value ? "" : currentValue
+    const selectedCategory = list.find((category) => category.categoryName === currentValue)
+    const categoryId = selectedCategory ? selectedCategory.id : ""
     setOpen(false)
-    onChange?.(newValue)
+    
+    // 更新显示值
+    setDisplayValue(currentValue)
+    
+    // 先设置categoryId，确保在onChange之前完成
+    if (categoryId) {
+      onCategoryIdChange?.(categoryId)
+    }
+    
+    // 只传递id
+    onChange?.(categoryId)
   }
 
   return (
@@ -42,9 +74,7 @@ const ComboboxArea: React.FC<Props> = ({list, value, onChange}) => {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? list.find((category) => category.categoryName === value)?.categoryName
-            : "Select framework..."}
+          {displayValue || "Select framework..."}
           <ChevronsUpDown className="opacity-50"/>
         </Button>
       </PopoverTrigger>
@@ -64,7 +94,7 @@ const ComboboxArea: React.FC<Props> = ({list, value, onChange}) => {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === category.value ? "opacity-100" : "opacity-0"
+                      displayValue === category.categoryName ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

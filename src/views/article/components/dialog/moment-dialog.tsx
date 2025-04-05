@@ -11,7 +11,7 @@ import {
 import {Input} from "@/components/ui/input.tsx"
 import {LuThermometerSun} from "react-icons/lu";
 import React, {useEffect, useState} from "react";
-import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form.tsx";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
@@ -19,51 +19,72 @@ import {toast} from "@/registry/hooks/use-toast.ts";
 import {useLoader} from "@/hooks/use-loader.ts";
 import rehypeSanitize from "rehype-sanitize";
 import MDEditor from "@uiw/react-md-editor";
-import ComboboxArea from "@/components/input/combobox-area.tsx";
-import {queryPrimaryCategoryUsingPost} from "@/apis/subject";
 import { BiSolidCategory } from "react-icons/bi";
+import {getStoredUserInfo} from "@/utils/user.ts";
+import {addUsingPost2, getSubscribeListByUserIdUsingPost} from "@/apis/circle";
+import CircleSwitcher from "@/components/circle/circle-switcher.tsx";
 export function MomentDialog() {
+
+  const [isOpen, setIsOpen] = useState(false)
+
+
   const {showGlobalLoader, hideGlobalLoader} = useLoader()
   const MomentFormSchema = z.object({
     momentTitle: z.string().min(2, {
       message: "circleName must be at least 2 characters.",
     }),
     content: z.string().nonempty(),
-    category: z.string().nonempty()
-
+    circleId: z.number({
+      message: "Category is required"
+    })
   })
 
 
-  const momentForm = useForm<z.infer<typeof MomentFormSchema>>({
+  const momentForm = useForm<z.infer<typeof MomentFormSchema>>({    
     resolver: zodResolver(MomentFormSchema),
     defaultValues: {
       momentTitle: "",
+      content: "",
+      circleId: ""
     },
   })
 
-  function onSubmit(data: z.infer<typeof MomentFormSchema>) {
-
+  async function onSubmit(data: z.infer<typeof MomentFormSchema>) {
     showGlobalLoader()
-    setTimeout(() => {
+
+    const userInfo = getStoredUserInfo()
+
+    const body = {
+      momentTitle: data.momentTitle,
+      circleId: data.circleId,
+      content: data.content,
+      userName: userInfo.loginId
+    }
+
+    const res = await addUsingPost2({body})
+    if (res.success) {
       hideGlobalLoader();
-    }, 5000);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+      toast({
+        title: "success",
+        description: "发表成功"
+      })
+      momentForm.reset()
+      setIsOpen(false)
+    } else {
+      hideGlobalLoader();
+    }
+    hideGlobalLoader();
+
   }
 
   const [circleCategoryList, setCircleCategoryList] = useState()<[]>
+  const userInfo = getStoredUserInfo()
 
   const fetchCircleList = async () => {
     const body = {
-      categoryType: 1
+      userName: userInfo.loginId
     }
-    const res = await queryPrimaryCategoryUsingPost({body})
+    const res = await getSubscribeListByUserIdUsingPost({body})
     if (res.success) {
       setCircleCategoryList(res.data)
     }
@@ -77,8 +98,10 @@ export function MomentDialog() {
 
 
 
+
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -116,10 +139,12 @@ export function MomentDialog() {
                       <FormControl className={'col-span-4'}>
                         <Input
                           id="name"
-                          defaultValue="Pedro Duarte"
+                          placeholder="Enter your moment title"
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage/>
+
                     </FormItem>
 
 
@@ -131,7 +156,7 @@ export function MomentDialog() {
               <div className="col-span-2 flex justify-end">
                 <FormField
                   className={'grid'}
-                  name="category"
+                  name="circleId"
                   control={momentForm.control}
                   render={({field}) => (
 
@@ -140,11 +165,13 @@ export function MomentDialog() {
                         <BiSolidCategory className={'fill-neutral-50 scale-150'}/>
                       </FormLabel>
                       <FormControl className={' flex justify-end'}>
-                        <ComboboxArea
-                          list={circleCategoryList}
-                          {...field}
-                        ></ComboboxArea>
+                        {circleCategoryList.length > 0 ? (
+                          <CircleSwitcher
+                            {...field}
+                            list={circleCategoryList}/>
+                        ) : null}
                       </FormControl>
+                      <FormMessage/>
                     </FormItem>
 
 
@@ -171,6 +198,7 @@ export function MomentDialog() {
                         previewOptions={{rehypePlugins: [[rehypeSanitize]]}}
                       />
                     </FormControl>
+                    <FormMessage/>
                   </FormItem>
                 )}
               />

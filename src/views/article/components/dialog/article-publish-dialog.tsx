@@ -23,9 +23,11 @@ import {toast} from "@/registry/hooks/use-toast.ts";
 import {useLoader} from "@/hooks/use-loader.ts";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {TagsInput} from "@/components/input/tags-input.tsx";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { GiSpellBook } from "react-icons/gi";
 import NullIcon from '@/assets/illstructions/null.svg'
+import {getStoredUserInfo} from "@/utils/user.ts";
+import {addUsingPost, getSubscribeListByUserIdUsingPost} from "@/apis/circle";
 
 interface Props {
   onPublish: () => void;
@@ -50,10 +52,10 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
   const currentContent = articleForm.watch('content');
 
   const ArticleFormSchema = z.object({
-    circleName: z.string().nonempty({
-      message: "圈子名称不能为空"
+    circleId: z.number({
+      message: "圈子ID不能为空"
     }),
-    abstract: z.string().nonempty({
+    articleAbstract: z.string().nonempty({
       message: "摘要不能为空"
     }),
     tags: z.array(z.string()).max(6, "最多只能添加5个标签").optional()
@@ -65,16 +67,37 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
       circleName: '',
       articleTitle: currentTitle || '',
       content: currentContent || '',
-      abstract: '',
+      articleAbstract: '',
       tags: []
     }
   })
 
   const {showGlobalLoader, hideGlobalLoader} = useLoader()
 
-  const onSubmit = (data: z.infer<typeof ArticleFormSchema>) => {
+  const [circleList, setCircleList] = useState()<[]>
+  const userInfo = getStoredUserInfo()
+
+  const fetchCircleList = async () => {
+    const body = {
+      userName: userInfo.loginId
+    }
+    const res = await getSubscribeListByUserIdUsingPost({body})
+    if (res.success) {
+      setCircleList(res.data)
+    }
+  }
 
 
+  useEffect(() => {
+
+    fetchCircleList()
+  }, []);
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onSubmit = async (data: z.infer<typeof ArticleFormSchema>) => {
+
+    const userInfo = getStoredUserInfo()
     // 合并父表单的数据
     const formData = {
       ...data,
@@ -91,29 +114,46 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
       return
     }
     showGlobalLoader()
-    setTimeout(() => {
+    const body = {
+      userName: userInfo.loginId,
+      title: formData.articleTitle,
+      content: formData.content,
+      circleId: formData.circleId,
+      labelList: formData.tags,
+      articleAbstract: formData.articleAbstract
+    }
+
+    const res = await addUsingPost({body})
+    if (res.success) {
+      toast({
+        title: "success",
+        description: "发表成功",
+      })
       hideGlobalLoader();
-    }, 2000);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(formData, null, 2)}</code>
-        </pre>
-      ),
-    })
+      setIsOpen(false)
+      articleForm.reset()
+    } else {
+      toast({
+        title: "error",
+        description: "发表成功",
+      })
+      hideGlobalLoader();
+    }
+
+
+
   }
 
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>
           <BsSendArrowUp/>
           publish
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[550px] md:max-w-6xl ">
+      <DialogContent className="sm:max-w-[580px] md:max-w-7xl ">
 
         <Form
           {...articleFormPro}
@@ -165,15 +205,18 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                     <FormField
                       className='md:w-auto'
                       control={articleFormPro.control}
-                      name="circleName"
+                      name="circleId"
                       render={({field}) => (
                         <div className='flex items-start gap-4 '>
                           <FormItem>
                             <FormLabel className={'text-right'}>Circle Name</FormLabel>
                             <FormControl>
-                              <CircleSwitcher
-                                {...field}
-                                list={mockShareCircles}/>
+                              {circleList.length > 0 ? (
+                                <CircleSwitcher
+                                  {...field}
+                                  list={circleList}/>
+                              ) : null}
+
                             </FormControl>
                             <FormDescription>Choose one circle to publish.</FormDescription>
                           </FormItem>
@@ -208,10 +251,10 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                       )}
                     />
                   </div>
-                  <div className={'abstract-area'}>
+                  <div className={'articleAbstract-area'}>
                     <FormField
                       control={articleFormPro.control}
-                      name='abstract'
+                      name='articleAbstract'
                       render={({field}) => (
                         <FormControl>
                           <div>
