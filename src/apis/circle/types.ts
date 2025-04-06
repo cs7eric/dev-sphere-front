@@ -2,6 +2,7 @@
 // @ts-ignore
 
 export type CircleActionDTO = {
+  categoryId?: number;
   circleId?: number;
   circleMemberList?: ShareCircleMemberDTO[];
   circleName?: string;
@@ -57,18 +58,11 @@ export type ShareArticleDTO = {
   content?: string;
   id?: number;
   isDeleted?: number;
-  labelMappingDTOList?: ShareArticleLabelMappingDTO[];
+  labelList?: string[];
   likeCount?: number;
   replyCount?: number;
   title?: string;
-  userName?: number;
-};
-
-export type ShareArticleLabelMappingDTO = {
-  articleId?: number;
-  id?: number;
-  isDeleted?: number;
-  labelId?: number;
+  userName?: string;
 };
 
 export type ShareCircleDTO = {
@@ -98,5 +92,5 @@ export type ShareMomentDTO = {
   momentTitle?: string;
   picUrls?: string;
   replyCount?: number;
-  userName?: number;
+  userName?: string;
 };

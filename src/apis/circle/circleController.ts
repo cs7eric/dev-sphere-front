@@ -22,6 +22,27 @@ export async function addUsingPost1({
   });
 }
 
+/** getCircleListByCategory POST /share/circle/getCircleListByCategory */
+export async function getCircleListByCategoryUsingPost({
+  body,
+  options,
+}: {
+  body: API.ShareCircleDTO;
+  options?: { [key: string]: unknown };
+}) {
+  return request<API.ResultListShareCircleDTO_>(
+    '/share/circle/getCircleListByCategory',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    }
+  );
+}
+
 /** getSubscribeListByUserId POST /share/circle/getSubscribeListByUserId */
 export async function getSubscribeListByUserIdUsingPost({
   body,

@@ -1,37 +1,40 @@
 import {Card, Tooltip} from "@heroui/react";
 import {GoAlertFill} from "react-icons/go";
-import {Image} from "@unpic/react";
 import {Button} from "@/components/ui/button.tsx";
 import {FcLike} from "react-icons/fc";
 import {BsStarFill} from "react-icons/bs";
-import React from "react";
+import React, {useState} from "react";
 import {FaShareFromSquare} from "react-icons/fa6";
 import {
   Dialog,
   DialogContent,
   DialogTrigger
 } from "@/components/ui/dialog.tsx";
-import UserAvatar from '@/assets/user/avatar.jpg'
-import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
-import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {Input} from "@/components/ui/input.tsx";
-import {IoIosSend} from "react-icons/io";
-import CommentItem from "@/components/article/comment-item.tsx";
 import UserAbbreviate from "@/components/user/user-abbreviate.tsx";
 import {userAbbreviateInfo} from "@/mock/user.ts";
 import UserProfile from "@/views/user/components/UserProfile.tsx";
 import ArticleProfile from "@/views/article/components/article-profile.tsx";
+import truncateText from "@/utils/text.ts";
+import MDEditor from "@uiw/react-md-editor";
+import mdToPlainText from "@/utils/text.ts";
 
-export default function ArticleItem() {
+
+interface Props {
+  article
+}
+const ArticleItem:React.FC<Props> = ({article}) => {
 
   const [isFollowed, setIsFollowed] = React.useState(false);
+
+  const [isUserOpen, setIsUserOpen] =useState(false)
+  const [isArticleOpen, setIsArticleOpen] =useState(false)
 
   return (
 
     <>
       <Card className="w-full border p-4  rounded-md dark:text-[#f0f6fc]">
 
-        <Dialog>
+        <Dialog open={isUserOpen} onOpenChange={setIsUserOpen}>
           <DialogTrigger>
             <div className="cursor-pointer">
               <UserAbbreviate
@@ -47,23 +50,37 @@ export default function ArticleItem() {
         </Dialog>
 
 
-        <h3 className="font-bold mt-2">Java 的行业现状</h3>
+        <h3 className="font-bold mt-2">{article.title}</h3>
 
         <div className="article-detail mt-2 p-1 dark:bg-[#111111] rounded-lg">
           <div className="text-container p-2">
             <p
-              className="article text-xs  "> 不是JAVA不行了，国内IT圈的信条，导致这个方向的人太多太多了，而且看某音主播，各大培训班，仍旧一教室一教室的招，供应量太大了！JAVA在互联网领域绝对是大佬的存在，但现在互联网行情已经结束了，哪有什么新APP了！岗位肯定是越来越收缩了，这绝对不是一个增量的市场！而是一个需求不断萎靡的市场！
+              className="article text-xs  "
+            >
+              <MDEditor.Markdown
+                className='text-sm text-neutral-300 leading-8'
+                source={truncateText(article.content,80)}
+                style={{
+                  background: "#0a0a0a",
+                  padding: "16px",
+                  borderRadius: "8px",
+                  "& pre": {
+                    background: "#282c34 !important", // 代码块背景色
+                    color: "#abb2bf !important",      // 代码文字颜色
+                    padding: "16px",
+                    borderRadius: "6px"
+                  }
+                }}
+              />
             </p>
             <div className="read-more mt-6">
 
-              <Dialog>
+              <Dialog open={isArticleOpen} onOpenChange={setIsArticleOpen}>
                 <DialogTrigger>
                   <p className="text-xs underline dark:hover:text-[#fff] cursor-pointer">Read more</p>
                 </DialogTrigger>
                 <DialogContent className='min-w-[1460px] min-h-[850px] grid grid-cols-4'>
-
-                  <ArticleProfile></ArticleProfile>
-
+                  <ArticleProfile article={article}></ArticleProfile>
                 </DialogContent>
               </Dialog>
 
@@ -106,3 +123,5 @@ export default function ArticleItem() {
     </>
   )
 }
+
+export default ArticleItem

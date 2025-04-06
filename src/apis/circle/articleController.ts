@@ -40,6 +40,27 @@ export async function deleteUsingDelete({
   });
 }
 
+/** getArticleByCircle POST /share/article/getArticleByCircle */
+export async function getArticleByCircleUsingPost({
+  body,
+  options,
+}: {
+  body: API.ShareArticleDTO;
+  options?: { [key: string]: unknown };
+}) {
+  return request<API.ResultListShareArticleDTO_>(
+    '/share/article/getArticleByCircle',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    }
+  );
+}
+
 /** query POST /share/article/query */
 export async function queryUsingPost({
   body,

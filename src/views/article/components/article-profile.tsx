@@ -1,5 +1,4 @@
 import React from "react";
-import {Subject} from "@/models/subject.types.ts";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Tooltip} from "@heroui/react";
 import {Button} from "@/components/ui/button.tsx";
@@ -18,7 +17,7 @@ import MDEditor from "@uiw/react-md-editor";
 
 
 interface Props {
-  subject: Subject
+  article
 }
 
 
@@ -53,7 +52,7 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
           <div className="article-content space-y-3 pr-2">
             <div className="article-title">
               <h3 className="article-title font-bold text-lg">
-                Java 泛型中的通配符 T，E，K，V，？有去搞清楚吗？
+                {article.title}
               </h3>
             </div>
             <div className="label-list space-x-3 text-xs">
@@ -78,7 +77,7 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
             <ScrollArea className='max-w-[1380px] h-[650px]'>
               <MDEditor.Markdown
                 className='text-sm text-neutral-300 leading-8'
-                source={text}
+                source={article.content}
                 style={{
                   background: "#0a0a0a",
                   padding: "16px",
@@ -132,10 +131,7 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
 
           </div>
           <div className="article-outline text-xs leading-7 min-h-[180px]">
-            <p> 不久前，被人问到Java 泛型中的通配符 T，E，K，V，?
-              是什么？有什么用？这不经让我有些回忆起该开始学习Java那段日子，那是对泛型什么的其实有些迷迷糊糊的，学的不这么样，是在做项目的过程中，渐渐有又看到别人的代码、在看源码的时候老是遇见，之后就专门去了解学习，才对这几个通配符
-              T，E，K，V，?有所了解。
-            </p>
+            <p> {article.articleAbstract} </p>
           </div>
           <div className="comment-area border-t pt-3">
             <span className='text-xs text-neutral-600'>共 87 条 评论</span>

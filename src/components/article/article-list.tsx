@@ -1,7 +1,12 @@
 import ArticleItem from "@/components/article/article-item.tsx";
+import React from "react";
 
-export default function ArticleList() {
 
+interface Props {
+  articleList
+
+}
+const  ArticleList:React.FC<Props> =  ({articleList}) => {
 
   return (
 
@@ -9,13 +14,20 @@ export default function ArticleList() {
       <div className="w-full flex flex-wrap space-y-5">
 
         {
-          Array.from(
-            {length: 10}, (_, index) => index + 1)
-            .map((_, index) => (
-              <ArticleItem key={index} className="w-full"></ArticleItem>
-            ))
+          Array.isArray(articleList) && articleList.length > 0 ?
+            (articleList).map((article) => (
+
+              <ArticleItem
+                key={article.id}
+                article={article}
+              ></ArticleItem>
+            )) : (
+              <div>null</div>
+            )
         }
       </div>
     </>
   )
 }
+
+export default ArticleList

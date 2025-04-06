@@ -20,6 +20,7 @@ import PythonIcon from '@/assets/icon/python.svg'
 import { queryPrimaryCategoryUsingPost, SubjectCategoryDTO} from "@/apis/subject";
 import {useEffect, useState} from "react";
 import ReverseCard from "@/components/card/reverse-card.tsx";
+import CircleAggregate from "@/views/circle/components/circle-aggregate.tsx";
 
 
 
@@ -159,7 +160,12 @@ export default function HomePage() {
                               <div
                                 className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]"
                                 onClick={() => console.log(category.id)}
-                              >{category.categoryName}</div>
+                              >
+                                <CircleAggregate
+                                  category={category}
+
+                                ></CircleAggregate>
+                              </div>
                             )) : (
                               <div>null</div>
                             )
