@@ -18,9 +18,14 @@ import {Image} from "@unpic/react";
 import CppIcon from '@/assets/icon/cpp.svg'
 import PythonIcon from '@/assets/icon/python.svg'
 import { queryPrimaryCategoryUsingPost, SubjectCategoryDTO} from "@/apis/subject";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReverseCard from "@/components/card/reverse-card.tsx";
 import CircleAggregate from "@/views/circle/components/circle-aggregate.tsx";
+import { RetryWrapper } from "@/components/retry/retry-wrapper";
+import {Skeleton} from "@/components/ui/skeleton.tsx";
+import {toast} from "@/registry/hooks/use-toast.ts";
+import TagsLoader from "@/components/loader/tags-loader.tsx";
+
 
 
 
@@ -37,13 +42,15 @@ export default function HomePage() {
   const fetchParentCategoryList = async () => {
     const res = await queryPrimaryCategoryUsingPost({body})
     if (res.success) {
-      setParentCategoryList(res.data)
+      return res.data
     }
+    throw new Error('获取分类列表失败')
   }
 
-  useEffect(() => {
-    fetchParentCategoryList()
-  }, []);
+  // 不再需要这个useEffect，因为RetryWrapper会自动调用fetchData
+  // useEffect(() => {
+  //   fetchParentCategoryList()
+  // }, []);
 
   // 处理语言变化
   const handleLanguageChange = (language: string) => {
@@ -154,23 +161,32 @@ export default function HomePage() {
                       <CardContent>
 
                         <div className="field-list flex flex-wrap gap-2">
+                          <RetryWrapper
+                            fetchData={fetchParentCategoryList}
+                            loadingComponent={
 
-                          {Array.isArray(parentCategoryList) && parentCategoryList.length > 0 ?
-                            (parentCategoryList).map((category) => (
-                              <div
-                                className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]"
-                                onClick={() => console.log(category.id)}
-                              >
-                                <CircleAggregate
-                                  category={category}
-
-                                ></CircleAggregate>
-                              </div>
-                            )) : (
-                              <div>null</div>
-                            )
-                          }
-
+                              <TagsLoader tagWidth="60px" tagHeight="16px" />
+                            }
+                            errorTitle="获取分类列表失败"
+                            errorDescription="无法获取分类数据，请检查网络连接后重试"
+                            retryButtonText="重新获取"
+                          >
+                            {(categoryList) => (
+                              <>
+                                {categoryList.map((category) => (
+                                  <div
+                                    key={category.id}
+                                    className="field-item hover:text-[#fff] text-[#a1a1a1] rounded-sm cursor-pointer text-sm p-1 hover:bg-[#262626]"
+                                    onClick={() => console.log(category.id)}
+                                  >
+                                    <CircleAggregate
+                                      category={category}
+                                    ></CircleAggregate>
+                                  </div>
+                                ))}
+                              </>
+                            )}
+                          </RetryWrapper>
                         </div>
 
 
