@@ -68,7 +68,7 @@ export function LabelSection() {
           {Array.isArray(labelList) && labelList.length > 0 ? (
             labelList.map((label) => (
               <h3
-                className='p-1 hover:rounded-md hover:bg-[#262626] cursor-pointer'
+                className='p-1 hover:rounded-md hover:bg-neutral-800/10 hover:text-neutral-900 dark:hover:bg-[#262626] cursor-pointer'
                 key={label.id}
                 onClick={() => console.log(label.id)}
               >{label.labelName}</h3>

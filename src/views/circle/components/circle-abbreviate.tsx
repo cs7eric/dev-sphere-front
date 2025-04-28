@@ -45,7 +45,7 @@ const CircleAbbreviate: React.FC<Props> = ({circle}) => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <div
-            className="circle-abbreviate flex items-center text-xs justify-between space-x-3 rounded-base bg-neutral-900 p-2 rounded-sm transition-transform hover:scale-102 duration-250 cursor-pointer">
+            className="circle-abbreviate flex items-center text-xs justify-between space-x-3 rounded-base dark:bg-neutral-900 p-2 rounded-sm transition-transform hover:scale-102 duration-250 cursor-pointer">
             <div className="left-content flex space-x-3 items-center  ">
               <div className="circle-image p-0.5 bg-neutral-500 rounded-md">
                 <Image

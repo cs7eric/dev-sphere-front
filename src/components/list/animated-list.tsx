@@ -63,6 +63,7 @@ interface AnimatedListProps {
   initialSelectedIndex?: number;
   isFollowed?: boolean;
   requiredFollow?: boolean;
+  theme?: 'dark' | 'light';
 }
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
@@ -77,6 +78,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                                                      initialSelectedIndex = -1,
                                                      isFollowed = false,
                                                      requiredFollow = false,
+                                                     theme = 'dark',
                                                    }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] =
@@ -84,6 +86,30 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [keyboardNav, setKeyboardNav] = useState<boolean>(false);
   const [topGradientOpacity, setTopGradientOpacity] = useState<number>(0);
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
+
+  // Theme-based styles
+  const themeStyles = {
+    dark: {
+      bg: '#060606',
+      itemBg: '#111',
+      itemBgSelected: '#222',
+      scrollbarTrack: '#060606',
+      scrollbarThumb: '#222',
+      text: 'text-white',
+      gradientFrom: 'from-[#060606]',
+    },
+    light: {
+      bg: '#f5f5f5',
+      itemBg: '#fff',
+      itemBgSelected: '#e5e5e5',
+      scrollbarTrack: '#f5f5f5',
+      scrollbarThumb: '#d4d4d4',
+      text: 'text-gray-800',
+      gradientFrom: 'from-[#f5f5f5]',
+    }
+  };
+
+  const currentTheme = themeStyles[theme];
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     const {scrollTop, scrollHeight, clientHeight} =
@@ -149,45 +175,46 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     setKeyboardNav(false);
   }, [selectedIndex, keyboardNav]);
 
-  // 根据不同的itemType渲染不同的组件
+  // Render item based on type
   const renderItem = (item: ItemData, index: number) => {
     switch (itemType) {
       case "user":
         return (
-          <UserAbbreviate 
-            user={item as AuthUserDTO} 
-            isFollowed={isFollowed} 
-            requiredFollow={requiredFollow} 
+          <UserAbbreviate
+            user={item as AuthUserDTO}
+            isFollowed={isFollowed}
+            requiredFollow={requiredFollow}
+            theme={theme}
           />
         );
       case "article":
-        return <ArticleAbbreviate article={item as Article} />;
+        return <ArticleAbbreviate article={item as Article} theme={theme} />;
       case "subject":
-        return <SubjectAbbreviate subject={item as Subject} />;
+        return <SubjectAbbreviate subject={item as Subject} theme={theme} />;
       default:
         return (
           <div
-            className={`p-4 bg-[#111] rounded-lg ${selectedIndex === index ? "bg-[#222]" : ""} ${itemClassName}`}
+            className={`p-4 rounded-lg ${selectedIndex === index ? currentTheme.itemBgSelected : currentTheme.itemBg} ${currentTheme.text} ${itemClassName}`}
           >
-            <p className="text-white m-0">{item as string}</p>
+            <p className={`m-0 ${currentTheme.text}`}>{item as string}</p>
           </div>
         );
     }
   };
 
   return (
-    <div className={`relative w-[400px] ${className}`}>
+    <div className={`relative w-[330px] ${className}`}>
       <div
         ref={listRef}
-        className={`max-h-[560px] overflow-y-auto p-4 ${
+        className={`max-h-[500px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060606] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]"
+            ? `[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:${currentTheme.scrollbarTrack} [&::-webkit-scrollbar-thumb]:${currentTheme.scrollbarThumb} [&::-webkit-scrollbar-thumb]:rounded-[4px]`
             : "scrollbar-hide"
         }`}
         onScroll={handleScroll}
         style={{
           scrollbarWidth: "thin",
-          scrollbarColor: "#222 #060606",
+          scrollbarColor: `${currentTheme.scrollbarThumb} ${currentTheme.scrollbarTrack}`,
         }}
       >
         {items.map((item, index) => (
@@ -210,11 +237,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       {showGradients && (
         <>
           <div
-            className="absolute top-0 left-0 right-0 h-[50px] bg-gradient-to-b from-[#060606] to-transparent pointer-events-none transition-opacity duration-300 ease"
+            className={`absolute top-0 left-0 right-0 h-[50px] bg-gradient-to-b ${currentTheme.gradientFrom} to-transparent pointer-events-none transition-opacity duration-300 ease`}
             style={{opacity: topGradientOpacity}}
           ></div>
           <div
-            className="absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-t from-[#060606] to-transparent pointer-events-none transition-opacity duration-300 ease"
+            className={`absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-t ${currentTheme.gradientFrom} to-transparent pointer-events-none transition-opacity duration-300 ease`}
             style={{opacity: bottomGradientOpacity}}
           ></div>
         </>

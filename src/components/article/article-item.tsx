@@ -61,7 +61,7 @@ const ArticleItem:React.FC<Props> = ({article}) => {
                 className='text-sm text-neutral-300 leading-8'
                 source={truncateText(article.content,80)}
                 style={{
-                  background: "#0a0a0a",
+                  // background: "#0a0a0a",
                   padding: "16px",
                   borderRadius: "8px",
                   "& pre": {

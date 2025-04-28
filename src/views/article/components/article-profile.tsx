@@ -56,9 +56,9 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
               </h3>
             </div>
             <div className="label-list space-x-3 text-xs">
-              <span className="label p-1 border rounded-md bg-neutral-600 text-neutral-200">Java</span>
-              <span className="label p-1 border rounded-md bg-neutral-600 text-neutral-200">Spring</span>
-              <span className="label p-1 border rounded-md bg-neutral-600 text-neutral-200">SpringCloud</span>
+              <span className="label p-1 border-1 rounded-md dark:bg-neutral-600 text-neutral-800">Java</span>
+              <span className="label p-1 border-1 rounded-md dark:bg-neutral-600 text-neutral-800">Spring</span>
+              <span className="label p-1 border-1 rounded-md dark:bg-neutral-600 text-neutral-800">SpringCloud</span>
             </div>
             <div className="article-data text-xs space-x-3 flex">
               <div className="data-item text-neutral-500 ">
@@ -79,7 +79,7 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
                 className='text-sm text-neutral-300 leading-8'
                 source={article.content}
                 style={{
-                  background: "#0a0a0a",
+                  // background: "#0a0a0a",
                   padding: "16px",
                   borderRadius: "8px",
                   "& pre": {
@@ -153,7 +153,7 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
               height={'36px'}
               className={'rounded-md bg-neutral-700 p-0.5'}
             ></Image>
-            <Input type="text" placeholder="talk about it" className='bg-[#1b1b1b] text-neutral-400'/>
+            <Input type="text" placeholder="talk about it" className='dark:bg-[#1b1b1b] text-neutral-400'/>
             <Button type="submit" className='w-[36px] cursor-pointer' variant='outline'><IoIosSend/></Button>
           </div>
         </section>

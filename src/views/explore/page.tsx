@@ -9,7 +9,6 @@ import {Card} from "@/components/ui/card.tsx";
 import AnimatedList from "@/components/list/animated-list.tsx";
 import {FaHotjar} from "react-icons/fa";
 import {mockSubjectList} from "@/models/subject.types.ts";
-import SubjectAbbreviate from "@/views/subject/components/subject-abbreviate.tsx";
 import { useState, useEffect } from "react";
 
 // 模拟 API 请求函数
@@ -176,6 +175,7 @@ export default function ExplorePage() {
                         showGradients={true}
                         enableArrowNavigation={true}
                         displayScrollbar={true}
+                        theme="light"
                       />
                     </Card>
                   </div>

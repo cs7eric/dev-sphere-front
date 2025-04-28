@@ -40,7 +40,7 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-8 mt-16">
+        <div className="flex-1 space-y-4 p-8 px-35 mt-16">
           <main>{children}</main>
           <Toaster/>
         </div>

@@ -4,7 +4,7 @@ import { FaJava } from "react-icons/fa";
 const ReverseCard = () => {
   return (
     <StyledWrapper>
-      <div className="card">
+      <div className="card ">
         <div className="content">
           <div className="back">
             <div className="back-content">

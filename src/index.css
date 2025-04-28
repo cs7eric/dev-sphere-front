@@ -156,4 +156,27 @@ body {
   overflow: -moz-scrollbars-none; /* 旧版 Firefox */
   -webkit-overflow-scrolling: touch; /* 移动端流畅滚动 */
 }
+/* 定义字体 */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* 优化加载行为 */
+}
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400; /* 默认常规字重 */
+}
+
+button, input, textarea, select {
+  font-family: inherit; /* 继承全局字体 */
+}
