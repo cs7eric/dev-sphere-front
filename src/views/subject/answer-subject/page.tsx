@@ -93,10 +93,10 @@ const AnswerSubjectPage: React.FC<Props> = ({subject}) => {
 
   return (
 
-    <div className="p-[20px] w-full">
+    <div className="">
       <ResizablePanelGroup
         direction="horizontal"
-        className="mt-[8vm] m-10px rounded-lg border min-h-[80vh] min-w-[95vw]"
+        className="mt-[8vm] m-10px rounded-lg border min-h-[85vh] min-w-[85vw]"
       >
         <ResizablePanel defaultSize={20} className="w-full min-w-30vw p-4">
           <Tabs defaultValue="subjectInfo" className="w-full">

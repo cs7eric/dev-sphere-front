@@ -67,7 +67,7 @@ export function UserNav() {
 
   useEffect(() => {
     getUserInfo()
-  }, [loginId]);
+  }, []);
 
   const logout = () => {
     localStorage.removeItem('userInfo')

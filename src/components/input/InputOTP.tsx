@@ -22,8 +22,9 @@ import {
 } from "@/components/ui/input-otp"
 import {doLoginUsingGet1, getUserInfoUsingGet, getUserInfoUsingPost} from "@/apis/auth";
 import store from "@/store";
-import {saveUserInfo} from "@/store/features/user/userInfoSlice.ts";
+import {saveUserInfo, selectUserInfo} from "@/store/features/user/userInfoSlice.ts";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const FormSchema = z.object({
@@ -42,6 +43,7 @@ export function InputOTPForm() {
   })
 
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const fetchUserInfo = async (loginId) => {
 
@@ -55,7 +57,9 @@ export function InputOTPForm() {
         // 存储到localStorage
         // localStorage.setItem('userInfo', JSON.stringify(res.data))
         // 更新Redux store
-        store.dispatch(saveUserInfo(res.data));
+        console.log(res.data)
+        dispatch(saveUserInfo(res.data));
+
       }
     })
   }

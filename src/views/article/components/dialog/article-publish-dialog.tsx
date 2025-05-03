@@ -169,7 +169,6 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                       source={currentContent}
                       className="text-sm text-neutral-300 leading-8"
                       style={{
-                        background: "#0a0a0a",
                         padding: "16px",
                         borderRadius: "8px",
                         fontSize: "14px",
@@ -177,7 +176,6 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-[460px]" style={{
-                      background: "#0a0a0a",
                       padding: "16px",
                       borderRadius: "8px",
                       minHeight: "200px"
@@ -192,7 +190,7 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                   )}
                 </ScrollArea>
               </div>
-              <div className="col-span-5 flex flex-col rounded-xl mr-2 p-4 bg-[#131313] justify-between">
+              <div className="col-span-5 flex flex-col rounded-xl mr-2 p-4 dark:bg-[#131313] justify-between">
                 <div className={'flex space-y-3 flex-col'}>
                   <div className="publish-title">
                     <div className="flex space-x-2 items-center">

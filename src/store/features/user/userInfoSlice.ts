@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import type { RootState } from '@reduxjs/toolkit'
 
 export interface UserInfo {
   userName?: string
@@ -38,6 +39,6 @@ export const userInfoSlice = createSlice({
 })
 // 导出方法
 export const { saveUserInfo, removeUserInfo } = userInfoSlice.actions
-
+export const selectUserInfo = (state: RootState) => state.userInfo;
 // 默认导出
 export default userInfoSlice.reducer

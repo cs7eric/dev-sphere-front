@@ -29,7 +29,7 @@ import {FaRegGrinStars} from "react-icons/fa";
 import {MdSettingsSuggest} from "react-icons/md";
 import {MomentDialog} from "@/views/article/components/dialog/moment-dialog.tsx";
 import {ArticleDialog} from "@/views/article/components/dialog/article-dialog.tsx";
-import {addUsingPost1} from "@/apis/circle";
+import {addUsingPost1, getArticleByCircleUsingPost, getSubscribeListByUserIdUsingPost} from "@/apis/circle";
 import {getStoredUserInfo} from '@/utils/user.ts'
 export default function CirclePage() {
 
@@ -119,6 +119,38 @@ export default function CirclePage() {
   useEffect(() => {
     fetchMomentList()
   }, [Tabs]);
+
+  const [circleListData,setCircleListData] = useState([])
+  const fetchCircleListData = async () => {
+    const userInfo = getStoredUserInfo()
+
+    const body = {
+      userName: userInfo.loginId
+    }
+    const res = await getSubscribeListByUserIdUsingPost({body})
+    if (res.success) {
+      setCircleListData(res.data)
+    }
+  }
+
+  useEffect(() => {
+    fetchCircleListData()
+  }, []);
+
+  const [articleListData, setArticleListData] = useState([])
+  const fetchArticleListData = async () => {
+    const body = {
+      circleId: 16
+    }
+    const res = await getArticleByCircleUsingPost({body})
+    if (res.success) {
+      setArticleListData(res.data)
+    }
+  }
+
+  useEffect(() => {
+    fetchArticleListData()
+  }, []);
 
   return (
     <>
@@ -249,7 +281,11 @@ export default function CirclePage() {
         <div className="main-section space-y-10 mt-30 mx-80">
           <div className="circle-list">
             <h3 className={'text-2xl font-bold'}>Back End </h3>
-            <CircleList className={'mt-3'}></CircleList>
+            <CircleList
+              className={'mt-3'}
+              circleList={circleListData}
+            ></CircleList>
+
             <Button
               variant={'secondary'}
               className={'mt-6'}
@@ -268,7 +304,7 @@ export default function CirclePage() {
               </TabsList>
               <TabsContent value="recommend"></TabsContent>
               <TabsContent value="subscribe">
-                <ArticleList list={articleList}></ArticleList>
+                <ArticleList articleList={articleListData}></ArticleList>
               </TabsContent>
             </Tabs>
 

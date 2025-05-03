@@ -189,9 +189,9 @@ export function MomentDialog() {
                 render={({field}) => (
                   <FormItem className="grid grid-cols-5 items-center gap-2">
 
-                    <FormControl className="col-span-5 !bg-neutral-950">
+                    <FormControl className="col-span-5 ">
                       <MDEditor
-                        className="w-full h-screen bg-neutral-500"
+                        className="w-full h-screen "
                         {...field}
                         hideToolbar={true}
                         preview={'edit'}

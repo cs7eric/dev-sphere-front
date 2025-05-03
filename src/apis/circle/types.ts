@@ -53,6 +53,7 @@ export type ResultString_ = {
 };
 
 export type ShareArticleDTO = {
+  articleAbstract?: string;
   circleId?: number;
   collectCount?: number;
   content?: string;

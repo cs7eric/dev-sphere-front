@@ -143,10 +143,10 @@ export function ArticleDialog() {
                 render={({field}) => (
                   <FormItem className="grid grid-cols-5 items-center gap-2">
 
-                    <FormControl className="col-span-5 !bg-neutral-950">
+                    <FormControl className="col-span-5 ">
                       <MDEditor
                         {...field}
-                        data-color-mode={'dark'}
+                        data-color-mode={'light'}
                         height={'85vh'}
                         previewOptions={{
                           rehypePlugins: [[rehypeSanitize]],
@@ -156,6 +156,7 @@ export function ArticleDialog() {
                             }
                           }
                         }}
+
                       />
                     </FormControl>
                   </FormItem>

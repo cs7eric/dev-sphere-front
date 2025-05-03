@@ -11,7 +11,7 @@ const  ArticleList:React.FC<Props> =  ({articleList}) => {
   return (
 
     <>
-      <div className="w-full flex flex-wrap space-y-5">
+      <div className="w-full flex flex-wrap space-y-2">
 
         {
           Array.isArray(articleList) && articleList.length > 0 ?

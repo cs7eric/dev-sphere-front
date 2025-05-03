@@ -8,6 +8,7 @@ import SpinnerExample from "@/components/loader/spinner-example.tsx";
 import SkeletonExample from "@/components/loader/skeleton-example.tsx";
 import ContentLoaderExample from "@/components/loader/content-loader-example.tsx";
 import TagsLoaderExample from "@/components/loader/tags-loader-example.tsx";
+import UserInfoExample from "@/test/UserInfoExample.tsx";
 
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
@@ -196,7 +197,7 @@ const router = createBrowserRouter([
     element:
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
-          <TagsLoaderExample/>
+          <UserInfoExample/>
         </Suspense>
       </MainLayout>
   }

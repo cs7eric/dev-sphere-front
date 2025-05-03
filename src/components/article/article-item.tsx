@@ -22,17 +22,18 @@ import mdToPlainText from "@/utils/text.ts";
 interface Props {
   article
 }
-const ArticleItem:React.FC<Props> = ({article}) => {
+
+const ArticleItem: React.FC<Props> = ({article}) => {
 
   const [isFollowed, setIsFollowed] = React.useState(false);
 
-  const [isUserOpen, setIsUserOpen] =useState(false)
-  const [isArticleOpen, setIsArticleOpen] =useState(false)
+  const [isUserOpen, setIsUserOpen] = useState(false)
+  const [isArticleOpen, setIsArticleOpen] = useState(false)
 
   return (
 
     <>
-      <Card className="w-full border p-4  rounded-md dark:text-[#f0f6fc]">
+      <Card className="w-full p-4 bg-neutral-200/30 border-0 rounded-md dark:text-[#f0f6fc]">
 
         <Dialog open={isUserOpen} onOpenChange={setIsUserOpen}>
           <DialogTrigger>
@@ -52,28 +53,14 @@ const ArticleItem:React.FC<Props> = ({article}) => {
 
         <h3 className="font-bold mt-2">{article.title}</h3>
 
-        <div className="article-detail mt-2 p-1 dark:bg-[#111111] rounded-lg">
-          <div className="text-container p-2">
+        <div className="article-detail mt-1  dark:bg-[#111111] rounded-lg">
+          <div className="text-container">
             <p
               className="article text-xs  "
             >
-              <MDEditor.Markdown
-                className='text-sm text-neutral-300 leading-8'
-                source={truncateText(article.content,80)}
-                style={{
-                  // background: "#0a0a0a",
-                  padding: "16px",
-                  borderRadius: "8px",
-                  "& pre": {
-                    background: "#282c34 !important", // 代码块背景色
-                    color: "#abb2bf !important",      // 代码文字颜色
-                    padding: "16px",
-                    borderRadius: "6px"
-                  }
-                }}
-              />
+              {article.articleAbstract}
             </p>
-            <div className="read-more mt-6">
+            <div className="read-more ">
 
               <Dialog open={isArticleOpen} onOpenChange={setIsArticleOpen}>
                 <DialogTrigger>
@@ -90,29 +77,22 @@ const ArticleItem:React.FC<Props> = ({article}) => {
           </div>
 
         </div>
-        <div className="button-section mt-5 space-x-2">
+        <div className="button-section mt-2 space-x-2 [&>*]:hover:scale-115">
 
 
-          <Tooltip content="like it" size="sm" className="text-xs">
-            <Button size="sm" variant={"outline"} className="rounded-xl cursor-pointer">
-              <FcLike/>
-            </Button>
-          </Tooltip>
-          <Tooltip content="collect it" size="sm" className="text-xs">
+          <Button size="sm" variant='ghost' className="rounded-xl cursor-pointer">
+            <FcLike/>
+          </Button>
+          <Button size="sm" variant={"ghost"} className="rounded-xl cursor-pointer">
+            <BsStarFill className="fill-amber-300"/>
+          </Button>
 
-            <Button size="sm" variant={"outline"} className="rounded-xl cursor-pointer">
-              <BsStarFill className="fill-amber-300"/>
-            </Button>
-          </Tooltip>
 
-          <Tooltip content="report it" size="sm" className="text-xs">
+          <Button size='sm' variant={"ghost"} className={'rounded-xl cursor-pointer'}>
+            <GoAlertFill className="fill-red-600"/>
+          </Button>
 
-            <Button size='sm' variant={"outline"} className={'rounded-xl cursor-pointer'}>
-              <GoAlertFill className="fill-red-600"/>
-            </Button>
-          </Tooltip>
-
-          <Button size='sm' variant={"outline"} className={'rounded-xl cursor-pointer'}>
+          <Button size='sm' variant={"ghost"} className={'rounded-xl cursor-pointer'}>
 
             <FaShareFromSquare className="fill-blue-300"/>
 
