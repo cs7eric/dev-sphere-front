@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Subject, mockSubjectList } from '@/models/subject.types.ts';
+import { useForm, FormProvider } from 'react-hook-form';
+import request from '@/utils/request.ts';
 import { SingleChoiceSubject } from '@/components/subject/single-choice-subject.tsx';
 import { MultipleChoiceSubject } from '@/components/subject/multiple-choice-subject.tsx';
 import { TrueFalseSubject } from '@/components/subject/true-false-subject.tsx';
@@ -18,13 +20,30 @@ interface SubjectAnswer {
   isAnswered: boolean;
 }
 
-export function PracticePage() {
-  // 使用模拟数据作为题目列表
-  const [subjects, setSubjects] = useState<Subject[]>(mockSubjectList);
+interface PracticeSet {
+  id: string;
+  name: string;
+  description?: string;
+  subjects: Subject[];
+}
+
+interface PracticePageProps {
+  practiceSet?: PracticeSet;
+}
+
+export function PracticePage({ practiceSet }: PracticePageProps) {
+  // 使用传入的practiceSet或模拟数据作为题目列表
+  const [subjects, setSubjects] = useState<Subject[]>(practiceSet?.subjects || mockSubjectList);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<SubjectAnswer[]>([]);
   const [timeSpent, setTimeSpent] = useState<number>(0); // 以秒为单位
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  
+  // 使用React Hook Form管理表单
+  const methods = useForm<{
+    answers: Record<string, string | string[] | boolean | null>
+  }>({defaultValues: {answers: {}}});
   
   // 初始化答案数组
   useEffect(() => {
@@ -34,7 +53,14 @@ export function PracticePage() {
       isAnswered: false
     }));
     setAnswers(initialAnswers);
-  }, [subjects]);
+    
+    // 初始化表单默认值
+    const defaultAnswers: Record<string, any> = {};
+    subjects.forEach(subject => {
+      defaultAnswers[subject.id] = null;
+    });
+    methods.reset({ answers: defaultAnswers });
+  }, [subjects, methods]);
 
   // 计时器
   useEffect(() => {
@@ -81,11 +107,15 @@ export function PracticePage() {
     const currentSubject = subjects[currentIndex];
     if (!currentSubject) return;
     
+    // 更新状态
     setAnswers(prev => prev.map(item => 
       item.id === currentSubject.id 
         ? { ...item, answer, isAnswered: true } 
         : item
     ));
+    
+    // 更新表单值
+    methods.setValue(`answers.${currentSubject.id}`, answer);
   };
 
   // 切换到下一题
@@ -110,22 +140,50 @@ export function PracticePage() {
   };
 
   // 提交答案
-  const handleSubmit = () => {
-    setIsSubmitted(true);
-    // 这里可以添加提交到后端的逻辑
-    console.log('提交的答案:', answers);
-  };
+  const handleSubmit = methods.handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      setIsSubmitted(true);
+      
+      // 准备提交数据
+      const submitData = {
+        practiceSetId: practiceSet?.id || 'default',
+        answers: answers.map(answer => ({
+          subjectId: answer.id,
+          answer: answer.answer,
+        })),
+        timeSpent: timeSpent
+      };
+      
+      // 向后端发送请求
+      // 使用项目中的request工具发送请求
+      // 示例: await request('/api/practice/submit', { method: 'POST', data: submitData });
+      console.log('提交的答案:', submitData);
+      
+      // 模拟API请求
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+    } catch (error) {
+      console.error('提交答案失败:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  });
 
   // 重置当前题目的答案
   const resetCurrentAnswer = () => {
     const currentSubject = subjects[currentIndex];
     if (!currentSubject) return;
     
+    // 更新状态
     setAnswers(prev => prev.map(item => 
       item.id === currentSubject.id 
         ? { ...item, answer: null, isAnswered: false } 
         : item
     ));
+    
+    // 更新表单值
+    methods.setValue(`answers.${currentSubject.id}`, null);
   };
 
   // 渲染当前题目
@@ -178,7 +236,8 @@ export function PracticePage() {
   };
 
   return (
-    <div className="container mx-auto py-6">
+    <FormProvider {...methods}>
+      <div className="container mx-auto py-6">
       {/* 顶部进度条和计时器 */}
       <div className="mb-6 flex justify-between items-center">
         <div className="flex-1 mr-4">
@@ -326,10 +385,10 @@ export function PracticePage() {
                       {!isSubmitted && (
                         <Button 
                           variant="default" 
-                          onClick={handleSubmit}
-                          disabled={answers.some(a => !a.isAnswered)}
+                          onClick={() => handleSubmit()}
+                          disabled={answers.some(a => !a.isAnswered) || isSubmitting}
                         >
-                          提交答案
+                          {isSubmitting ? '提交中...' : '提交答案'}
                         </Button>
                       )}
                       
@@ -379,5 +438,6 @@ export function PracticePage() {
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
+    </FormProvider>
   );
 }
