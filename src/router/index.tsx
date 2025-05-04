@@ -11,6 +11,7 @@ import TagsLoaderExample from "@/components/loader/tags-loader-example.tsx";
 import UserInfoExample from "@/test/UserInfoExample.tsx";
 import {SubjectDemo} from "@/components/subject/subject-demo.tsx";
 import {PracticePage} from "@/views/subject/answer-subject/practice-page.tsx";
+import {SubjectManagePage} from "@/components/subject/subject-manage.tsx";
 
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
@@ -191,6 +192,15 @@ const router = createBrowserRouter([
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
           <EnhancedChatPage/>
+        </Suspense>
+      </MainLayout>
+  },
+  {
+    path: '/subject-m',
+    element:
+      <MainLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <SubjectManagePage/>
         </Suspense>
       </MainLayout>
   },

@@ -1,5 +1,6 @@
 import ArticleItem from "@/components/article/article-item.tsx";
 import React from "react";
+import EmptyState from "@/components/null/empty-state.tsx";
 
 
 interface Props {
@@ -11,7 +12,7 @@ const  ArticleList:React.FC<Props> =  ({articleList}) => {
   return (
 
     <>
-      <div className="w-full flex flex-wrap space-y-2">
+      <div className="w-full flex flex-wrap justify-center space-y-2">
 
         {
           Array.isArray(articleList) && articleList.length > 0 ?
@@ -22,7 +23,7 @@ const  ArticleList:React.FC<Props> =  ({articleList}) => {
                 article={article}
               ></ArticleItem>
             )) : (
-              <div>null</div>
+                <EmptyState></EmptyState>
             )
         }
       </div>

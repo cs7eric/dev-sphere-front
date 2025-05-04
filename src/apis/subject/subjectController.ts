@@ -61,6 +61,48 @@ export async function getSubjectInfoUsingPost({
   });
 }
 
+/** getSubjectListByCategory POST /subject/getSubjectListByCategory */
+export async function getSubjectListByCategoryUsingPost({
+  body,
+  options,
+}: {
+  body: API.SubjectInfoDTO;
+  options?: { [key: string]: unknown };
+}) {
+  return request<API.ResultListSubjectInfoDTO_>(
+    '/subject/getSubjectListByCategory',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    }
+  );
+}
+
+/** getSubjectListByLabel POST /subject/getSubjectListByLabel */
+export async function getSubjectListByLabelUsingPost({
+  body,
+  options,
+}: {
+  body: API.SubjectInfoDTO;
+  options?: { [key: string]: unknown };
+}) {
+  return request<API.ResultListSubjectInfoDTO_>(
+    '/subject/getSubjectListByLabel',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    }
+  );
+}
+
 /** getSubjectPage POST /subject/getSubjectPage */
 export async function getSubjectPageUsingPost({
   body,

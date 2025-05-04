@@ -196,10 +196,10 @@ export default function EnhancedChatPage() {
       }}>
 
       <div className="main-section px-20 w-full h-screen flex-grow overflow-hidden ">
-        <Card className="chat-card w-full h-screen border-0 shadow-lg sticky bg-background dark:bg-background backdrop-blur-sm flex flex-col">
+        <Card className="chat-card w-full h-screen !border-0  sticky bg-background dark:bg-background backdrop-blur-sm flex flex-col">
             <div className="flex flex-col h-full">
               <ScrollShadow className={cn(
-                "messages-container flex-grow p-4 pb-20  dark:text-gray-200",
+                "messages-container mt-20 flex-grow p-4 pb-20  dark:text-gray-200",
                 "h-[calc(100vh-16rem)] overflow-y-auto", // 调整高度计算
                 messages.length === 0 ? "flex items-center justify-center" : ""
               )} hideScrollBar size={20}>

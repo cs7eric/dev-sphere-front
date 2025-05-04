@@ -43,14 +43,7 @@ export default function Page() {
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
             <div className="aspect-video rounded-xl bg-muted/50 p-5" >111</div>
             <div className="aspect-video rounded-xl bg-muted/50" >
-              <GlitchText
-                speed={0.5}
-                enableShadows={true}
-                enableOnHover={true}
-                className='custom-class'
-              >
-                devsphere
-              </GlitchText>
+
 
             </div>
             <div className="aspect-video rounded-xl bg-muted/50" />

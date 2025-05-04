@@ -731,6 +731,13 @@ export type ResultListSubjectCategoryDTO_ = {
   success?: boolean;
 };
 
+export type ResultListSubjectInfoDTO_ = {
+  code?: number;
+  data?: SubjectInfoDTO[];
+  message?: string;
+  success?: boolean;
+};
+
 export type ResultPageResultSubjectInfoDTO_ = {
   code?: number;
   data?: PageResultSubjectInfoDTO_;
