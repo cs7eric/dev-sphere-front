@@ -12,6 +12,7 @@ import UserInfoExample from "@/test/UserInfoExample.tsx";
 import {SubjectDemo} from "@/components/subject/subject-demo.tsx";
 import {PracticePage} from "@/views/subject/answer-subject/practice-page.tsx";
 import {SubjectManagePage} from "@/components/subject/subject-manage.tsx";
+import WorkspacePage from "@/views/test/workspace.tsx";
 
 // 使用React.lazy进行组件懒加载
 const Page = React.lazy(() => import('@/views/dashboard/page'))
@@ -210,6 +211,15 @@ const router = createBrowserRouter([
       <MainLayout>
         <Suspense fallback={<LoadingFallback />}>
           <PracticePage/>
+        </Suspense>
+      </MainLayout>
+  },
+  {
+    path: '/workspace',
+    element:
+      <MainLayout>
+        <Suspense fallback={<LoadingFallback />}>
+          <WorkspacePage/>
         </Suspense>
       </MainLayout>
   }

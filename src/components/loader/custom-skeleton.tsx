@@ -19,7 +19,7 @@ interface CustomSkeletonProps {
  * @param className - 额外的CSS类名
  */
 const CustomSkeleton: React.FC<CustomSkeletonProps> = ({
-  width = '24px',
+  width = '240px',
   height = '24px',
   rows = 1,
   className,
