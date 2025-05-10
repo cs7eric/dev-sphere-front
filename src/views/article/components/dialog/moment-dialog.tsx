@@ -189,7 +189,7 @@ export function MomentDialog() {
                 render={({field}) => (
                   <FormItem className="grid grid-cols-5 items-center gap-2">
 
-                    <FormControl className="col-span-5 ">
+                    <FormControl data-color-mode={"light"} className="col-span-5 ">
                       <MDEditor
                         className="w-full h-screen "
                         {...field}

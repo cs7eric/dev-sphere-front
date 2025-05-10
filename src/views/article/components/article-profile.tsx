@@ -57,10 +57,11 @@ const ArticleProfile: React.FC<Props> = ({article}) => {
               0.2k commended
             </div>
           </div>
-          <ScrollArea className='max-w-[1380px] h-[650px]'>
+          <ScrollArea data-color-mode={"light"} className='max-w-[1380px] h-[650px]'>
             <MDEditor.Markdown
               className='text-sm text-neutral-300 leading-8'
               source={article.content}
+              data-color-mode={'light'}
               style={{
                 // background: "#0a0a0a",
                 padding: "16px",

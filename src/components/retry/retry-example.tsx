@@ -24,7 +24,6 @@ const fetchUserData = async () => {
  * 示例1：使用RetryWrapper组件
  * 这是一个包装组件的方式，适合需要在UI中展示加载状态和错误状态的场景
  */
-export function RetryWrapperExample() {
   return (
     <Card>
       <CardHeader>

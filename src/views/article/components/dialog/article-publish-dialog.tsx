@@ -10,7 +10,6 @@ import MDEditor from "@uiw/react-md-editor";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {useForm, UseFormReturn} from "react-hook-form";
 import CircleSwitcher from "@/components/circle/circle-switcher.tsx";
-import {mockShareCircles} from "@/mock/circle.ts";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {
@@ -162,12 +161,13 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
             <div className="grid grid-cols-14 gap-4">
               <div className="preview-md  col-span-9 ">
                 <h2 className="text-xl font-semibold">{currentTitle || "Untitled"}</h2>
-                <ScrollArea className="h-[620px] border-t mt-5 w-full rounded-md">
+                <ScrollArea data-color-mode={"light"} className="h-[620px] border-t mt-5 w-full rounded-md">
                   {currentContent ? (
                     <MDEditor.Markdown
                       key={currentContent}
                       source={currentContent}
-                      className="text-sm text-neutral-300 leading-8"
+                      className="text-sm  leading-8"
+                      data-color-mode="light"
                       style={{
                         padding: "16px",
                         borderRadius: "8px",
@@ -190,7 +190,7 @@ const ArticlePublishDialog = ({onPublish, articleForm}: Props) => {
                   )}
                 </ScrollArea>
               </div>
-              <div className="col-span-5 flex flex-col rounded-xl mr-2 p-4 dark:bg-[#131313] justify-between">
+              <div className="col-span-5 flex flex-col rounded-xl mr-2 p-4  dark:bg-[#131313] justify-between">
                 <div className={'flex space-y-3 flex-col'}>
                   <div className="publish-title">
                     <div className="flex space-x-2 items-center">

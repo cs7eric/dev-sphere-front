@@ -25,6 +25,7 @@ import {
 
 // 导入HeroUI的ScrollShadow组件
 import { ScrollShadow } from '@heroui/scroll-shadow';
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 
 interface Message {
   id: string;
@@ -196,21 +197,21 @@ export default function EnhancedChatPage() {
       }}>
 
       <div className="main-section px-20 w-full h-screen flex-grow overflow-hidden ">
-        <Card className="chat-card w-full h-screen !border-0  sticky bg-background dark:bg-background backdrop-blur-sm flex flex-col">
-            <div className="flex flex-col h-full">
-              <ScrollShadow className={cn(
-                "messages-container mt-20 flex-grow p-4 pb-20  dark:text-gray-200",
+        <div className="chat-card w-full h-screen !border-0  sticky bg-background dark:bg-background backdrop-blur-sm flex flex-col">
+            <div className="flex flex-col  mt-19">
+              <ScrollArea className={cn(
+                "messages-container mt-20 flex-grow p-4 pb-20 max-h-[3xl] dark:text-gray-200",
                 "h-[calc(100vh-16rem)] overflow-y-auto", // 调整高度计算
                 messages.length === 0 ? "flex items-center justify-center" : ""
               )} hideScrollBar size={20}>
                 {messages.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full w-full text-muted-foreground dark:text-gray-300">
+                  <div className="flex flex-col items-center justify-center  w-full text-muted-foreground dark:text-gray-300">
                     <Bot className="h-16 w-16 mb-4 text-primary opacity-80" />
                     <p className="text-center">开始与 Devsphere  AI 助手对话吧！</p>
                     <p className="text-center text-sm mt-2 max-w-md">您可以询问任何问题，AI助手将尽力为您提供帮助。</p>
                   </div>
                 ) : (
-                  <div className="space-y-4 w-full min-h-full">
+                  <div className="space-y-4 w-full ">
                     {messages.map((msg) => (
                       <div 
                         key={msg.id}
@@ -231,16 +232,14 @@ export default function EnhancedChatPage() {
                             placement={msg.role === 'user' ? 'right' : 'left'}
                             maxWidth="100%"
                             style={{
-                              backgroundColor: '#222222',
-                              color: '#ffffff |!important',
-
-                              
+                              backgroundColor: '#000',
+                              color: '#000',
                               borderRadius: '0.5rem',
                               boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
                               wordBreak: 'break-word',
                               overflow: 'hidden'
                             }}
-                            className='!text-white'
+                            className='!text-black'
                           />
                         </div>
                       </div>
@@ -257,14 +256,14 @@ export default function EnhancedChatPage() {
                             placement="left"
                             maxWidth="100%"
                             style={{
-                              backgroundColor: '#222222',
-                              color: '#ffffff |!important',
+                              backgroundColor: '#000',
+                              color: '#000',
                               borderRadius: '0.5rem',
                               boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
                               wordBreak: 'break-word',
                               overflow: 'hidden'
                             }}
-                            className='!text-white'
+                            className='!text-black'
                           />
                         </div>
                       </div>
@@ -273,11 +272,11 @@ export default function EnhancedChatPage() {
                     <div ref={messagesEndRef} />
                   </div>
                 )}
-              </ScrollShadow>
+              </ScrollArea>
               
 
             </div>
-        </Card>
+        </div>
       </div>
       <div className="footer-section">
         {/* 浮动的消息发送框 */}

@@ -11,6 +11,9 @@ import {Button} from "@/components/ui/button.tsx";
 import React, {useEffect, useState} from "react";
 import {getCircleListByCategoryUsingPost} from "@/apis/circle";
 import CircleAbbreviate from "@/views/circle/components/circle-abbreviate.tsx";
+import DataLoader from "@/components/render/data-loader.tsx";
+import EmptyState from "@/components/null/empty-state.tsx";
+import DogLoader from "@/components/loader/dog-loader.tsx";
 
 
 interface Props {
@@ -20,7 +23,7 @@ interface Props {
 const CircleAggregate: React.FC<Props> = ({category}) => {
 
   const [circleList, setCircleList] = useState([])
-
+  const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   const fetchCircleList = async () => {
@@ -60,19 +63,21 @@ const CircleAggregate: React.FC<Props> = ({category}) => {
             <ScrollArea className="h-[400px] p-2 ">
               <div className="circle-list space-y-3">
 
-                {
-                  Array.isArray(circleList) && circleList.length > 0 ?
-                    (circleList).map((circle) => (
-                      <CircleAbbreviate
-                        circle={circle}
-                        key={circle.id}
-                      ></CircleAbbreviate>
+                <DataLoader
+                  data={circleList}
+                  loading={loading}
+                  emptyComponent={<EmptyState/>}
+                  loaderComponent={<DogLoader size={20}/>}
+                >
+                  {(data) => (
+                    (data).map((circle) => (
+                    <CircleAbbreviate
+                      circle={circle}
+                      key={circle.id}
+                    ></CircleAbbreviate>
 
-                    )) :
-                    (
-                      <span>null</span>
-                    )
-                }
+                    )))}
+                </DataLoader>
               </div>
             </ScrollArea>
 

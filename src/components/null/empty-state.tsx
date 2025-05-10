@@ -5,7 +5,7 @@ import NullIcon from '@/assets/illstructions/null.svg'
 const EmptyState = ({ text = '暂无内容', style, className }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center h-[460px] ${className}`}
+      className={`flex flex-col items-center justify-center  ${className}`}
       style={{
         padding: '16px',
         borderRadius: '8px',
